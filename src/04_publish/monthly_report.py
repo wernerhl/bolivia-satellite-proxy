@@ -59,6 +59,9 @@ Satellite-only coincident index: \textbf{%(ci)s}. Direction: \textbf{%(dir)s}.
 \section*{World Bank GGFR cross-check}
 %(wb_crosscheck)s
 
+\section*{INE IGAE disagreement monitor}
+%(igae_disagreement)s
+
 \section*{Known data issues}
 \begin{itemize}
   \item VIIRS VNP46A3 has a two-month publication lag; current month is never reported.
@@ -125,6 +128,28 @@ def main() -> None:
     else:
         wb_crosscheck = "WB GGFR cross-check not yet run."
 
+    dis_path = abs_path("data/satellite/igae_disagreement.json")
+    if dis_path.exists():
+        d = json.loads(dis_path.read_text())
+        gap = d.get("gap")
+        thr = d.get("deviation_threshold_sigma", 1.5)
+        if d.get("alert"):
+            igae_disagreement = (
+                f"\\textbf{{HALT PUBLICATION}}: satellite CI vs IGAE gap "
+                f"$={gap:.2f}\\sigma$ (threshold ${thr:.1f}\\sigma$)"
+                + ("; benchmark $\\beta$ sign flip also detected" if d.get("beta_sign_flip") else "")
+                + ". Route to La Linterna desk within 48h."
+            )
+        elif gap is None:
+            igae_disagreement = "IGAE series not loaded for current month; monitor inactive."
+        else:
+            igae_disagreement = (
+                f"CI vs IGAE gap $={gap:.2f}\\sigma$ (threshold ${thr:.1f}\\sigma$). "
+                "No alert."
+            )
+    else:
+        igae_disagreement = "IGAE disagreement monitor not yet run."
+
     bench_path = abs_path("data/satellite/benchmark_ine.json")
     if bench_path.exists():
         b = json.loads(bench_path.read_text())
@@ -157,6 +182,7 @@ def main() -> None:
         "cross_check": cross_check,
         "manip_status": manip_status,
         "wb_crosscheck": wb_crosscheck,
+        "igae_disagreement": igae_disagreement,
     }
 
     out_path = abs_path(p["outputs"]["monthly_tex"])

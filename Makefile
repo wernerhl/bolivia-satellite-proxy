@@ -5,7 +5,7 @@
 SHELL := /bin/bash
 PY    := python
 
-.PHONY: all fetch process anomaly index publish validate clean help
+.PHONY: all fetch process anomaly index publish validate clean help refresh-eog
 
 help:
 	@echo "Targets:"
@@ -37,6 +37,8 @@ anomaly:
 index:
 	$(PY) src/03_index/build_ci.py
 	$(PY) src/03_index/benchmark_ine.py
+	$(PY) src/03_index/igae_disagreement.py
+	$(PY) src/03_index/export_for_dfm.py
 
 publish:
 	$(PY) src/04_publish/figures.py
@@ -45,6 +47,9 @@ publish:
 
 validate:
 	$(PY) src/99_validate/quarterly_validation.py
+
+refresh-eog:
+	$(PY) src/00_fetch/refresh_eog_token.py
 
 clean:
 	rm -rf data/satellite/*.csv data/satellite/*.json data/satellite/*.duckdb
