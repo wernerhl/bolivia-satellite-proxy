@@ -20,7 +20,16 @@ load_env()
 def main() -> None:
     p = paths()
     cfg = p["streams"]["s5p_no2"]
-    monthly = pd.read_csv(abs_path(p["data"]["s5p_monthly"]), parse_dates=["date"])
+    in_path = abs_path(p["data"]["s5p_monthly"])
+    out_path = abs_path(p["data"]["s5p_anomaly"])
+    if not in_path.exists():
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        pd.DataFrame(columns=["date", "roi", "no2_tropos_col_mol_m2", "anomaly_mult",
+                              "z_vs_2019", "post_subsidy_break", "volcanic_flag"]
+                     ).to_csv(out_path, index=False)
+        print(f"[warn] S5P monthly input missing; wrote empty {out_path}")
+        return
+    monthly = pd.read_csv(in_path, parse_dates=["date"])
     monthly = monthly.dropna(subset=["no2_tropos_col_mol_m2"]).copy()
     monthly["month_of_year"] = monthly["date"].dt.month
 

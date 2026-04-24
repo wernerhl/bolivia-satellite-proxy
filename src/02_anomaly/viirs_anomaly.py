@@ -57,8 +57,16 @@ def per_city(df: pd.DataFrame, cfg: dict) -> pd.DataFrame:
 def main() -> None:
     p = paths()
     cfg = p["streams"]["viirs_sol"]
-    monthly = pd.read_csv(abs_path(p["data"]["viirs_sol_monthly"]))
+    in_path = abs_path(p["data"]["viirs_sol_monthly"])
     out_path = abs_path(p["data"]["viirs_sol_anomaly"])
+    if not in_path.exists():
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        pd.DataFrame(columns=["date", "city", "sol", "n_valid_pixels",
+                              "log_sol", "trend_extrap", "anomaly",
+                              "stl_seasonal", "stl_sa"]).to_csv(out_path, index=False)
+        print(f"[warn] VIIRS monthly input missing; wrote empty {out_path}")
+        return
+    monthly = pd.read_csv(in_path)
 
     parts = []
     for city, g in monthly.groupby("city"):

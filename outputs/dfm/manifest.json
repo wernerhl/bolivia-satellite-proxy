@@ -1,0 +1,20 @@
+{
+  "vintage": "2026-04-24T11:41:35+00:00",
+  "n_rows": 0,
+  "date_min": null,
+  "date_max": null,
+  "columns": {
+    "date": "month-start timestamp, UTC",
+    "viirs_z": "population-weighted mean of per-city log-SOL z-scores (11 city buffers)",
+    "vnf_z": "z-score of Chaco-total log(\u03a3RH) from VIIRS Nightfire",
+    "no2_z": "simple mean of La Paz\u2013El Alto and Santa Cruz TROPOMI NO2 z-scores",
+    "ci": "0.40\u00b7viirs_z + 0.30\u00b7vnf_z + 0.30\u00b7no2_z; NaN if all three missing"
+  },
+  "aggregation_weights": {
+    "viirs": 0.4,
+    "vnf": 0.3,
+    "no2": 0.3
+  },
+  "consumer": "whl.EarlyWarning / whl.LaLinterna DFM module",
+  "source_spec": "bolivia_satellite_proxy_agent_prompt.md"
+}

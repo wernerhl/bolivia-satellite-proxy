@@ -1,0 +1,6 @@
+{
+  "status": "inputs_missing",
+  "needs": [
+    "data/official/ypfb_fuel_sales_metro.csv (date,roi,fuel_sales)"
+  ]
+}

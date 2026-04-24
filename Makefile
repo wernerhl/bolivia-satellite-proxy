@@ -1,29 +1,38 @@
 # Bolivia satellite-proxy pipeline.
-# Target: `make all` runs fetch -> process -> anomaly -> index -> publish.
-# Same convention as whl.Haiti; credentials in .env (see .env.example).
+# `make all` runs the full build: fetch → process → anomaly → index →
+# econometrics → paper assets → paper PDF. Credentials in .env.
+# Reuses whl.Haiti GCP project, bucket, and service-account key.
 
 SHELL := /bin/bash
-PY    := python
+PY    := .venv/bin/python
 
-.PHONY: all fetch process anomaly index publish validate clean help refresh-eog
+.PHONY: all fetch process anomaly index econometrics paper-assets paper \
+        publish validate clean help refresh-eog test-scaffold
 
 help:
 	@echo "Targets:"
-	@echo "  fetch     all three streams: VIIRS (GEE), VNF (EOG), S5P (GEE)"
-	@echo "  process   VNF attribution to Chaco flares (local)"
-	@echo "  anomaly   deseasonalized anomalies for all three streams"
-	@echo "  index     satellite coincident index + DuckDB + benchmark vs INE"
-	@echo "  publish   figures + weekly brief + monthly LaTeX report"
-	@echo "  validate  quarterly validation suite"
-	@echo "  all       fetch -> process -> anomaly -> index -> publish"
+	@echo "  fetch          VIIRS + VNF + S5P (GEE/EOG) + WB GGFR + Binance P2P"
+	@echo "  process        VNF flare attribution"
+	@echo "  anomaly        per-stream anomalies + VNF calibration + WB cross-check"
+	@echo "  index          CI + DuckDB + INE benchmark + IGAE disagreement + DFM export"
+	@echo "  econometrics   single-series elasticities + DFM + BBQ + Markov-switching + manipulation tests"
+	@echo "  paper-assets   paper tables (tex) + paper figures (pdf) + inline patch"
+	@echo "  paper          compile paper/fires_lights_smog.pdf via latexmk"
+	@echo "  publish        brief + monthly LaTeX report + social post"
+	@echo "  validate       quarterly validation suite"
+	@echo "  refresh-eog    refresh EOG_TOKEN from EOG_USER/EOG_PASS"
+	@echo "  test-scaffold  pytest config + imports"
+	@echo "  all            fetch -> process -> anomaly -> index -> econometrics -> paper-assets -> paper"
 
-all: fetch process anomaly index publish
+all: fetch process anomaly index econometrics paper-assets paper
 
 fetch:
 	$(PY) src/00_fetch/fetch_viirs_sol.py
 	$(PY) src/00_fetch/fetch_vnf.py
 	$(PY) src/00_fetch/fetch_s5p_no2.py
 	$(PY) src/00_fetch/fetch_wb_ggfr.py
+	$(PY) src/00_fetch/fetch_binance_p2p.py
+	$(PY) src/00_fetch/fetch_official_bolivia.py
 
 process:
 	$(PY) src/01_process/vnf_attribute.py
@@ -41,6 +50,20 @@ index:
 	$(PY) src/03_index/pipeline_alerts.py
 	$(PY) src/03_index/export_for_dfm.py
 
+econometrics:
+	$(PY) src/05_econometrics/elasticities.py
+	$(PY) src/05_econometrics/dfm.py
+	$(PY) src/05_econometrics/recession_dating.py
+	$(PY) src/05_econometrics/manipulation_tests.py
+
+paper-assets:
+	$(PY) src/06_paper/tables.py
+	$(PY) src/06_paper/paper_figures.py
+	$(PY) src/06_paper/fill_paper.py
+
+paper:
+	cd paper && latexmk -pdf -interaction=nonstopmode fires_lights_smog.tex
+
 publish:
 	$(PY) src/04_publish/figures.py
 	$(PY) src/04_publish/weekly_brief.py
@@ -52,6 +75,11 @@ validate:
 refresh-eog:
 	$(PY) src/00_fetch/refresh_eog_token.py
 
+test-scaffold:
+	$(PY) -m pytest tests/ -v
+
 clean:
 	rm -rf data/satellite/*.csv data/satellite/*.json data/satellite/*.duckdb
 	rm -rf outputs/*.md outputs/*.tex outputs/*.txt outputs/figures/*.pdf
+	rm -rf paper/tables/*.tex paper/figures/*.pdf
+	cd paper && latexmk -C 2>/dev/null || true

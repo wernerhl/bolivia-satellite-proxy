@@ -1,0 +1,11 @@
+{
+  "latest_month": null,
+  "ci": null,
+  "igae_z": null,
+  "gap": null,
+  "deviation_threshold_sigma": 1.5,
+  "beta_sign_flip": false,
+  "alert": false,
+  "halt_publication": false,
+  "action": "No action."
+}

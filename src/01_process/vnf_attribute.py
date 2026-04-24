@@ -72,6 +72,11 @@ def main() -> None:
     ensure_dir(out_path.parent)
 
     rows: list[dict] = []
+    if not raw_dir.exists():
+        pd.DataFrame(columns=["date", "field", "rh_mw_sum", "n_detections",
+                              "mean_temp_bb", "missing_days"]).to_csv(out_path, index=False)
+        print(f"[warn] VNF raw dir missing; wrote empty {out_path}")
+        return
     for path in sorted(raw_dir.glob("*.jsonl")):
         day = path.stem  # YYYY-MM-DD
         for rec in load_jsonl(path):

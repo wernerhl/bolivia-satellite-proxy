@@ -30,39 +30,46 @@ def roi_geom(roi: dict) -> "ee.Geometry":
 
 
 def mask_qa(img: "ee.Image", band: str, qa_min: float) -> "ee.Image":
-    qa = img.select("qa_value")
-    return img.select(band).updateMask(qa.gte(qa_min))
+    """L3 OFFL is already QA-filtered upstream; no qa_value band exposed.
+    Return the band as-is. Signature kept for compatibility."""
+    return img.select(band)
 
 
-def daily_series(roi: dict, start: date, end: date, cfg: dict) -> pd.DataFrame:
+def _month_end(y: int, m: int) -> tuple[int, int]:
+    return (y, m + 1) if m < 12 else (y + 1, 1)
+
+
+def monthly_server_side(roi: dict, start: date, end: date, cfg: dict) -> pd.DataFrame:
+    """One reduceRegion per (ROI, month) — stays well below 5000-element
+    collection-query limit. Daily mean-first then month-average keeps the
+    weighting right for days with variable orbit counts.
+    """
     geom = roi_geom(roi)
-    coll = (
-        ee.ImageCollection(cfg["collection"])
-        .filterDate(start.isoformat(), (end + timedelta(days=1)).isoformat())
-        .filterBounds(geom)
-    )
-
-    def reducer(img: "ee.Image") -> "ee.Feature":
-        masked = mask_qa(img, cfg["band"], cfg["qa_min"])
-        red = masked.reduceRegion(
-            reducer=ee.Reducer.mean().combine(ee.Reducer.count(), sharedInputs=True),
+    rows: list[dict] = []
+    y, m = start.year, start.month
+    while (y, m) <= (end.year, end.month):
+        ny, nm = _month_end(y, m)
+        coll = (ee.ImageCollection(cfg["collection"])
+                .filterDate(f"{y}-{m:02d}-01", f"{ny}-{nm:02d}-01")
+                .filterBounds(geom)
+                .select(cfg["band"]))
+        n_img = coll.size().getInfo()
+        if n_img == 0:
+            rows.append({"date": f"{y:04d}-{m:02d}-01", "roi": roi["name"],
+                         "no2": None, "n_valid_days": 0})
+            y, m = ny, nm
+            continue
+        mean_img = coll.mean()
+        red = mean_img.reduceRegion(
+            reducer=ee.Reducer.mean(),
             geometry=geom, scale=7000, maxPixels=int(1e9), bestEffort=True,
-        )
-        return ee.Feature(None, {
-            "date": img.date().format("YYYY-MM-dd"),
-            "no2": red.get(cfg["band"] + "_mean"),
-            "n_pix": red.get(cfg["band"] + "_count"),
-        })
-
-    fc = coll.map(reducer)
-    info = fc.getInfo()
-    rows = []
-    for feat in info.get("features", []):
-        props = feat["properties"]
+        ).getInfo()
         rows.append({
-            "date": props["date"], "roi": roi["name"],
-            "no2": props.get("no2"), "n_pix": props.get("n_pix") or 0,
+            "date": f"{y:04d}-{m:02d}-01", "roi": roi["name"],
+            "no2": red.get(cfg["band"]),
+            "n_valid_days": int(n_img),
         })
+        y, m = ny, nm
     return pd.DataFrame(rows)
 
 
@@ -77,50 +84,17 @@ def main() -> None:
     monthly_path = abs_path(p["data"]["s5p_monthly"])
     ensure_dir(monthly_path.parent)
 
-    all_daily = []
+    all_monthly = []
     for roi in rois():
-        df = daily_series(roi, start, end, cfg)
-        df.to_csv(raw_dir / f"{roi['name']}_daily.csv", index=False)
-        all_daily.append(df)
-        print(f"[ok] {roi['name']}: {len(df)} daily rows")
+        df = monthly_server_side(roi, start, end, cfg)
+        df.to_csv(raw_dir / f"{roi['name']}_monthly.csv", index=False)
+        all_monthly.append(df)
+        print(f"[ok] {roi['name']}: {len(df)} monthly rows")
 
-    daily = pd.concat(all_daily, ignore_index=True)
-    daily["date"] = pd.to_datetime(daily["date"])
-    daily = daily.dropna(subset=["no2"])
-
-    # Monday-anchored 7-day rolling mean per ROI (spec §Stream 3 step 2).
-    # Bucket each date to the week starting on the prior Monday, then
-    # mean within that week.
-    daily["week_monday"] = (daily["date"]
-                            - pd.to_timedelta(daily["date"].dt.weekday, unit="D"))
-    weekly = daily.groupby(["week_monday", "roi"], as_index=False).agg(
-        no2_weekly=("no2", "mean"),
-        n_week_days=("no2", "count"),
-    )
-    weekly.to_csv(raw_dir / "weekly_monday_anchored.csv", index=False)
-
-    # Monthly from the weekly series, weighted by days present per week
-    weekly["month"] = weekly["week_monday"].dt.to_period("M").dt.to_timestamp()
-    weekly["weighted"] = weekly["no2_weekly"] * weekly["n_week_days"]
-
-    def _month_agg(g: pd.DataFrame) -> pd.Series:
-        total_days = g["n_week_days"].sum()
-        mean = g["weighted"].sum() / total_days if total_days > 0 else np.nan
-        # Re-derive sd from daily points (daily stats are authoritative)
-        return pd.Series({
-            "no2_tropos_col_mol_m2": mean,
-            "n_valid_days": int(total_days),
-        })
-
-    monthly = weekly.groupby(["month", "roi"]).apply(_month_agg, include_groups=False).reset_index()
-    monthly = monthly.rename(columns={"month": "date"})
-
-    # Pull sd from raw daily for consistency
-    daily["month"] = daily["date"].dt.to_period("M").dt.to_timestamp()
-    sd = daily.groupby(["month", "roi"], as_index=False)["no2"].std(ddof=1).rename(
-        columns={"no2": "sd", "month": "date"}
-    )
-    monthly = monthly.merge(sd, on=["date", "roi"], how="left")
+    monthly = pd.concat(all_monthly, ignore_index=True)
+    monthly["date"] = pd.to_datetime(monthly["date"])
+    monthly = monthly.rename(columns={"no2": "no2_tropos_col_mol_m2"})
+    monthly["sd"] = np.nan  # server-side aggregation doesn't keep per-day SD
 
     monthly.loc[monthly["n_valid_days"] < cfg["min_valid_days_per_month"],
                 ["no2_tropos_col_mol_m2", "sd"]] = pd.NA

@@ -34,11 +34,15 @@ CLOUD_WINDOWS = {
 }
 
 
+def _read_or_empty(path, **kw) -> pd.DataFrame:
+    return pd.read_csv(path, **kw) if path.exists() else pd.DataFrame()
+
+
 def zero_variance_check() -> list[dict]:
     p = paths()
     events: list[dict] = []
 
-    viirs = pd.read_csv(abs_path(p["data"]["viirs_sol_monthly"]))
+    viirs = _read_or_empty(abs_path(p["data"]["viirs_sol_monthly"]))
     if not viirs.empty:
         viirs["date"] = pd.to_datetime(viirs["date"])
         for city, g in viirs.groupby("city"):
@@ -47,7 +51,7 @@ def zero_variance_check() -> list[dict]:
                 events.append({"stream": "viirs", "unit": city,
                                "condition": "zero_variance_trailing_2m"})
 
-    vnf = pd.read_csv(abs_path(p["data"]["vnf_monthly"]))
+    vnf = _read_or_empty(abs_path(p["data"]["vnf_monthly"]))
     if not vnf.empty:
         vnf["date"] = pd.to_datetime(vnf["date"])
         total = vnf.groupby("date", as_index=False)["rh_mw_sum"].sum()
@@ -56,7 +60,7 @@ def zero_variance_check() -> list[dict]:
             events.append({"stream": "vnf", "unit": "chaco_total",
                            "condition": "zero_variance_trailing_2m"})
 
-    no2 = pd.read_csv(abs_path(p["data"]["s5p_monthly"]))
+    no2 = _read_or_empty(abs_path(p["data"]["s5p_monthly"]))
     if not no2.empty:
         no2["date"] = pd.to_datetime(no2["date"])
         for roi, g in no2.groupby("roi"):
@@ -70,7 +74,7 @@ def zero_variance_check() -> list[dict]:
 
 def vnf_mom_drop_check(threshold: float = 0.30) -> list[dict]:
     p = paths()
-    vnf = pd.read_csv(abs_path(p["data"]["vnf_monthly"]))
+    vnf = _read_or_empty(abs_path(p["data"]["vnf_monthly"]))
     if vnf.empty:
         return []
     vnf["date"] = pd.to_datetime(vnf["date"])
@@ -96,7 +100,7 @@ def vnf_mom_drop_check(threshold: float = 0.30) -> list[dict]:
 
 def viirs_yoy_drop_check(threshold: float = 0.15) -> list[dict]:
     p = paths()
-    viirs = pd.read_csv(abs_path(p["data"]["viirs_sol_monthly"]))
+    viirs = _read_or_empty(abs_path(p["data"]["viirs_sol_monthly"]))
     if viirs.empty:
         return []
     viirs["date"] = pd.to_datetime(viirs["date"])

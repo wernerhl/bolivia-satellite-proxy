@@ -1,0 +1,19 @@
+{
+  "test1_pre_post": {
+    "status": "inputs_missing"
+  },
+  "test2_residual": {
+    "status": "inputs_missing"
+  },
+  "test3_sectoral": {
+    "status": "inputs_missing"
+  },
+  "overall": {
+    "any_manipulation_signal": false,
+    "signals": [
+      null,
+      null,
+      null
+    ]
+  }
+}

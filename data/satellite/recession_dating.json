@@ -1,0 +1,10 @@
+{
+  "bbq": {
+    "status": "insufficient_n",
+    "n": 0
+  },
+  "markov_switching": {
+    "status": "insufficient_n",
+    "n": 0
+  }
+}

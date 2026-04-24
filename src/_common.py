@@ -83,6 +83,7 @@ def init_ee() -> None:
     live under the `bolivia/` prefix of the shared GCS bucket.
     """
     import ee
+    load_env()
     project = require_env("GCP_PROJECT_ID")
     key_path = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")
     if key_path and Path(key_path).exists():

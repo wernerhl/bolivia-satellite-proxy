@@ -12,9 +12,13 @@ infra:
 
 streams:
   viirs_sol:
-    primary_collection: "NOAA/VIIRS/001/VNP46A3"
-    primary_band: "AllAngle_Composite_Snow_Free"
-    fallback_collection: "NOAA/VIIRS/DNB/MONTHLY_V1"
+    # VNP46A3 is not on GEE; we roll up VNP46A2 (daily, BRDF+lunar-corrected,
+    # gap-filled) to monthly means, then multiply by days-in-month for SOL.
+    primary_collection: "NASA/VIIRS/002/VNP46A2"
+    primary_band: "Gap_Filled_DNB_BRDF_Corrected_NTL"
+    primary_quality_band: "Mandatory_Quality_Flag"   # 0 = high quality
+    # EOG stray-light-corrected monthly composite for gap months
+    fallback_collection: "NOAA/VIIRS/DNB/MONTHLY_V1/VCMSLCFG"
     fallback_band: "avg_rad"
     start: "2012-04"
     baseline_start: "2013-01"
