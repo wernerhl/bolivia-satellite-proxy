@@ -8,6 +8,7 @@ outputs/*.md
 outputs/*.tex
 outputs/build/
 .DS_Store
+.claude/
 
 # Signed license agreements — keep local
 *license*.pdf
