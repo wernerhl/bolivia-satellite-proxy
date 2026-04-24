@@ -115,3 +115,25 @@ clean:
 	rm -rf paper/v2/tables/*.tex paper/v2/figures/pdf/*.pdf paper/v2/figures/png/*.png
 	cd paper/v1 && latexmk -C 2>/dev/null || true
 	cd paper/v2 && latexmk -C 2>/dev/null || true
+
+# --- v3 pipeline (see paper/v3/fires_lights_smog_agent_v3_brief.md) ---
+.PHONY: v3-data v3-estimates v3-figures v3-tables paper-v3
+
+v3-data:
+	$(PY) paper/v3/scripts/build_data.py
+
+v3-estimates:
+	$(PY) paper/v3/scripts/build_estimates.py
+
+v3-figures:
+	$(PY) paper/v3/scripts/build_figures.py
+
+v3-tables:
+	$(PY) paper/v3/scripts/build_tables.py
+
+paper-v3: v3-data v3-estimates v3-figures v3-tables
+	cd paper/v3 && cp references_v3.bib references.bib && \
+	               pdflatex -interaction=nonstopmode fires_lights_smog_v3.tex && \
+	               bibtex fires_lights_smog_v3 && \
+	               pdflatex -interaction=nonstopmode fires_lights_smog_v3.tex && \
+	               pdflatex -interaction=nonstopmode fires_lights_smog_v3.tex

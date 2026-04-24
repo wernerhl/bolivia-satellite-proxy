@@ -1,0 +1,44 @@
+\begin{table}[H]
+\centering\small
+\caption{Spatial definitions for the four satellite streams. Coordinates are centroid latitude and longitude in WGS84. Extent is a circular buffer radius in km or, for TROPOMI, a rectangle.}
+\label{tab:spatial}
+\begin{tabular}{llrrrl}
+\toprule
+Section & Name & Lat & Lon & Extent (km) & Notes \\
+\midrule
+\multicolumn{6}{l}{\textit{Urban buffers (VIIRS DNB)}} \\
+& La Paz--El Alto & $-16.500$ & $-68.150$ & 20 & pop.\ 1,800,000 \\
+& Santa Cruz de la Sierra & $-17.784$ & $-63.180$ & 25 & pop.\ 1,900,000 \\
+& Cochabamba & $-17.394$ & $-66.157$ & 15 & pop.\ 700,000 \\
+& Sucre & $-19.033$ & $-65.263$ & 8 & pop.\ 300,000 \\
+& Oruro & $-17.970$ & $-67.112$ & 7 & pop.\ 270,000 \\
+& Potosí & $-19.583$ & $-65.753$ & 6 & pop.\ 190,000 \\
+& Tarija & $-21.534$ & $-64.729$ & 8 & pop.\ 230,000 \\
+& Trinidad & $-14.832$ & $-64.903$ & 5 & pop.\ 130,000 \\
+& Cobija & $-11.028$ & $-68.768$ & 4 & pop.\ 65,000 \\
+& Montero & $-17.339$ & $-63.253$ & 6 & pop.\ 140,000 \\
+& Yacuiba & $-22.017$ & $-63.685$ & 5 & pop.\ 100,000 \\
+\midrule
+\multicolumn{6}{l}{\textit{Chaco gas fields (VIIRS Nightfire)}} \\
+& Margarita & $-21.250$ & $-63.550$ & 2 (radius) & Repsol \\
+& Huacaya & $-21.080$ & $-63.720$ & 2 (radius) & Repsol \\
+& San Alberto & $-21.320$ & $-63.730$ & 2 (radius) & YPFB--Petrobras \\
+& Sabalo & $-21.280$ & $-63.730$ & 2 (radius) & YPFB--Petrobras \\
+& Incahuasi & $-20.580$ & $-63.720$ & 2 (radius) & TotalEnergies \\
+& Aquio & $-20.530$ & $-63.770$ & 2 (radius) & TotalEnergies \\
+& Itaú & $-22.050$ & $-63.850$ & 2 (radius) & TotalEnergies--YPFB \\
+\midrule
+\multicolumn{6}{l}{\textit{Metropolitan NO$_2$ ROIs (Sentinel-5P TROPOMI)}} \\
+& La Paz--El Alto & --- & --- & 33$\times$33 & rectangle \\
+& Santa Cruz & --- & --- & 39$\times$50 & rectangle \\
+& Cochabamba & --- & --- & 22$\times$28 & rectangle \\
+\midrule
+\multicolumn{6}{l}{\textit{Cropland zones (Sentinel-2 NDVI)}} \\
+& Santa Cruz soy belt & $-17.150$ & $-62.500$ & 180 & GVA weight 0.45, Soy, maize, sorghum \\
+& Beni cattle and rice & $-14.500$ & $-65.000$ & 150 & GVA weight 0.15, Rice, cattle pasture \\
+& Tarija Valle Central & $-21.550$ & $-64.750$ & 40 & GVA weight 0.05, Grapes, stone fruit, maize \\
+& Chaco periphery & $-20.500$ & $-63.000$ & 120 & GVA weight 0.10, Soy, sorghum \\
+& Altiplano tubers and quinoa & $-19.000$ & $-67.000$ & 100 & GVA weight 0.10, Potato, quinoa, barley \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,25 @@
+\begin{table}[H]
+\centering\scriptsize
+\caption{Data vintages, release lags, and coverage in this vintage. Lag is nominal days between period end and source publication. `---' indicates the series has not been fetched for this vintage.}
+\label{tab:vintages}
+\begin{tabular}{p{2.8cm}p{2.6cm}cclp{2.2cm}}
+\toprule
+Series & Source & Freq.\ & Lag (d) & Coverage & Notes \\
+\midrule
+INE quarterly GDP & INE Nextcloud & Q & 60--90 & 2012-01--2024-10 & 1990 base \\
+INE IGAE & INE portal & M & 45 & --- & preliminary \\
+INE departmental GDP & INE annual & A & 365--700 & 2012--2016 & 1990 base \\
+YPFB field-month & BEH PDF annex & M & 30--60 & --- & --- \\
+IBCH cement & IBCH / Milenio & M & 20--40 & --- & --- \\
+CNDC electricity & CNDC xlsx & D & 5--10 & --- & --- \\
+SIN tax & SIN portal & M & 30 & --- & --- \\
+Aduana imports & INE Nextcloud & M & 30--45 & 2024-01--2026-02 & CIF / FOB / kg \\
+BCB monetary & BCB SPM PDF & M & 15--30 & --- & --- \\
+VIIRS DNB & GEE VNP46A2 & D & 3--5 & 2012-04--2026-02 & BRDF gap-filled \\
+VIIRS Nightfire & EOG VNF & D & 1--2 & --- & Chaco bbox \\
+TROPOMI NO$_2$ & GEE OFFL & D & 5--10 & 2018-07--2026-04 & QA $\geq$ 0.75 \\
+Sentinel-2 NDVI & GEE HARMONIZED & D & 3--5 & 2013-01--2026-02 & + L8 splice \\
+External forecasters & IMF/WB/Oxford/SP & A & 0 & 1970-01--1970-01 & 2026-04-24 \\
+\bottomrule
+\end{tabular}
+\end{table}

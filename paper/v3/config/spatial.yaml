@@ -1,0 +1,106 @@
+# Consolidated spatial definitions for all four satellite streams.
+# Referenced by v3 D-tracks and figure scripts; single source of truth.
+
+urban_buffers:
+  - name: la_paz_el_alto
+    label: "La Paz--El Alto"
+    lat: -16.500
+    lon: -68.150
+    radius_km: 20
+    population: 1800000
+    department: la_paz
+  - name: santa_cruz
+    label: "Santa Cruz de la Sierra"
+    lat: -17.784
+    lon: -63.180
+    radius_km: 25
+    population: 1900000
+    department: santa_cruz
+  - name: cochabamba
+    label: "Cochabamba"
+    lat: -17.394
+    lon: -66.157
+    radius_km: 15
+    population: 700000
+    department: cochabamba
+  - name: sucre
+    label: "Sucre"
+    lat: -19.033
+    lon: -65.263
+    radius_km: 8
+    population: 300000
+    department: chuquisaca
+  - name: oruro
+    label: "Oruro"
+    lat: -17.970
+    lon: -67.112
+    radius_km: 7
+    population: 270000
+    department: oruro
+  - name: potosi
+    label: "Potosí"
+    lat: -19.583
+    lon: -65.753
+    radius_km: 6
+    population: 190000
+    department: potosi
+  - name: tarija
+    label: "Tarija"
+    lat: -21.534
+    lon: -64.729
+    radius_km: 8
+    population: 230000
+    department: tarija
+  - name: trinidad
+    label: "Trinidad"
+    lat: -14.832
+    lon: -64.903
+    radius_km: 5
+    population: 130000
+    department: beni
+  - name: cobija
+    label: "Cobija"
+    lat: -11.028
+    lon: -68.768
+    radius_km: 4
+    population: 65000
+    department: pando
+  - name: montero
+    label: "Montero"
+    lat: -17.339
+    lon: -63.253
+    radius_km: 6
+    population: 140000
+    department: santa_cruz
+  - name: yacuiba
+    label: "Yacuiba"
+    lat: -22.017
+    lon: -63.685
+    radius_km: 5
+    population: 100000
+    department: tarija
+
+chaco:
+  bbox: [-64.5, -22.5, -62.5, -20.0]   # [minLon, minLat, maxLon, maxLat]
+  attribution_radius_km: 2.0
+  temp_bb_min_k: 1400
+  fields:
+    - {name: margarita,    label: "Margarita",    operator: "Repsol",              lat: -21.250, lon: -63.550}
+    - {name: huacaya,      label: "Huacaya",      operator: "Repsol",              lat: -21.080, lon: -63.720}
+    - {name: san_alberto,  label: "San Alberto",  operator: "YPFB--Petrobras",     lat: -21.320, lon: -63.730}
+    - {name: sabalo,       label: "Sabalo",       operator: "YPFB--Petrobras",     lat: -21.280, lon: -63.730}
+    - {name: incahuasi,    label: "Incahuasi",    operator: "TotalEnergies",       lat: -20.580, lon: -63.720}
+    - {name: aquio,        label: "Aquio",        operator: "TotalEnergies",       lat: -20.530, lon: -63.770}
+    - {name: itau,         label: "Itaú",         operator: "TotalEnergies--YPFB", lat: -22.050, lon: -63.850}
+
+tropomi_rois:
+  - {name: la_paz_el_alto, label: "La Paz--El Alto", nw_lat: -16.350, nw_lon: -68.300, se_lat: -16.650, se_lon: -68.000}
+  - {name: santa_cruz,     label: "Santa Cruz",      nw_lat: -17.600, nw_lon: -63.400, se_lat: -17.950, se_lon: -62.950}
+  - {name: cochabamba,     label: "Cochabamba",      nw_lat: -17.300, nw_lon: -66.300, se_lat: -17.500, se_lon: -66.050}
+
+cropland_zones:
+  - {name: santa_cruz_soy_belt,   label: "Santa Cruz soy belt",     lat: -17.15, lon: -62.50, radius_km: 180, gva_weight: 0.45, dominant_crops: "Soy, maize, sorghum"}
+  - {name: beni_cattle_rice,      label: "Beni cattle and rice",    lat: -14.50, lon: -65.00, radius_km: 150, gva_weight: 0.15, dominant_crops: "Rice, cattle pasture"}
+  - {name: tarija_valle_central,  label: "Tarija Valle Central",    lat: -21.55, lon: -64.75, radius_km:  40, gva_weight: 0.05, dominant_crops: "Grapes, stone fruit, maize"}
+  - {name: chaco_periphery,       label: "Chaco periphery",         lat: -20.50, lon: -63.00, radius_km: 120, gva_weight: 0.10, dominant_crops: "Soy, sorghum"}
+  - {name: altiplano_tubers_quinoa, label: "Altiplano tubers and quinoa", lat: -19.00, lon: -67.00, radius_km: 100, gva_weight: 0.10, dominant_crops: "Potato, quinoa, barley"}
