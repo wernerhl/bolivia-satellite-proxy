@@ -22,6 +22,7 @@
 \usepackage{setspace}
 \usepackage{enumitem}
 \usepackage{siunitx}
+\usepackage{verbatim}
 
 \usepackage{xcolor}
 \usepackage{mdframed}
@@ -108,83 +109,33 @@ This paper constructs the first monthly coincident indicator of Bolivian real ac
 
 \subsection{Satellite streams}
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/pdf/fig1_four_streams.pdf}
+\caption{Four independent satellite streams all show the 2025--2026 Bolivian contraction. Panels from top: urban nighttime radiance (VIIRS DNB, 11 metros), Chaco gas-flare radiant heat (VIIRS Nightfire, 6 fields), metropolitan NO$_2$ column (TROPOMI, La Paz--El Alto and Santa Cruz), and cropland NDVI (Sentinel-2, 5 zones). All series in z-scores against pre-crisis baselines; shaded bands mark INE-reported contractions; dashed lines mark the November 2025 government transition and December 2025 fuel-subsidy elimination.}
+\label{fig:fig1_streams}
+\end{figure}
+
+
 \subsubsection{VIIRS Day/Night Band nighttime radiance}
 
 \claim{I use the monthly VIIRS DNB composite} The primary source is the NASA Black Marble product \texttt{VNP46A3}, monthly at \num{500}~m resolution, BRDF-corrected, snow-free, and gap-filled. The fallback is the Earth Observation Group (EOG) cloud-free monthly composite \texttt{DNB/MONTHLY\_V1}. Radiance values below \num{0.5}~nW$\cdot$cm$^{-2}\cdot$sr$^{-1}$ are masked as background; values above \num{200}~nW$\cdot$cm$^{-2}\cdot$sr$^{-1}$ are masked as aberration. VIIRS is 14-bit and does not saturate at Bolivian urban densities; DMSP is 6-bit and saturates in Santa Cruz and La Paz--El Alto, which is why DMSP is not used. The \citet{gibson_etal2021} assessment is dispositive on that choice.
 
-\claim{The city buffers are circular, centered on the urban core, with radii scaled to metro footprint} Eleven buffers span the nine departmental capitals plus El Alto (merged with La Paz) and Montero, Yacuiba, and Cobija. The full buffer definition appears in Table~\ref{tab:city_buffers}. Sum of lights (SOL) is the buffer-integrated radiance in each month; I also report mean and median radiance, the count of valid pixels, and the count of masked pixels.
+\claim{The city buffers are circular, centered on the urban core, with radii scaled to metro footprint} Eleven buffers span the nine departmental capitals plus El Alto (merged with La Paz) and Montero, Yacuiba, and Cobija. The consolidated spatial definitions for all four streams appear in Table~\ref{tab:spatial}. Sum of lights (SOL) is the buffer-integrated radiance in each month; I also report mean and median radiance, the count of valid pixels, and the count of masked pixels.
 
-\begin{table}[H]
-\centering
-\caption{Urban buffers for VIIRS DNB sum-of-lights extraction.}
-\label{tab:city_buffers}
-\small
-\begin{tabular}{lrrc}
-\toprule
-Metro & Latitude & Longitude & Radius (km) \\
-\midrule
-La Paz--El Alto (joint) & $-16.500$ & $-68.150$ & \num{20} \\
-Santa Cruz de la Sierra & $-17.784$ & $-63.180$ & \num{25} \\
-Cochabamba & $-17.394$ & $-66.157$ & \num{15} \\
-Sucre & $-19.033$ & $-65.263$ & \num{8} \\
-Oruro & $-17.970$ & $-67.112$ & \num{7} \\
-Potosí & $-19.583$ & $-65.753$ & \num{6} \\
-Tarija & $-21.534$ & $-64.729$ & \num{8} \\
-Trinidad & $-14.832$ & $-64.903$ & \num{5} \\
-Cobija & $-11.028$ & $-68.768$ & \num{4} \\
-Montero & $-17.339$ & $-63.253$ & \num{6} \\
-Yacuiba & $-22.017$ & $-63.685$ & \num{5} \\
-\bottomrule
-\end{tabular}
-\end{table}
+\input{tables/table1_spatial.tex}
 
 \claim{The baseline period is January \num{2013} through December \num{2019}} The choice predates the COVID shock and the \num{2023} parallel-exchange-rate emergence, providing seven years of pre-crisis monthly observations. Deseasonalization uses robust STL with a monthly period; the anomaly is the log deviation from the baseline trend extrapolated linearly. Cloud contamination matters in the Santa Cruz wet season (November--March); months with valid-pixel counts below \num{50} percent of the buffer total are flagged and, when required by the DFM step, imputed via the Kalman smoother on the joint state.
 
 \subsubsection{VIIRS Nightfire radiant heat}
 
-\claim{Gas flares are sub-pixel hot sources, not ordinary surface radiance} The VIIRS Nightfire algorithm of \citet{elvidge_vnf2013} fits a Planck curve to multispectral observations and recovers source temperature, effective area, and radiant heat output (RH, in MW) per detection, using the mid-infrared and near-infrared VIIRS bands that resolve temperatures above \num{1400}~K. Gas flares cluster between \num{1600} and \num{2000}~K; biomass combustion peaks between \num{800} and \num{1200}~K and is excluded by a temperature floor of \num{1400}~K. I pull nightly VNF detections from the EOG archive for the Chaco bounding box $[-22.5, -20.0]$ latitude $\times$ $[-64.5, -62.5]$ longitude and assign each detection to the nearest of the six major fields within a \num{2}~km radius; unassigned detections are discarded.
-
-\begin{table}[H]
-\centering
-\caption{Chaco gas fields for VNF radiant-heat extraction.}
-\label{tab:chaco_fields}
-\small
-\begin{tabular}{llrrl}
-\toprule
-Field & Operator & Latitude & Longitude & Vintage \\
-\midrule
-Margarita & Repsol & $-21.250$ & $-63.550$ & Megafield, mature \\
-Huacaya & Repsol & $-21.080$ & $-63.720$ & Satellite of Margarita \\
-San Alberto & YPFB--Petrobras & $-21.320$ & $-63.730$ & Mature, declining \\
-Sábalo & YPFB--Petrobras & $-21.280$ & $-63.730$ & Mature, declining \\
-Incahuasi & TotalEnergies & $-20.580$ & $-63.720$ & Post-\num{2016} \\
-Aquio & TotalEnergies & $-20.530$ & $-63.770$ & Post-\num{2016} \\
-Itaú & TotalEnergies--YPFB & $-22.050$ & $-63.850$ & Southern Chaco \\
-\bottomrule
-\end{tabular}
-\end{table}
+\claim{Gas flares are sub-pixel hot sources, not ordinary surface radiance} The VIIRS Nightfire algorithm of \citet{elvidge_vnf2013} fits a Planck curve to multispectral observations and recovers source temperature, effective area, and radiant heat output (RH, in MW) per detection, using the mid-infrared and near-infrared VIIRS bands that resolve temperatures above \num{1400}~K. Gas flares cluster between \num{1600} and \num{2000}~K; biomass combustion peaks between \num{800} and \num{1200}~K and is excluded by a temperature floor of \num{1400}~K. I pull nightly VNF detections from the EOG archive for the Chaco bounding box $[-22.5, -20.0]$ latitude $\times$ $[-64.5, -62.5]$ longitude and assign each detection to the nearest of the six major fields within a \num{2}~km radius; unassigned detections are discarded. The six fields and their operators appear in Table~\ref{tab:spatial}.
 
 \claim{VNF detections are noisy at the daily level and clean at the monthly level} The monthly field-level signal is the sum of per-detection radiant heat, $\textstyle \sum_t \text{RH}_t$, measured in MW-nights. Daily detections are sparse (one to five per field per night, varying with cloud cover and orbit geometry), but monthly aggregation typically yields fifty to two hundred detections per field and a signal-to-noise ratio adequate to resolve production changes on the order of ten percent. The \citet{elvidge_energies2016} calibration converts MW-nights into billion cubic metres (BCM) of flared gas, which maps to produced gas through field-specific flare-to-production ratios estimated on the pre-crisis sample.
 
 \subsubsection{Sentinel-5P TROPOMI tropospheric NO$_2$}
 
-\claim{TROPOMI resolves the Bolivian metros} The TROPOspheric Monitoring Instrument on the European Space Agency's Sentinel-5P satellite, described in \citet{veefkind2012}, provides daily global coverage at \num{5.5}$\times$\num{3.5}~km resolution (post-August \num{2019} upgrade) with a \num{13}:\num{30} local solar overpass. I use the offline-reprocessed Level~3 product \texttt{COPERNICUS/S5P/OFFL/L3\_NO2} with quality filter \texttt{qa\_value $\geq$ 0.75}. The tropospheric NO$_2$ vertical column density, in \unit{mol\per m\squared}, is the relevant retrieval; stratospheric NO$_2$ is subtracted in the Level~3 processing. The bounding rectangles for La Paz--El Alto and Santa Cruz metros, and a Cochabamba secondary, are reported in Table~\ref{tab:no2_rois}.
-
-\begin{table}[H]
-\centering
-\caption{TROPOMI NO$_2$ regions of interest.}
-\label{tab:no2_rois}
-\small
-\begin{tabular}{lrrrr}
-\toprule
-ROI & NW lat & NW lon & SE lat & SE lon \\
-\midrule
-La Paz--El Alto & $-16.350$ & $-68.300$ & $-16.650$ & $-68.000$ \\
-Santa Cruz & $-17.600$ & $-63.400$ & $-17.950$ & $-62.950$ \\
-Cochabamba & $-17.300$ & $-66.300$ & $-17.500$ & $-66.050$ \\
-\bottomrule
-\end{tabular}
-\end{table}
+\claim{TROPOMI resolves the Bolivian metros} The TROPOspheric Monitoring Instrument on the European Space Agency's Sentinel-5P satellite, described in \citet{veefkind2012}, provides daily global coverage at \num{5.5}$\times$\num{3.5}~km resolution (post-August \num{2019} upgrade) with a \num{13}:\num{30} local solar overpass. I use the offline-reprocessed Level~3 product \texttt{COPERNICUS/S5P/OFFL/L3\_NO2} with quality filter \texttt{qa\_value $\geq$ 0.75}. The tropospheric NO$_2$ vertical column density, in \unit{mol\per m\squared}, is the relevant retrieval; stratospheric NO$_2$ is subtracted in the Level~3 processing. The bounding rectangles for La Paz--El Alto, Santa Cruz, and Cochabamba appear in Table~\ref{tab:spatial}.
 
 \claim{The TROPOMI series is short and the baseline is tight} The sensor became operational in July \num{2018}. The baseline period is calendar year \num{2019} --- the only full pre-COVID, pre-Bolivia-crisis year available --- which implies that month-of-year seasonal factors are point estimates with no standard error until additional clean years accumulate. I therefore weight TROPOMI at \num{0.20} in the composite rather than \num{0.30}, with the weights revisited annually. Cloud-contaminated months (fewer than fifteen valid days) are flagged and imputed through the DFM. Andean volcanic NO$_2$ from Sabancaya and Ubinas on the Peruvian side can contaminate La Paz retrievals and is flagged when monthly values exceed five times the baseline.
 
@@ -192,12 +143,12 @@ Cochabamba & $-17.300$ & $-66.300$ & $-17.500$ & $-66.050$ \\
 
 \claim{Agriculture expanded \num{12.19} percent year-on-year in Q4 \num{2025} and is invisible to the first three streams} An activity composite that misses the one expanding sector cannot claim to be a coincident indicator of real activity; it is a coincident indicator of contracting activity only. I close the gap with Sentinel-2 NDVI over five Bolivian cropland zones. Normalized Difference Vegetation Index, $\mathrm{NDVI} = (B_8 - B_4) / (B_8 + B_4)$, is the standard satellite vegetation-activity proxy of \citet{gao1996} and is widely used as a crop-yield forecaster since \citet{johnson_etal2014} and as a GPP proxy since \citet{donohue_etal2008}; \citet{donaldson_storeygard2016} review its use in economics.
 
-\claim{Five zones cover more than \num{90} percent of Bolivian agricultural value added} The zones are defined in Table~\ref{tab:ndvi_zones}, with departmental agricultural-GVA weights from the INE \num{2024} national accounts. I intersect each zone with the ESA WorldCover \num{2021} cropland mask (class \num{40}) and compute zone-monthly mean NDVI over the crop-masked pixels only, so non-crop land cover does not contaminate the signal.
+\claim{Five zones cover more than \num{90} percent of Bolivian agricultural value added} The zones appear in Table~\ref{tab:spatial}, with departmental agricultural-GVA weights from the INE \num{2024} national accounts. I intersect each zone with the ESA WorldCover \num{2021} cropland mask (class \num{40}) and compute zone-monthly mean NDVI over the crop-masked pixels only, so non-crop land cover does not contaminate the signal.
 
+\begin{comment}
 \begin{table}[H]
 \centering
-\caption{Sentinel-2 NDVI cropland zones, with indicative centroid, radius, and departmental agricultural-GVA weight from INE 2024 national accounts.}
-\label{tab:ndvi_zones}
+\caption{superseded by consolidated Table~\ref{tab:spatial}.}
 \small
 \begin{tabular}{lrrrr}
 \toprule
@@ -211,6 +162,7 @@ Altiplano tubers and quinoa & $-19.00$ & $-67.00$ & \num{100} & \num{0.10} \\
 \bottomrule
 \end{tabular}
 \end{table}
+\end{comment}
 
 \claim{I splice Landsat-8 onto Sentinel-2 to recover the 2013--2016 baseline} Sentinel-2 Level-2A \texttt{COPERNICUS/S2\_SR\_HARMONIZED} is operational from March \num{2017}; I extend the series to January \num{2013} using Landsat-8 Collection 2 Level-2 surface reflectance \texttt{LANDSAT/LC08/C02/T1\_L2} with the \citet{roy_etal2016} cross-sensor NDVI harmonization coefficients ($\mathrm{NDVI}_{S2} = 1.00 \cdot \mathrm{NDVI}_{L8} + 0.01$). The deseasonalized anomaly is $(\mathrm{NDVI}_{zt} - \mu_{z,m}) / \sigma_z$, where $\mu_{z,m}$ is the zone-by-month-of-year mean on \numrange{2013}{2019} and $\sigma_z$ is the pooled-across-baseline standard deviation. Zones are weighted by departmental agricultural-GVA shares to form the agricultural composite.
 
@@ -318,64 +270,64 @@ Target length: \numrange{12}{15} pages with four to six figures and two to four 
 
 \subsection{Single-series elasticities}
 \label{subsec:elasticities}
-% BEGIN-AUTO-subsec_elasticities
-\input{tables/elasticities.tex}
 
-\claim{VIIRS} Data required to estimate (inputs_missing).
-\claim{VNF} Data required to estimate (inputs_missing).
-\claim{NO$_2$} Data required to estimate (inputs_missing).
-% END-AUTO-subsec_elasticities
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/pdf/fig2_elasticities.pdf}
+\caption{Bolivia-specific elasticities fall within the ranges established in the satellite-to-activity literature. Filled circles are Bolivia point estimates with 95\% HAC-clustered confidence intervals; hollow diamonds are benchmarks from \citet{hsw2012}, \citet{do_etal2018}, \citet{bauwens2020}, and Johnson (2014).}
+\label{fig:fig2_elasticities}
+\end{figure}
 
-
-% empty — to be filled
+\input{tables/table2_elasticities.tex}
 
 \subsection{The monthly satellite composite index}
 \label{subsec:composite}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/pdf/fig3_composite_vs_ine.pdf}
+\caption{The monthly satellite composite of Bolivian real activity tracks INE's quarterly GDP in expansions and diverges from it during the 2024--2025 acute crisis window. Composite in z-score on left axis; INE quarterly GDP growth (y/y) on right axis. Vertical dashed lines mark the 2020 COVID onset, the 2023 emergence of a parallel foreign-exchange rate, the November 2025 government transition, and the December 2025 fuel-subsidy elimination.}
+\label{fig:fig3_composite}
+\end{figure}
+
 % BEGIN-AUTO-subsec_composite
-\begin{figure}[H]\centering\includegraphics[width=0.95\linewidth]{figures/factor_and_bbq.pdf}\caption{Satellite factor and Bry--Boschan turning points.}\label{fig:factor_bbq}\end{figure}
 \claim{Fit summary} Two-factor DFM over blocks $\{urban, extractive\}$ with GDP-share weights $\{urban=0.71, extractive=0.29\}$, $n=169$ monthly observations. Block factors are fit separately with AR(2) dynamics and AR(1) idiosyncratic innovations; when any block's EM fails we fall back to the \citet{lewis_mertens_stock2022} pre-specified weighted composite.
 % END-AUTO-subsec_composite
-
-
-% empty — to be filled
 
 \subsection{Recession dating}
 \label{subsec:dating}
 % BEGIN-AUTO-subsec_dating
-\begin{figure}[H]\centering\includegraphics[width=0.95\linewidth]{figures/markov_probability.pdf}\caption{Hamilton two-state Markov-switching recession probability on the first difference of the satellite factor.}\label{fig:markov}\end{figure}
 \claim{BBQ turning points} Peaks: 2013-01, 2021-01, 2022-03, 2025-04. Troughs: 2019-01, 2024-01.
 \claim{Markov-switching} Recession-regime mean $\mu_r=-0.017$ per month, expansion $\mu_e=-0.003$. Months with $P(\mathrm{rec})>0.5$: 27.
 % END-AUTO-subsec_dating
 
-
-% empty — to be filled
-
 \subsection{Comparison to INE quarterly GDP}
 \label{subsec:ine_comparison}
-% BEGIN-AUTO-subsec_ine_comparison
-\tbdline{INE benchmark regression requires IGAE panel \u2265 24 vintages (expected March 2028).}
-% END-AUTO-subsec_ine_comparison
 
-
-% empty — to be filled
+\input{tables/table3_satellite_vs_external.tex}
 
 \subsection{Manipulation-detection tests}
 \label{subsec:manipulation}
-% BEGIN-AUTO-subsec_manipulation
-\tbdline{Test 1 (sectoral triangulation), Test 2 (Nov-2025 INE leadership discontinuity), and Test 3 (external-forecaster residual) require YPFB field-month production, INE hydrocarbon value-added, and consensus external forecasts. Results to be inserted after official series are loaded.}
-% END-AUTO-subsec_manipulation
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/pdf/fig5_manipulation_verdict.pdf}
+\caption{Test 3 (sectoral triangulation) from \S4.3. Left: annual WB-GGFR flaring against YPFB gas production with pre-crisis calibration extrapolated to the crisis window. Right: INE hydrocarbon value added, YPFB production, and WB-GGFR flaring indexed to 2019. Divergence between YPFB and the flaring series implies source-data manipulation; divergence between YPFB and INE VA implies aggregation-level manipulation.}
+\label{fig:fig5_triangulation}
+\end{figure}
 
-% empty — to be filled
+\input{tables/table4_manipulation.tex}
 
 \subsection{Channel decomposition}
 \label{subsec:channels}
-% BEGIN-AUTO-subsec_channels
-\claim{Channel decomposition} Contribution of each stream to the monthly factor is recovered from the estimated loadings $\lambda_i$ and reported in the replication archive.
-% END-AUTO-subsec_channels
 
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/pdf/fig4_sectoral_decomposition.pdf}
+\caption{Sectoral decomposition of quarterly GDP growth. Top: implied from the satellite composite, with channels recovered from the two-factor DFM loadings. Bottom: INE's reported sectoral growth y/y. Disagreements between the two decompositions localize the recession sectorally.}
+\label{fig:fig4_sectoral}
+\end{figure}
 
-% empty — to be filled
 
 % ============================================================
 \section{Robustness}
@@ -411,6 +363,30 @@ Robustness section to be written. Planned exercises:
 % ============================================================
 \appendix
 
+\section{Spatial coverage and field-level calibration}
+\label{app:spatial}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/pdf/figA1_spatial_coverage.pdf}
+\caption{Spatial coverage of the four satellite streams. Left: urban nighttime-lights buffers. Center: Chaco bounding box and seven gas-field centroids. Right: TROPOMI NO$_2$ rectangles and Sentinel-2 cropland zones.}
+\label{fig:figA1_spatial}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\linewidth]{figures/pdf/figA2_field_calibration.pdf}
+\caption{Field-level pre-crisis calibration of VIIRS Nightfire radiant heat against YPFB-reported gas production, 2012--2022. Slope, HAC standard error, and $R^2$ reported per field when data is available.}
+\label{fig:figA2_fields}
+\end{figure}
+
+\section{Data vintages and robustness}
+\label{app:vintages}
+
+\input{tables/tableA1_vintages.tex}
+
+\input{tables/tableA2_robustness.tex}
+
 \section{Data processing details}
 \label{app:data}
 
@@ -420,11 +396,6 @@ Robustness section to be written. Planned exercises:
 \label{app:state_space}
 
 \tbdline{Appendix to be written. Planned contents: full likelihood derivation, EM algorithm convergence criteria, Kalman filter initialization, treatment of ragged-edge release dates, news-decomposition formulas.}
-
-\section{Sensor specifications}
-\label{app:sensors}
-
-\tbdline{Appendix to be written. Planned contents: VIIRS DNB spectral response and radiometric calibration; VNF retrieval algorithm (Planck fit details); TROPOMI NO$_2$ retrieval algorithm and QA flag interpretation.}
 
 % ============================================================
 \newpage

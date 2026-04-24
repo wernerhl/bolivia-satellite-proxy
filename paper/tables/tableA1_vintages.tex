@@ -1,0 +1,27 @@
+\begin{table}[H]
+\centering\scriptsize
+\caption{Data vintages, release lags, and revision behavior as of the submission vintage. Lag = nominal days between period end and source publication.}
+\label{tab:vintages}
+\begin{tabular}{p{3.0cm}p{3.0cm}cclp{2.2cm}}
+\toprule
+Series & Source & Freq. & Lag (d) & Coverage in paper & Revision \\
+\midrule
+INE quarterly GDP & INE Nextcloud xlsx & Q & 60--90 & 1990Q1--2024Q4 & stable post-vintage \\
+INE IGAE & INE portal & M & 45 & starts Mar 2026 & preliminary \\
+INE departmental GDP & INE annual xlsx & A & 365--700 & --- & stable \\
+YPFB gas prod.\ (total) & YPFB JPG chart & A & 90 & 2006--2025 & preliminary \\
+YPFB field-month prod. & Boletín Estadístico & M & 30--60 & --- & stable \\
+IBCH cement dispatches & IBCH publications & M & 20--40 & --- & stable \\
+CNDC electricity & CNDC dload.php xlsx & M & 5--10 & --- & stable \\
+SIN tax collections & SIN portal & M & 30 & --- & stable \\
+Aduana imports & INE Nextcloud xlsx & M & 30--45 & 2024-01--2026-02 & stable \\
+BCB monetary & BCB SPM & M & 15--30 & --- & revised \\
+VIIRS DNB (VNP46A2) & GEE & D & 3--5 & 2012-01--2026-04 & BRDF gap-filled \\
+VIIRS Nightfire & EOG & D & 1--2 & --- & stable \\
+TROPOMI NO$_2$ & GEE OFFL & D & 5--10 & 2018-07--2026-04 & QA pre-filtered \\
+Sentinel-2 NDVI & GEE HARMONIZED & D & 3--5 & 2017-03--(pend.) & SCL-masked \\
+WB GGFR flaring & WB xlsx & A & 180 & 2012--2024 & stable \\
+Binance P2P premium & Binance P2P API & D & 0 & 2026-04-24+ & real-time \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -6,7 +6,7 @@
 SHELL := /bin/bash
 PY    := .venv/bin/python
 
-.PHONY: all fetch process anomaly index econometrics paper-assets paper \
+.PHONY: all fetch process anomaly index econometrics paper-assets paper paper-v2 figures tables \
         publish validate clean help refresh-eog test-scaffold
 
 help:
@@ -67,6 +67,18 @@ paper-assets:
 
 paper:
 	cd paper && latexmk -pdf -interaction=nonstopmode fires_lights_smog.tex
+
+figures:
+	$(PY) scripts/figures/make_all_figures.py
+
+tables:
+	$(PY) scripts/tables/make_all_tables.py
+
+paper-v2: figures tables
+	cd paper && pdflatex -interaction=nonstopmode fires_lights_smog_v2.tex && \
+	            bibtex fires_lights_smog_v2 && \
+	            pdflatex -interaction=nonstopmode fires_lights_smog_v2.tex && \
+	            pdflatex -interaction=nonstopmode fires_lights_smog_v2.tex
 
 publish:
 	$(PY) src/04_publish/figures.py
