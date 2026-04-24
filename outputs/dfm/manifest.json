@@ -1,7 +1,7 @@
 {
-  "vintage": "2026-04-24T11:52:47+00:00",
-  "n_rows": 94,
-  "date_min": "2018-07-01 00:00:00",
+  "vintage": "2026-04-24T13:12:11+00:00",
+  "n_rows": 169,
+  "date_min": "2012-04-01 00:00:00",
   "date_max": "2026-04-01 00:00:00",
   "columns": {
     "date": "month-start timestamp, UTC",

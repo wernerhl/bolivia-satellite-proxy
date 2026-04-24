@@ -74,15 +74,21 @@ def _reduce_monthly_mean(img: "ee.Image", band: str, geom: "ee.Geometry",
     }
 
 
-def fetch_primary(year: int, month: int, geom: "ee.Geometry", cfg: dict) -> dict | None:
-    """Build a monthly mean from VNP46A2 daily, masking Mandatory_Quality_Flag != 0."""
+def fetch_primary(year: int, month: int, geom: "ee.Geometry", cfg: dict,
+                  min_days: int = 10) -> dict | None:
+    """Build a monthly mean from VNP46A2 daily, masking
+    Mandatory_Quality_Flag > 1. Returns None when fewer than `min_days`
+    daily images are available, forcing the caller to use the fallback
+    monthly composite. This handles the 2023-2024 VNP46A2 ingestion gap
+    where some months cover only a handful of days over Bolivia."""
     band = cfg["primary_band"]
     qband = cfg["primary_quality_band"]
     start = f"{year}-{month:02d}-01"
     ny, nm = _month_end(year, month)
     end = f"{ny}-{nm:02d}-01"
-    coll = ee.ImageCollection(cfg["primary_collection"]).filterDate(start, end)
-    if coll.size().getInfo() == 0:
+    coll = ee.ImageCollection(cfg["primary_collection"]).filterDate(start, end).filterBounds(geom)
+    n_days = coll.size().getInfo()
+    if n_days < min_days:
         return None
 
     def mask_quality(img: "ee.Image") -> "ee.Image":
@@ -92,7 +98,12 @@ def fetch_primary(year: int, month: int, geom: "ee.Geometry", cfg: dict) -> dict
         return img.select(band).updateMask(q.lte(1))
 
     monthly = coll.map(mask_quality).mean()
-    return _reduce_monthly_mean(monthly, band, geom, cfg, cfg["primary_collection"])
+    result = _reduce_monthly_mean(monthly, band, geom, cfg, cfg["primary_collection"])
+    if result and (result.get("n_valid_pixels") or 0) == 0:
+        return None
+    if result:
+        result["n_days_in_month"] = n_days
+    return result
 
 
 def fetch_fallback(year: int, month: int, geom: "ee.Geometry", cfg: dict) -> dict | None:

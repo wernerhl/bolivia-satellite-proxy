@@ -33,12 +33,17 @@ def viirs_composite(anomaly: pd.DataFrame, pop_by_city: dict[str, float]) -> pd.
     df["date"] = pd.to_datetime(df["date"])
     df = df.dropna(subset=["anomaly"])
 
-    # Z-score per city on baseline-period anomalies (pre-2020)
+    # Z-score per city. Center on the pre-2020 baseline (so the baseline
+    # period has mean ≈ 0 by construction), but scale by the full-sample
+    # sd: baseline residuals from the fitted linear trend have artificially
+    # small variance, so using baseline sd produces absurd post-2020
+    # z-scores. The spec's manipulation test cares about economic magnitude,
+    # which full-sample sd preserves.
     base = df[df["date"].dt.year < 2020]
-    stats = base.groupby("city")["anomaly"].agg(["mean", "std"]).rename(
-        columns={"mean": "mu", "std": "sd"}
-    )
-    df = df.merge(stats, left_on="city", right_index=True, how="left")
+    mu = base.groupby("city")["anomaly"].mean().rename("mu")
+    sd = df.groupby("city")["anomaly"].std(ddof=1).rename("sd")
+    df = df.merge(mu, left_on="city", right_index=True, how="left")
+    df = df.merge(sd, left_on="city", right_index=True, how="left")
     df["z"] = (df["anomaly"] - df["mu"]) / df["sd"]
 
     df["pop"] = df["city"].map(pop_by_city).fillna(0.0)

@@ -1,0 +1,13 @@
+[..] keeping 1573 pre-existing rows; refetching window 2023-01..2024-12
+[ok] la_paz_el_alto: 24 refetched
+[ok] santa_cruz: 24 refetched
+[ok] cochabamba: 24 refetched
+[ok] sucre: 24 refetched
+[ok] oruro: 24 refetched
+[ok] potosi: 24 refetched
+[ok] tarija: 24 refetched
+[ok] trinidad: 24 refetched
+[ok] cobija: 24 refetched
+[ok] montero: 24 refetched
+[ok] yacuiba: 24 refetched
+[ok] wrote /Users/whl/Documents/whl.BoliviaSatellite/data/satellite/viirs_sol_monthly.csv (1837 rows total)

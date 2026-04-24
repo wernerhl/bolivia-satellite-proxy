@@ -20,37 +20,54 @@ from _common import abs_path, load_env, paths  # noqa: E402
 load_env()
 
 
-def linear_trend_coefs(df_base: pd.DataFrame) -> tuple[float, float]:
-    """Fit log(SOL) ~ a + b*t on baseline. `t` is month index from start."""
-    t = np.arange(len(df_base))
-    y = np.log(df_base["sol"].to_numpy())
-    b, a = np.polyfit(t, y, 1)
-    return a, b
-
-
 def per_city(df: pd.DataFrame, cfg: dict) -> pd.DataFrame:
     df = df.sort_values("date").copy()
     df["date"] = pd.to_datetime(df["date"])
     df = df[df["sol"].notna() & (df["sol"] > 0)]
+    # Drop months flagged as low-coverage (<50% valid pixels) — their
+    # radiance integrals are systematically biased downward by the mask.
+    if "low_coverage_flag" in df.columns:
+        df = df[~df["low_coverage_flag"].astype(bool)]
+
+    # VCMSLCFG (not BRDF-corrected) systematically reads ~25% lower than
+    # VNP46A2 over the same city. Estimate a per-city log-level shift from
+    # mean difference and add it to fallback rows. This is a crude
+    # alignment; a calibration scatter on overlap months would be more
+    # rigorous but we don't fetch both products for the same month.
+    if "source" in df.columns and df["source"].nunique() > 1:
+        primary = cfg["primary_collection"]
+        fallback = cfg["fallback_collection"]
+        log_sol = np.log(df["sol"])
+        mp = log_sol[df["source"] == primary].mean()
+        mf = log_sol[df["source"] == fallback].mean()
+        if np.isfinite(mp) and np.isfinite(mf):
+            shift = mp - mf
+            df.loc[df["source"] == fallback, "sol"] = (
+                df.loc[df["source"] == fallback, "sol"] * np.exp(shift)
+            )
 
     base_start = pd.Timestamp(cfg["baseline_start"])
     base_end = pd.Timestamp(cfg["baseline_end"])
-    base = df[(df["date"] >= base_start) & (df["date"] <= base_end)]
-    if len(base) < 48:
-        return df.assign(log_sol=np.nan, trend_extrap=np.nan,
-                         anomaly=np.nan, stl_sa=np.nan, stl_seasonal=np.nan)
+    if len(df) < 48 or df[df["date"].between(base_start, base_end)].shape[0] < 36:
+        return df.assign(log_sol=np.nan, trend_extrap=np.nan, anomaly=np.nan,
+                         stl_sa=np.nan, stl_seasonal=np.nan)
 
-    a, b = linear_trend_coefs(base)
-    # month index anchored to baseline_start
-    df["t_idx"] = ((df["date"].dt.year - base_start.year) * 12
-                   + (df["date"].dt.month - base_start.month))
     df["log_sol"] = np.log(df["sol"])
-    df["trend_extrap"] = a + b * df["t_idx"]
-    df["anomaly"] = df["log_sol"] - df["trend_extrap"]
 
+    # Robust STL on log(SOL) — removes wet-season seasonal structure.
     stl = STL(df.set_index("date")["log_sol"], period=12, robust=True).fit()
     df["stl_seasonal"] = stl.seasonal.values
-    df["stl_sa"] = (stl.trend + stl.resid).values
+    df["stl_sa"] = (stl.trend + stl.resid).values  # seasonally adjusted
+
+    # Linear trend of the SA series over baseline, extrapolated.
+    base = df[df["date"].between(base_start, base_end)]
+    t_base = np.arange(len(base))
+    slope, intercept = np.polyfit(t_base, base["stl_sa"].to_numpy(), 1)
+    # Anchor t=0 at base_start; extrapolate linearly.
+    df["t_idx"] = ((df["date"].dt.year - base_start.year) * 12
+                   + (df["date"].dt.month - base_start.month))
+    df["trend_extrap"] = intercept + slope * df["t_idx"]
+    df["anomaly"] = df["stl_sa"] - df["trend_extrap"]
     return df
 
 
