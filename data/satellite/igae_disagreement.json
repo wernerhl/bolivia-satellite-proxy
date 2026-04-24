@@ -1,6 +1,6 @@
 {
-  "latest_month": null,
-  "ci": null,
+  "latest_month": "2026-04-01 00:00:00",
+  "ci": -0.0902985652430379,
   "igae_z": null,
   "gap": null,
   "deviation_threshold_sigma": 1.5,

@@ -7,17 +7,13 @@
     ]
   },
   "test2_leadership_discontinuity": {
-    "status": "inputs_missing",
-    "needs": [
-      "ine_igae.csv OR ine_gdp_quarterly.csv"
-    ]
+    "status": "insufficient_n",
+    "n": 0,
+    "frequency": "quarterly_gdp"
   },
   "test3_external_forecaster_residual": {
-    "status": "inputs_missing",
-    "needs": [
-      "ine_gdp_quarterly.csv (date,gdp_real)",
-      "external_forecasters.csv (year,imf,wb,oxford,snp)"
-    ]
+    "status": "insufficient_n",
+    "n": 5
   },
   "ladder_summary": {
     "layer_rejections": {

@@ -32,7 +32,12 @@ from _common import abs_path, load_env  # noqa: E402
 load_env()
 
 
-PAPER = abs_path("paper/fires_lights_smog.tex")
+import os
+
+# Versioned paper file. Default target is the latest version (v2); override via
+# PAPER_VERSION env var for historical re-renders.
+_VERSION = os.environ.get("PAPER_VERSION", "v2")
+PAPER = abs_path(f"paper/fires_lights_smog_{_VERSION}.tex")
 
 
 def _safe(p: Path) -> dict:
@@ -93,30 +98,56 @@ def body_elasticities() -> str:
     return "\n".join(lines + parts)
 
 
+def _any_dfm_ok() -> bool:
+    """Either the single-factor DFM or the two-factor block-DFM is usable."""
+    for fn in ("data/satellite/dfm_twofactor_result.json",
+               "data/satellite/dfm_result.json"):
+        if _safe(abs_path(fn)).get("status") == "ok":
+            return True
+    return False
+
+
 def _tbd_fig_or_real(fig_path: str, caption: str, label: str) -> str:
-    """Render a figure if all required inputs are non-empty; otherwise a TBD box."""
-    fig_abs = abs_path(fig_path)
-    dfm = _safe(abs_path("data/satellite/dfm_result.json"))
-    if fig_abs.exists() and dfm.get("status") == "ok":
+    """Render a figure if all required inputs are non-empty; otherwise a TBD box.
+
+    `fig_path` is relative to paper/ (the tex file's cwd at compile time);
+    we check existence under paper/ but emit the path as-is so pdflatex
+    resolves it."""
+    fig_abs = abs_path(f"paper/{fig_path}")
+    if fig_abs.exists() and _any_dfm_ok():
         return (rf"\begin{{figure}}[H]\centering\includegraphics[width=0.95\linewidth]"
                 rf"{{{fig_path}}}\caption{{{caption}}}\label{{{label}}}\end{{figure}}")
     return rf"\tbdline{{figure to be inserted after empirical estimation ({label})}}"
 
 
 def body_composite() -> str:
-    dfm = _safe(abs_path("data/satellite/dfm_result.json"))
-    if dfm.get("status") != "ok":
+    two = _safe(abs_path("data/satellite/dfm_twofactor_result.json"))
+    single = _safe(abs_path("data/satellite/dfm_result.json"))
+    if two.get("status") == "ok":
+        blocks = two.get("blocks", [])
+        weights = two.get("weights", {})
+        wstr = ", ".join(f"{k}={v:.2f}" for k, v in weights.items())
+        summary = (rf"\claim{{Fit summary}} Two-factor DFM over blocks "
+                   rf"$\{{{', '.join(blocks)}\}}$ with GDP-share weights "
+                   rf"$\{{{wstr}\}}$, $n={two.get('n_obs','---')}$ monthly "
+                   rf"observations. Block factors are fit separately with "
+                   rf"AR(2) dynamics and AR(1) idiosyncratic innovations; "
+                   rf"when any block's EM fails we fall back to the "
+                   rf"\citet{{lewis_mertens_stock2022}} pre-specified weighted "
+                   rf"composite.")
+    elif single.get("status") == "ok":
+        summary = (rf"\claim{{Fit summary}} Single-factor DFM with AR(2) "
+                   rf"factor dynamics and idiosyncratic AR(1) innovations, "
+                   rf"log-likelihood ${_fmt(single['log_likelihood'],'{:.1f}')}$, "
+                   rf"$n={single['n_obs']}$ monthly observations.")
+    else:
         return (r"\tbdline{figure to be inserted after empirical estimation "
                 r"(fig:factor)}")
     return "\n".join([
         _tbd_fig_or_real("figures/factor_and_bbq.pdf",
                          "Satellite factor and Bry--Boschan turning points.",
                          "fig:factor_bbq"),
-        rf"\claim{{Fit summary}} Two-factor DFM (urban + extractive) "
-        rf"with AR(2) factor dynamics and idiosyncratic AR(1) innovations, "
-        rf"log-likelihood ${_fmt(dfm['log_likelihood'],'{:.1f}')}$, "
-        rf"$n={dfm['n_obs']}$ monthly observations. Loadings and factor-"
-        rf"decomposition variance shares in the replication archive.",
+        summary,
     ])
 
 
@@ -124,7 +155,7 @@ def body_dating() -> str:
     d = _safe(abs_path("data/satellite/recession_dating.json"))
     bbq = d.get("bbq", {})
     ms = d.get("markov_switching", {})
-    dfm_ok = _safe(abs_path("data/satellite/dfm_result.json")).get("status") == "ok"
+    dfm_ok = _any_dfm_ok()
     if not dfm_ok or bbq.get("status") != "ok":
         return (r"\tbdline{figure to be inserted after empirical estimation "
                 r"(fig:markov)}")
@@ -176,8 +207,7 @@ def body_manipulation() -> str:
 
 
 def body_channels() -> str:
-    dfm = _safe(abs_path("data/satellite/dfm_result.json"))
-    if dfm.get("status") != "ok":
+    if not _any_dfm_ok():
         return (r"\tbdline{Channel-decomposition table to be inserted after "
                 r"two-factor DFM estimation.}")
     return (r"\claim{Channel decomposition} Contribution of each stream to the "
@@ -186,19 +216,26 @@ def body_channels() -> str:
 
 
 def body_abstract_headline() -> str:
-    dfm = _safe(abs_path("data/satellite/dfm_result.json"))
+    """Pull the headline numbers from the best-available factor estimate
+    (two-factor first, single-factor fallback)."""
+    two = _safe(abs_path("data/satellite/dfm_twofactor_result.json"))
+    single = _safe(abs_path("data/satellite/dfm_result.json"))
     disag = _safe(abs_path("data/satellite/igae_disagreement.json"))
-    if dfm.get("status") == "ok" and dfm.get("factor_z"):
-        f = dfm["factor_z"]
-        idx = dfm["factor_index"]
-        lo = min(f); lo_m = idx[f.index(lo)]
-        latest = f[-1]; latest_m = idx[-1]
-        gap = disag.get("gap")
-        return (rf"Headline: the satellite factor bottoms at $z={_fmt(lo)}$ "
-                rf"in {lo_m[:7]}; latest ({latest_m[:7]}) at $z={_fmt(latest)}$. "
-                + (rf"Residual vs INE IGAE: ${_fmt(gap,'{:.2f}')}\sigma$."
-                   if gap is not None else ""))
-    return ""
+
+    idx = factor = None
+    if two.get("status") == "ok" and two.get("composite_z"):
+        idx = two["factor_index"]; factor = two["composite_z"]
+    elif single.get("status") == "ok" and single.get("factor_z"):
+        idx = single["factor_index"]; factor = single["factor_z"]
+    if idx is None:
+        return ""
+    lo = min(factor); lo_m = idx[factor.index(lo)]
+    latest = factor[-1]; latest_m = idx[-1]
+    gap = disag.get("gap")
+    return (rf"Headline: the satellite factor bottoms at $z={_fmt(lo)}$ "
+            rf"in {lo_m[:7]}; latest ({latest_m[:7]}) at $z={_fmt(latest)}$. "
+            + (rf"Residual vs INE IGAE: ${_fmt(gap,'{:.2f}')}\sigma$."
+               if gap is not None else ""))
 
 
 def main() -> None:

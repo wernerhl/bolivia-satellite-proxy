@@ -36,13 +36,24 @@ def _pagella() -> None:
 
 
 def load_factor_df() -> pd.DataFrame:
+    """Prefer two-factor DFM composite; fall back to single-factor; then CI."""
     p = paths()
+    two = abs_path("data/satellite/dfm_twofactor_result.json")
+    if two.exists():
+        d = json.loads(two.read_text())
+        if d.get("status") == "ok" and d.get("composite_z"):
+            return pd.DataFrame({
+                "date": pd.to_datetime(d["factor_index"]),
+                "factor": d["composite_z"],
+            })
     dfm = abs_path("data/satellite/dfm_result.json")
-    if dfm.exists() and (d := json.loads(dfm.read_text())).get("status") == "ok":
-        return pd.DataFrame({
-            "date": pd.to_datetime(d["factor_index"]),
-            "factor": d["factor_z"],
-        })
+    if dfm.exists():
+        d = json.loads(dfm.read_text())
+        if d.get("status") == "ok":
+            return pd.DataFrame({
+                "date": pd.to_datetime(d["factor_index"]),
+                "factor": d["factor_z"],
+            })
     ci = pd.read_csv(abs_path(p["data"]["ci"]), parse_dates=["date"])
     return ci.rename(columns={"ci": "factor"})[["date", "factor"]].dropna()
 

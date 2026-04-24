@@ -1,8 +1,8 @@
 {
-  "vintage": "2026-04-24T16:35:08+00:00",
+  "vintage": "2026-04-24T17:09:15+00:00",
   "project": "bolivia-satellite-proxy",
   "git": {
-    "commit": "35bfd486f00b82b4cacc1a92b8f4f239befdf642",
+    "commit": "3ff845bef952c5827ef681db5d105672048bc5a2",
     "branch": "main",
     "dirty": true
   },
@@ -59,8 +59,8 @@
       "source_csv": "data/satellite/bolivia_satellite_ci.csv",
       "parquet": "outputs/zenodo/ci.parquet",
       "rows": 169,
-      "cols": 5,
-      "sha256": "fbbc845262effb19398564a352047db928c1a820e51691734a57d9c84ba61746"
+      "cols": 6,
+      "sha256": "02891bc8eb749cff8d0b94171529b47d8a84301c65c859478cd5e35c793e007a"
     },
     "official_igae": {
       "status": "not_fetched"
@@ -72,13 +72,21 @@
       "status": "not_fetched"
     },
     "official_ypfb": {
-      "status": "not_fetched"
+      "source_csv": "data/official/ypfb_hydrocarbons.csv",
+      "parquet": "outputs/zenodo/official_ypfb.parquet",
+      "rows": 240,
+      "cols": 2,
+      "sha256": "c01426fe7a839a7d454b189d3006ebe916e02513d71e0a05ffb5038ab8230d2a"
     },
     "official_sin": {
       "status": "not_fetched"
     },
     "official_aduana": {
-      "status": "not_fetched"
+      "source_csv": "data/official/aduana_imports.csv",
+      "parquet": "outputs/zenodo/official_aduana.parquet",
+      "rows": 26,
+      "cols": 5,
+      "sha256": "8bc2cbb1b02bedd6a9c8012aa609b0cb56e52639eb13ccc79ae2729582d53b29"
     },
     "wb_ggfr_country": {
       "source_csv": "data/official/wb_ggfr_bolivia_annual.csv",
@@ -98,19 +106,19 @@
   "results_json": {
     "data/satellite/dfm_result.json": {
       "copied_to": "outputs/zenodo/dfm_result.json",
-      "sha256": "b838b51ec42eea0aeeeb545b314564cd58b03af9e466ba51926f66f6065320b6"
+      "sha256": "cb2a84fa8bd7f2c904904e8bb402323330d2d6e9b2f8db3607d32c4144f83ce4"
     },
     "data/satellite/dfm_twofactor_result.json": {
       "copied_to": "outputs/zenodo/dfm_twofactor_result.json",
-      "sha256": "7df70535e2e0b0620b3f00f33d82550c1269c21e32b5d73c7c7059c657de0cf3"
+      "sha256": "d2d86945f7acc4ca6b0d300de2d815d8409dd328418c2b4058197a3c61aaac03"
     },
     "data/satellite/recession_dating.json": {
       "copied_to": "outputs/zenodo/recession_dating.json",
-      "sha256": "6998c9249ed79d1473757f37e772b328ef8bf4af0d274526ad4525a47bc26711"
+      "sha256": "7202ad9e0efcdc5493789a735e8d9f74f74e45646b69af89d18f8ec2fbaa8a98"
     },
     "data/satellite/manipulation_tests.json": {
       "copied_to": "outputs/zenodo/manipulation_tests.json",
-      "sha256": "d8e74052ec04b5d4328de83e98211b7bfdc9d529b6e06c18bdebb66a016b61a2"
+      "sha256": "0cc4d3efe72341260e7e898f7b5184c595e1d7052f0bbc068026b11a792bb8be"
     },
     "data/satellite/vnf_calibration_field.json": {
       "copied_to": "outputs/zenodo/vnf_calibration_field.json",
