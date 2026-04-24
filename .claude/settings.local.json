@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:daac.ornl.gov)",
+      "WebFetch(domain:developers.google.com)",
+      "WebFetch(domain:www.worldbank.org)"
+    ]
+  }
+}

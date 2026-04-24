@@ -56,6 +56,9 @@ Satellite-only coincident index: \textbf{%(ci)s}. Direction: \textbf{%(dir)s}.
 \section*{Manipulation-flag status}
 %(manip_status)s
 
+\section*{World Bank GGFR cross-check}
+%(wb_crosscheck)s
+
 \section*{Known data issues}
 \begin{itemize}
   \item VIIRS VNP46A3 has a two-month publication lag; current month is never reported.
@@ -103,6 +106,25 @@ def main() -> None:
         if not no2.empty else False
     )
 
+    wb_path = abs_path(p["data"]["vnf_wb_crosscheck"])
+    if wb_path.exists():
+        wb = json.loads(wb_path.read_text())
+        if wb.get("status") == "ok":
+            wb_crosscheck = (
+                f"Annual $\\Sigma \\mathrm{{RH}}_\\mathrm{{Chaco}}$ vs World Bank "
+                f"GGFR Bolivia flare volume (2012--latest, $n={wb['n_years']}$): "
+                f"log-log correlation $={wb['corr_log_log']:.2f}$, "
+                f"elasticity $\\hat\\beta={wb['elasticity_beta']:+.2f}$. "
+                + ("\\textbf{Methodology-review flag active}: |rel.\\ residual| $>$ 0.25 "
+                   "for two consecutive recent years."
+                   if wb.get("flag_methodology_review") else
+                   "Residuals within $\\pm 25\\%$.")
+            )
+        else:
+            wb_crosscheck = f"WB GGFR cross-check pending ({wb.get('status')})."
+    else:
+        wb_crosscheck = "WB GGFR cross-check not yet run."
+
     bench_path = abs_path("data/satellite/benchmark_ine.json")
     if bench_path.exists():
         b = json.loads(bench_path.read_text())
@@ -134,6 +156,7 @@ def main() -> None:
         "fig_ci": str(abs_path(p["outputs"]["fig_ci"])),
         "cross_check": cross_check,
         "manip_status": manip_status,
+        "wb_crosscheck": wb_crosscheck,
     }
 
     out_path = abs_path(p["outputs"]["monthly_tex"])

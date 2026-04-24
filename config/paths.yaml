@@ -60,6 +60,14 @@ data:
   official_ypfb: "data/official/ypfb_hydrocarbons.csv"
   official_sin: "data/official/sin_tax.csv"
   official_aduana: "data/official/aduana_imports.csv"
+  wb_ggfr_country: "data/official/wb_ggfr_bolivia_annual.csv"
+  wb_ggfr_flares: "data/official/wb_ggfr_bolivia_flares.csv"
+  vnf_wb_crosscheck: "data/satellite/vnf_wb_crosscheck.json"
+
+wb_ggfr:
+  country_xlsx_url: "https://thedocs.worldbank.org/en/doc/bd2432bbb0e514986f382f61b14b2608-0400072025/related/Flare-volume-and-intensity-estimates-2012-2024.xlsx"
+  flares_xlsx_url: "https://thedocs.worldbank.org/en/doc/bd2432bbb0e514986f382f61b14b2608-0400072025/related/2012-2024-Flare-Volume-Estimates-by-individual-Flare-Location.xlsx"
+  country_name: "Bolivia"
 
 outputs:
   brief: "outputs/satellite_bolivia_brief.md"

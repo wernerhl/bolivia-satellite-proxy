@@ -23,6 +23,7 @@ fetch:
 	$(PY) src/00_fetch/fetch_viirs_sol.py
 	$(PY) src/00_fetch/fetch_vnf.py
 	$(PY) src/00_fetch/fetch_s5p_no2.py
+	$(PY) src/00_fetch/fetch_wb_ggfr.py
 
 process:
 	$(PY) src/01_process/vnf_attribute.py
@@ -30,6 +31,7 @@ process:
 anomaly:
 	$(PY) src/02_anomaly/viirs_anomaly.py
 	$(PY) src/02_anomaly/vnf_calibration.py
+	$(PY) src/02_anomaly/vnf_wb_crosscheck.py
 	$(PY) src/02_anomaly/s5p_anomaly.py
 
 index:
