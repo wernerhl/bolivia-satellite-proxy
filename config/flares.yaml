@@ -1,0 +1,38 @@
+# VNF Chaco gas flare inventory. Attribution radius 2 km; unassigned -> other_chaco.
+bbox: [-64.5, -22.5, -62.5, -20.0]   # [minLon, minLat, maxLon, maxLat]
+fields:
+  - name: margarita
+    operator: Repsol
+    lat: -21.250
+    lon: -63.550
+    notes: "Megafield, high baseline flaring"
+  - name: huacaya
+    operator: Repsol
+    lat: -21.080
+    lon: -63.720
+    notes: "Associated with Margarita"
+  - name: san_alberto
+    operator: Petrobras/YPFB
+    lat: -21.320
+    lon: -63.730
+    notes: "Mature, declining"
+  - name: sabalo
+    operator: Petrobras/YPFB
+    lat: -21.280
+    lon: -63.730
+    notes: "Mature, declining"
+  - name: incahuasi
+    operator: TotalEnergies
+    lat: -20.580
+    lon: -63.720
+    notes: "Newer, post-2016"
+  - name: aquio
+    operator: TotalEnergies
+    lat: -20.530
+    lon: -63.770
+    notes: "Newer"
+  - name: itau
+    operator: TotalEnergies/YPFB
+    lat: -22.050
+    lon: -63.850
+    notes: "Southern Chaco"

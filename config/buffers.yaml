@@ -1,0 +1,69 @@
+# VIIRS DNB urban buffers — circular, WGS84 EPSG:4326.
+# Populations from INE 2024 census projections (used as weights in CI aggregation).
+cities:
+  - name: la_paz_el_alto
+    label: "La Paz–El Alto"
+    lat: -16.500
+    lon: -68.150
+    radius_km: 20
+    population: 1800000
+  - name: santa_cruz
+    label: "Santa Cruz de la Sierra"
+    lat: -17.784
+    lon: -63.180
+    radius_km: 25
+    population: 1900000
+  - name: cochabamba
+    label: "Cochabamba"
+    lat: -17.394
+    lon: -66.157
+    radius_km: 15
+    population: 700000
+  - name: sucre
+    label: "Sucre"
+    lat: -19.033
+    lon: -65.263
+    radius_km: 8
+    population: 300000
+  - name: oruro
+    label: "Oruro"
+    lat: -17.970
+    lon: -67.112
+    radius_km: 7
+    population: 270000
+  - name: potosi
+    label: "Potosí"
+    lat: -19.583
+    lon: -65.753
+    radius_km: 6
+    population: 190000
+  - name: tarija
+    label: "Tarija"
+    lat: -21.534
+    lon: -64.729
+    radius_km: 8
+    population: 230000
+  - name: trinidad
+    label: "Trinidad"
+    lat: -14.832
+    lon: -64.903
+    radius_km: 5
+    population: 130000
+  - name: cobija
+    label: "Cobija"
+    lat: -11.028
+    lon: -68.768
+    radius_km: 4
+    population: 65000
+  - name: montero
+    label: "Montero"
+    lat: -17.339
+    lon: -63.253
+    radius_km: 6
+    population: 140000
+  - name: yacuiba
+    label: "Yacuiba"
+    lat: -22.017
+    lon: -63.685
+    radius_km: 5
+    population: 100000

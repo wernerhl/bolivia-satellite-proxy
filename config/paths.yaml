@@ -1,0 +1,80 @@
+project:
+  name: bolivia-satellite-proxy
+  country_iso3: BOL
+  seed: 20260424
+  tz: America/La_Paz
+
+# Shared infra — Haiti GCP project + bucket; Bolivia lives under /bolivia/.
+infra:
+  gee_project: haiti-poverty-monitoring
+  gcs_bucket: haiti-sae-2026
+  gcs_prefix: bolivia
+
+streams:
+  viirs_sol:
+    primary_collection: "NOAA/VIIRS/001/VNP46A3"
+    primary_band: "AllAngle_Composite_Snow_Free"
+    fallback_collection: "NOAA/VIIRS/DNB/MONTHLY_V1"
+    fallback_band: "avg_rad"
+    start: "2012-04"
+    baseline_start: "2013-01"
+    baseline_end: "2019-12"
+    mask_low: 0.5
+    mask_high: 200.0
+    scale_m: 500
+    gcs_prefix: "bolivia/viirs_sol"
+  vnf:
+    api_base: "https://eogdata.mines.edu/api/v1/vnf"
+    bbox: [-64.5, -22.5, -62.5, -20.0]   # [minLon, minLat, maxLon, maxLat]
+    temp_bb_min: 1400
+    cloud_mask_accept: [0]
+    attribution_radius_km: 2.0
+    discard_sw_lat: -22.3
+    discard_sw_lon: -64.2
+    start: "2012-04-01"
+  s5p_no2:
+    collection: "COPERNICUS/S5P/OFFL/L3_NO2"
+    band: "tropospheric_NO2_column_number_density"
+    qa_min: 0.75
+    start: "2018-07"
+    baseline_start: "2019-01"
+    baseline_end: "2019-12"
+    min_valid_days_per_month: 15
+    subsidy_break: "2025-12-01"
+
+data:
+  raw_viirs: "data/satellite/viirs_raw"
+  raw_vnf: "data/satellite/vnf_raw"
+  raw_s5p: "data/satellite/s5p_raw"
+  viirs_sol_monthly: "data/satellite/viirs_sol_monthly.csv"
+  viirs_sol_anomaly: "data/satellite/viirs_sol_anomaly.csv"
+  vnf_monthly: "data/satellite/vnf_chaco_monthly.csv"
+  vnf_anomaly: "data/satellite/vnf_chaco_anomaly.csv"
+  s5p_monthly: "data/satellite/s5p_no2_monthly.csv"
+  s5p_anomaly: "data/satellite/s5p_no2_anomaly.csv"
+  ci: "data/satellite/bolivia_satellite_ci.csv"
+  ci_db: "data/satellite/bolivia_satellite_ci.duckdb"
+  official_igae: "data/official/ine_igae.csv"
+  official_cement: "data/official/ibch_cement.csv"
+  official_cndc: "data/official/cndc_electricity.csv"
+  official_ypfb: "data/official/ypfb_hydrocarbons.csv"
+  official_sin: "data/official/sin_tax.csv"
+  official_aduana: "data/official/aduana_imports.csv"
+
+outputs:
+  brief: "outputs/satellite_bolivia_brief.md"
+  monthly_tex: "outputs/satellite_bolivia_monthly_report.tex"
+  figures: "outputs/figures"
+  fig_ci: "outputs/figures/satellite_ci.pdf"
+  fig_vnf_cal: "outputs/figures/vnf_chaco_vs_ypfb.pdf"
+  fig_no2: "outputs/figures/no2_metros.pdf"
+  social_post: "outputs/social_post.txt"
+
+# La Linterna palette
+palette:
+  positive: "#1F6F73"   # teal
+  negative: "#A13D2D"   # rust
+  neutral:  "#3B4A54"   # slate
+
+typography:
+  family: "TeX Gyre Pagella"

@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+.env
+data/satellite/vnf_raw/
+outputs/figures/*.pdf
+outputs/*.md
+outputs/*.tex
+outputs/build/
+.DS_Store
+
+# Signed license agreements — keep local
+*license*.pdf
+*License*.pdf
+VNF_academic_license_agreement_*.pdf
+

@@ -1,0 +1,51 @@
+"""Stream 3 — S5P NO₂ multiplicative anomaly against 2019 month-of-year baseline.
+
+Adds a z-score against the 2019 month distribution and flags the December
+2025 fuel-subsidy structural break (no smoothing across it).
+"""
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from _common import abs_path, load_env, paths  # noqa: E402
+
+load_env()
+
+
+def main() -> None:
+    p = paths()
+    cfg = p["streams"]["s5p_no2"]
+    monthly = pd.read_csv(abs_path(p["data"]["s5p_monthly"]), parse_dates=["date"])
+    monthly = monthly.dropna(subset=["no2_tropos_col_mol_m2"]).copy()
+    monthly["month_of_year"] = monthly["date"].dt.month
+
+    base_start = pd.Timestamp(cfg["baseline_start"])
+    base_end = pd.Timestamp(cfg["baseline_end"])
+    subsidy_break = pd.Timestamp(cfg["subsidy_break"])
+
+    base = monthly[(monthly["date"] >= base_start) & (monthly["date"] <= base_end)]
+    baseline = base.groupby(["roi", "month_of_year"])["no2_tropos_col_mol_m2"].agg(
+        base_mean="mean", base_sd="std"
+    ).reset_index()
+
+    df = monthly.merge(baseline, on=["roi", "month_of_year"], how="left")
+    df["anomaly_mult"] = df["no2_tropos_col_mol_m2"] / df["base_mean"] - 1
+    df["z_vs_2019"] = (df["no2_tropos_col_mol_m2"] - df["base_mean"]) / df["base_sd"]
+    df["post_subsidy_break"] = df["date"] >= subsidy_break
+    df["volcanic_flag"] = (
+        (df["roi"] == "la_paz_el_alto")
+        & (df["no2_tropos_col_mol_m2"] > 5 * df["base_mean"])
+    )
+
+    out_path = abs_path(p["data"]["s5p_anomaly"])
+    df.to_csv(out_path, index=False)
+    print(f"[ok] wrote {out_path} ({len(df)} rows)")
+
+
+if __name__ == "__main__":
+    main()
