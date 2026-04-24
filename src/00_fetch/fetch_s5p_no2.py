@@ -11,6 +11,7 @@ import sys
 from datetime import date, timedelta
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
@@ -87,14 +88,40 @@ def main() -> None:
     daily["date"] = pd.to_datetime(daily["date"])
     daily = daily.dropna(subset=["no2"])
 
-    # Monthly: require n_valid_days >= cfg.min_valid_days_per_month
+    # Monday-anchored 7-day rolling mean per ROI (spec §Stream 3 step 2).
+    # Bucket each date to the week starting on the prior Monday, then
+    # mean within that week.
+    daily["week_monday"] = (daily["date"]
+                            - pd.to_timedelta(daily["date"].dt.weekday, unit="D"))
+    weekly = daily.groupby(["week_monday", "roi"], as_index=False).agg(
+        no2_weekly=("no2", "mean"),
+        n_week_days=("no2", "count"),
+    )
+    weekly.to_csv(raw_dir / "weekly_monday_anchored.csv", index=False)
+
+    # Monthly from the weekly series, weighted by days present per week
+    weekly["month"] = weekly["week_monday"].dt.to_period("M").dt.to_timestamp()
+    weekly["weighted"] = weekly["no2_weekly"] * weekly["n_week_days"]
+
+    def _month_agg(g: pd.DataFrame) -> pd.Series:
+        total_days = g["n_week_days"].sum()
+        mean = g["weighted"].sum() / total_days if total_days > 0 else np.nan
+        # Re-derive sd from daily points (daily stats are authoritative)
+        return pd.Series({
+            "no2_tropos_col_mol_m2": mean,
+            "n_valid_days": int(total_days),
+        })
+
+    monthly = weekly.groupby(["month", "roi"]).apply(_month_agg, include_groups=False).reset_index()
+    monthly = monthly.rename(columns={"month": "date"})
+
+    # Pull sd from raw daily for consistency
     daily["month"] = daily["date"].dt.to_period("M").dt.to_timestamp()
-    grp = daily.groupby(["month", "roi"])
-    monthly = grp.agg(
-        no2_tropos_col_mol_m2=("no2", "mean"),
-        sd=("no2", "std"),
-        n_valid_days=("no2", "count"),
-    ).reset_index().rename(columns={"month": "date"})
+    sd = daily.groupby(["month", "roi"], as_index=False)["no2"].std(ddof=1).rename(
+        columns={"no2": "sd", "month": "date"}
+    )
+    monthly = monthly.merge(sd, on=["date", "roi"], how="left")
+
     monthly.loc[monthly["n_valid_days"] < cfg["min_valid_days_per_month"],
                 ["no2_tropos_col_mol_m2", "sd"]] = pd.NA
 

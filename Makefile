@@ -38,6 +38,7 @@ index:
 	$(PY) src/03_index/build_ci.py
 	$(PY) src/03_index/benchmark_ine.py
 	$(PY) src/03_index/igae_disagreement.py
+	$(PY) src/03_index/pipeline_alerts.py
 	$(PY) src/03_index/export_for_dfm.py
 
 publish:

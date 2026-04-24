@@ -49,6 +49,35 @@ def month_iter(start: str, end_inclusive: str):
         y, m = _month_end(y, m)
 
 
+def _reduce(img: "ee.Image", band: str, geom: "ee.Geometry", cfg: dict,
+            source_name: str) -> dict:
+    masked = img.updateMask(img.gte(cfg["mask_low"]).And(img.lte(cfg["mask_high"])))
+    # Pre-mask count (total pixels in buffer where the band has any value)
+    all_pix = img.reduceRegion(
+        reducer=ee.Reducer.count(),
+        geometry=geom, scale=cfg["scale_m"], maxPixels=int(1e10), bestEffort=True,
+    ).getInfo().get(band)
+    red = masked.reduceRegion(
+        reducer=ee.Reducer.sum()
+        .combine(ee.Reducer.mean(), sharedInputs=True)
+        .combine(ee.Reducer.median(), sharedInputs=True)
+        .combine(ee.Reducer.count(), sharedInputs=True),
+        geometry=geom, scale=cfg["scale_m"], maxPixels=int(1e10), bestEffort=True,
+    ).getInfo()
+    n_valid = red.get(f"{band}_count") or 0
+    n_total = all_pix or 0
+    n_masked = max(0, n_total - n_valid) if n_total else None
+    return {
+        "source": source_name,
+        "sol": red.get(f"{band}_sum"),
+        "mean_rad": red.get(f"{band}_mean"),
+        "median_rad": red.get(f"{band}_median"),
+        "n_valid_pixels": n_valid,
+        "n_total_pixels": n_total,
+        "n_masked": n_masked,
+    }
+
+
 def fetch_primary(year: int, month: int, geom: "ee.Geometry", cfg: dict) -> dict | None:
     coll = (
         ee.ImageCollection(cfg["primary_collection"])
@@ -56,29 +85,10 @@ def fetch_primary(year: int, month: int, geom: "ee.Geometry", cfg: dict) -> dict
         .filterDate(f"{year}-{month:02d}-01", f"{_month_end(year, month)[0]}-"
                                               f"{_month_end(year, month)[1]:02d}-01")
     )
-    n = coll.size().getInfo()
-    if n == 0:
+    if coll.size().getInfo() == 0:
         return None
-    img = coll.first()
-    masked = img.updateMask(img.gte(cfg["mask_low"]).And(img.lte(cfg["mask_high"])))
-    red = masked.reduceRegion(
-        reducer=ee.Reducer.sum()
-        .combine(ee.Reducer.mean(), sharedInputs=True)
-        .combine(ee.Reducer.median(), sharedInputs=True)
-        .combine(ee.Reducer.count(), sharedInputs=True),
-        geometry=geom,
-        scale=cfg["scale_m"],
-        maxPixels=int(1e10),
-        bestEffort=True,
-    ).getInfo()
-    band = cfg["primary_band"]
-    return {
-        "source": cfg["primary_collection"],
-        "sol": red.get(f"{band}_sum"),
-        "mean_rad": red.get(f"{band}_mean"),
-        "median_rad": red.get(f"{band}_median"),
-        "n_valid_pixels": red.get(f"{band}_count"),
-    }
+    return _reduce(coll.first(), cfg["primary_band"], geom, cfg,
+                   cfg["primary_collection"])
 
 
 def fetch_fallback(year: int, month: int, geom: "ee.Geometry", cfg: dict) -> dict | None:
@@ -90,26 +100,8 @@ def fetch_fallback(year: int, month: int, geom: "ee.Geometry", cfg: dict) -> dic
     )
     if coll.size().getInfo() == 0:
         return None
-    img = coll.first()
-    masked = img.updateMask(img.gte(cfg["mask_low"]).And(img.lte(cfg["mask_high"])))
-    red = masked.reduceRegion(
-        reducer=ee.Reducer.sum()
-        .combine(ee.Reducer.mean(), sharedInputs=True)
-        .combine(ee.Reducer.median(), sharedInputs=True)
-        .combine(ee.Reducer.count(), sharedInputs=True),
-        geometry=geom,
-        scale=cfg["scale_m"],
-        maxPixels=int(1e10),
-        bestEffort=True,
-    ).getInfo()
-    band = cfg["fallback_band"]
-    return {
-        "source": cfg["fallback_collection"],
-        "sol": red.get(f"{band}_sum"),
-        "mean_rad": red.get(f"{band}_mean"),
-        "median_rad": red.get(f"{band}_median"),
-        "n_valid_pixels": red.get(f"{band}_count"),
-    }
+    return _reduce(coll.first(), cfg["fallback_band"], geom, cfg,
+                   cfg["fallback_collection"])
 
 
 def main() -> None:
@@ -138,14 +130,19 @@ def main() -> None:
                     "n_masked": None, "source": "missing",
                 })
                 continue
+            n_valid = r.get("n_valid_pixels") or 0
+            n_total = r.get("n_total_pixels") or 0
+            low_cov = bool(n_total and (n_valid / n_total) < 0.50)
             rows.append({
                 "date": date_str,
                 "city": city["name"],
                 "sol": r["sol"],
-                "n_valid_pixels": r["n_valid_pixels"],
+                "n_valid_pixels": n_valid,
+                "n_total_pixels": n_total,
                 "mean_rad": r["mean_rad"],
                 "median_rad": r["median_rad"],
-                "n_masked": None,
+                "n_masked": r.get("n_masked"),
+                "low_coverage_flag": low_cov,
                 "source": r["source"],
             })
             time.sleep(0.05)
