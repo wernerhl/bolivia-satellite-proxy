@@ -1,8 +1,8 @@
 {
-  "vintage": "2026-04-24T11:41:35+00:00",
-  "n_rows": 0,
-  "date_min": null,
-  "date_max": null,
+  "vintage": "2026-04-24T11:52:47+00:00",
+  "n_rows": 94,
+  "date_min": "2018-07-01 00:00:00",
+  "date_max": "2026-04-01 00:00:00",
   "columns": {
     "date": "month-start timestamp, UTC",
     "viirs_z": "population-weighted mean of per-city log-SOL z-scores (11 city buffers)",

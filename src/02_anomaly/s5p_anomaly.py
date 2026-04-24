@@ -38,13 +38,18 @@ def main() -> None:
     subsidy_break = pd.Timestamp(cfg["subsidy_break"])
 
     base = monthly[(monthly["date"] >= base_start) & (monthly["date"] <= base_end)]
-    baseline = base.groupby(["roi", "month_of_year"])["no2_tropos_col_mol_m2"].agg(
-        base_mean="mean", base_sd="std"
-    ).reset_index()
+    # Month-of-year mean for seasonal adjustment; pooled sd across all baseline
+    # months for z-scoring (each month-of-year group has n=1 in a single
+    # baseline year so per-month sd would be NaN).
+    base_mean = base.groupby(["roi", "month_of_year"])["no2_tropos_col_mol_m2"].mean(
+        ).rename("base_mean").reset_index()
+    base_sd = base.groupby("roi")["no2_tropos_col_mol_m2"].std(ddof=1
+        ).rename("base_sd_pooled").reset_index()
 
-    df = monthly.merge(baseline, on=["roi", "month_of_year"], how="left")
+    df = monthly.merge(base_mean, on=["roi", "month_of_year"], how="left")
+    df = df.merge(base_sd, on="roi", how="left")
     df["anomaly_mult"] = df["no2_tropos_col_mol_m2"] / df["base_mean"] - 1
-    df["z_vs_2019"] = (df["no2_tropos_col_mol_m2"] - df["base_mean"]) / df["base_sd"]
+    df["z_vs_2019"] = (df["no2_tropos_col_mol_m2"] - df["base_mean"]) / df["base_sd_pooled"]
     df["post_subsidy_break"] = df["date"] >= subsidy_break
     df["volcanic_flag"] = (
         (df["roi"] == "la_paz_el_alto")

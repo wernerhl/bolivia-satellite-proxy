@@ -1,4 +1,4 @@
 {
-  "status": "insufficient_n",
-  "n": 0
+  "status": "fit_failed",
+  "error": "data contains non-finite values (inf, NaN). You should drop these values or\nuse one of the methods for adjusting data for missing-values."
 }
