@@ -56,11 +56,11 @@
 
 \begin{abstract}
 \noindent
-This paper constructs the first monthly coincident indicator of Bolivian real activity from four independent satellite streams --- VIIRS Day/Night Band nighttime radiance over eleven urban buffers, VIIRS Nightfire radiant heat over the six major Chaco gas fields, Sentinel-5P TROPOMI tropospheric nitrogen-dioxide columns over the La Paz--El Alto and Santa Cruz metropolitan areas, and Sentinel-2 NDVI over five Bolivian cropland zones --- covering approximately \num{78} percent of GDP. The four streams are combined through a two-factor dynamic factor model separating urban and extractive activity, with an auxiliary agricultural factor conditioning on NDVI. % BEGIN-AUTO-headline Headline: the satellite factor bottoms at $z=-2.08$ in 2024-03; latest (2026-04) at $z=-1.40$.  % END-AUTO-headline The indicator arrives at monthly frequency with a two-month publication lag, compared to a two- to three-month lag on quarterly GDP and a March 2028 expected date for twenty-four vintages of INE's new experimental IGAE. I apply the indicator to Bolivia's \numrange{2025}{2026} recession and demonstrate three manipulation-detection tests built around single-country sources of identification: sectoral triangulation across VIIRS Nightfire, YPFB-reported gas production, and INE hydrocarbon value added; a November 2025 INE-leadership discontinuity regression; and external-forecaster residual falsification.
+Bolivia's national statistics office reported a \num{-1.58} percent contraction of real GDP in 2025, with the Fund forecasting \num{-3.3} percent for 2026. The official numbers arrive quarterly, with substantial revision, and are published by an institution whose independence from the executive has been contested through two decades of commodity-cycle manipulation concerns. I read Bolivia's \numrange{2025}{2026} recession from orbit. Three independent satellite streams --- VIIRS Day/Night Band nighttime radiance over eleven urban buffers, VIIRS Nightfire radiant heat over the six major Chaco gas fields, and Sentinel-5P TROPOMI tropospheric nitrogen-dioxide columns over the La Paz--El Alto and Santa Cruz metropolitan areas --- are combined through a mixed-frequency dynamic factor model to produce a monthly coincident index of Bolivian real activity. The index provides a falsification test for the national accounts in the spirit of \citet{martinez2022}, extended along two dimensions: a direct physical proxy for the extractive sector and a direct physical proxy for urban combustion activity. % BEGIN-AUTO-headline Headline: the satellite factor bottoms at $z=-2.08$ in 2024-03; latest (2026-04) at $z=-1.40$.  % END-AUTO-headline The framework is general, the Bolivian application is first, and the data are all free.
 \vspace{0.5em}
 
-\noindent \textbf{JEL:} C32, C38, E01, E32, O11, O54, Q15, Q35, Q43. \\
-\noindent \textbf{Keywords:} nighttime lights, VIIRS, TROPOMI, NDVI, dynamic factor model, nowcasting, coincident indicator, GDP manipulation, Bolivia, natural gas, recession dating.
+\noindent \textbf{JEL:} C32, C38, E01, E32, O11, O54, Q35, Q43. \\
+\noindent \textbf{Keywords:} nighttime lights, VIIRS, TROPOMI, dynamic factor model, nowcasting, GDP manipulation, Bolivia, natural gas, recession dating.
 \end{abstract}
 
 \thispagestyle{empty}
@@ -76,13 +76,15 @@ This paper constructs the first monthly coincident indicator of Bolivian real ac
 
 \claim{The independence of Bolivia's statistical production is a first-order concern} INE's director is appointed by the executive. The \numrange{2014}{2023} commodity-cycle decade combined fiscal deficits above \num{10} percent of GDP, international reserves falling from \$\num{14} billion to \$\num{103} million, and a currency peg held nominally constant at \num{6.96} bolivianos per dollar while a parallel rate drifted to two and then three multiples of the official. Inflation in the official Consumer Price Index remained in single digits during 2023--2024 even as imported-goods shortages and fuel queues were binding. The Fund in its May 2025 Article~IV consultation called the policy mix ``unsustainable''; the ratings agencies downgraded sovereign debt to CCC$-$; the Fernald--Hsu--Spiegel (2021) manipulation prior, the Michalski--Stoltz (2013) fixed-regime-with-reserve-collapse prior, and the \citet{martinez2022} autocracy-residual prior all point the same way.
 
-\claim{Satellite observations of the Bolivian economy do not depend on INE} I build four monthly activity proxies, each sensitive to a different slice of real activity, each measured independently by an instrument that Bolivia does not operate and cannot touch. Nighttime radiance from the Visible Infrared Imaging Radiometer Suite (VIIRS) Day/Night Band over eleven Bolivian urban buffers proxies urban formal-sector activity and commerce, after Gibson et al. (2021) established that VIIRS dominates the older Defense Meteorological Satellite Program (DMSP) data at low and medium density. Radiant heat from VIIRS Nightfire (VNF) over the six major Chaco gas fields --- Margarita--Huacaya, San Alberto, Sábalo, Incahuasi, Aquio, and Itaú --- proxies upstream hydrocarbon activity after \citet{elvidge_vnf2013} and the \citet{do_etal2018} demonstration that VNF can invert radiant heat into volumetric measures under specific gas-chemistry conditions. Tropospheric nitrogen-dioxide columns from the TROPOspheric Monitoring Instrument (TROPOMI) on Sentinel-5P over La Paz--El Alto and Santa Cruz proxy the traffic and combustion signal of two metros that jointly account for approximately \num{40} percent of national value added (La Paz department \num{25} percent plus Santa Cruz department \num{31} percent, net of the periurban and rural components; INE 2024 departmental GDP). NDVI from Sentinel-2 over five cropland zones proxies agricultural activity, the single Bolivian sector expanding in 2025.
+\claim{Satellite observations of the Bolivian economy do not depend on INE} I build three monthly activity proxies, each sensitive to a different slice of real activity, each measured independently by an instrument that Bolivia does not operate and cannot touch. Nighttime radiance from the Visible Infrared Imaging Radiometer Suite (VIIRS) Day/Night Band over eleven Bolivian urban buffers proxies urban formal-sector activity and commerce, after Gibson et al. (2021) established that VIIRS dominates the older Defense Meteorological Satellite Program (DMSP) data at low and medium density. Radiant heat from VIIRS Nightfire (VNF) over the six major Chaco gas fields --- Margarita--Huacaya, San Alberto, Sábalo, Incahuasi, Aquio, and Itaú --- proxies upstream hydrocarbon activity after \citet{elvidge_vnf2013} and the \citet{do_etal2018} demonstration that VNF can invert radiant heat into barrels. Tropospheric nitrogen-dioxide columns from the TROPOspheric Monitoring Instrument (TROPOMI) on Sentinel-5P over La Paz--El Alto and Santa Cruz proxy the traffic and combustion signal of two metros that jointly account for roughly \tbdline{XX} percent of national value added.
 
-\claim{The four streams triangulate four dimensions of the recession} Nighttime lights are the established activity proxy of \citet{hsw2012}; they do not distinguish extractive from urban activity, and they do not see agriculture. Gas flares isolate the hydrocarbon channel, which matters unusually much in Bolivia because tax and foreign-exchange revenues concentrate there. Tropospheric NO$_2$ isolates the urban-combustion channel, which responds within weeks to mobility and industrial shocks and which, post-fuel-subsidy elimination in December 2025, is no longer contaminated by the smuggling arbitrage that made Bolivian fuel-sales data uninformative for a decade. NDVI isolates the agricultural channel, which is invisible to the first three. Jointly the four streams cover approximately \num{78} percent of GDP, leaving mainly non-tradeable services as the explicit blind spot.
+\claim{The three streams triangulate three dimensions of the recession} Nighttime lights are the established activity proxy of \citet{hsw2012}; they do not distinguish extractive from urban activity. Gas flares isolate the hydrocarbon channel, which matters unusually much in Bolivia because tax and foreign-exchange revenues concentrate there. Tropospheric NO$_2$ isolates the urban-combustion channel, which responds within weeks to mobility and industrial shocks and which, post-fuel-subsidy elimination in December 2025, is no longer contaminated by the smuggling arbitrage that made Bolivian fuel-sales data uninformative for a decade. Jointly the three streams test a hypothesis about the sectoral composition of the recession that INE's aggregates cannot reject because they are the object being tested.
 
-\claim{This paper makes two contributions} First, I build the first published satellite triangulation for a low-capacity statistical environment, combining four independent streams (VIIRS DNB, VIIRS Nightfire, Sentinel-5P NO${}_2$, and Sentinel-2 NDVI) into a monthly coincident indicator of goods-producing and tradeable-services activity covering approximately \num{78} percent of GDP. \citet{bolivar_cuba2024} nowcast INE's own quarterly GDP using machine-learning methods on INE inputs; this paper's design is distinct --- it cross-checks INE from outside rather than forecasts it from within. Second, I apply the indicator to Bolivia's \numrange{2025}{2026} recession, document the sectoral composition the national accounts cannot yet deliver at monthly frequency, and test three manipulation hypotheses built around a single-country discontinuity at the November 2025 INE leadership change, external-forecaster residuals, and VIIRS Nightfire--YPFB--INE sectoral triangulation.
+\claim{This paper makes four contributions} First, I provide the first published satellite-based cross-check of Bolivian national accounts; the country appears in regional Latin American nighttime-lights panels only as one observation among many. Second, I extend the \citet{martinez2022} manipulation-detection framework from a single-proxy autocracy-residual test to a three-proxy falsification suite, with the second and third streams (VNF, TROPOMI) providing a \emph{sectoral} test that the NTL residual alone cannot deliver. Third, I embed the three streams in a mixed-frequency dynamic factor model with the \citet{mariano_murasawa2003} aggregation identity and \citet{grs2008} news-decomposition machinery to produce a monthly coincident index that admits recession dating via \citet{harding_pagan2002} BBQ and regime probabilities via \citet{hamilton1989} Markov-switching. Fourth, the full pipeline is open-source and reproducible; the Bolivia Early Warning System dashboard (\texttt{wernerhl.github.io/bolivia-ews}) publishes the monthly index with a two-month lag.
 
-\claim{The remainder of the paper is organized as follows} Section~\ref{sec:context} documents Bolivia's \numrange{2014}{2026} macroeconomic deterioration and the institutional constraints on INE. Section~\ref{sec:data} describes the four satellite data streams, the spatial definitions, and the official series used for cross-validation. Section~\ref{sec:empirical} specifies the empirical framework --- single-series elasticities, the two-factor mixed-frequency DFM, and the three-test manipulation-detection ladder. Section~\ref{sec:results} \tbdline{reports the results}. Section~\ref{sec:robustness} \tbdline{reports robustness exercises}. Section~\ref{sec:conclusion} concludes.
+\claim{The stakes reach beyond Bolivia} The framework applies to any country with a weak statistical system, a concentrated extractive sector visible to night fires, and metropolitan areas large enough for TROPOMI resolution. Venezuela, Angola, Nigeria, Myanmar, Turkmenistan, and post-2021 Afghanistan all meet the description. The Bolivian case supplies the existence proof and the calibration.
+
+\claim{The remainder of the paper is organized as follows} Section~\ref{sec:context} documents Bolivia's \numrange{2014}{2026} macroeconomic deterioration and the institutional constraints on INE. Section~\ref{sec:data} describes the three satellite data streams, the spatial definitions, and the official series used for cross-validation. Section~\ref{sec:empirical} specifies the empirical framework --- single-series elasticities, the mixed-frequency DFM, and the manipulation-detection test. Section~\ref{sec:results} \tbdline{reports the results}. Section~\ref{sec:robustness} \tbdline{reports robustness exercises}. Section~\ref{sec:conclusion} concludes.
 
 % ============================================================
 \section{Institutional and macroeconomic context}
@@ -188,36 +190,6 @@ Cochabamba & $-17.300$ & $-66.300$ & $-17.500$ & $-66.050$ \\
 
 \claim{The TROPOMI series is short and the baseline is tight} The sensor became operational in July \num{2018}. The baseline period is calendar year \num{2019} --- the only full pre-COVID, pre-Bolivia-crisis year available --- which implies that month-of-year seasonal factors are point estimates with no standard error until additional clean years accumulate. I therefore weight TROPOMI at \num{0.20} in the composite rather than \num{0.30}, with the weights revisited annually. Cloud-contaminated months (fewer than fifteen valid days) are flagged and imputed through the DFM. Andean volcanic NO$_2$ from Sabancaya and Ubinas on the Peruvian side can contaminate La Paz retrievals and is flagged when monthly values exceed five times the baseline.
 
-\subsubsection{Sentinel-2 NDVI over Bolivian cropland}
-
-\claim{Agriculture expanded \num{12.19} percent year-on-year in Q4 \num{2025} and is invisible to the first three streams} An activity composite that misses the one expanding sector cannot claim to be a coincident indicator of real activity; it is a coincident indicator of contracting activity only. I close the gap with Sentinel-2 NDVI over five Bolivian cropland zones. Normalized Difference Vegetation Index, $\mathrm{NDVI} = (B_8 - B_4) / (B_8 + B_4)$, is the standard satellite vegetation-activity proxy of \citet{gao1996} and is widely used as a crop-yield forecaster since \citet{johnson_etal2014} and as a GPP proxy since \citet{donohue_etal2008}; \citet{donaldson_storeygard2016} review its use in economics.
-
-\claim{Five zones cover more than \num{90} percent of Bolivian agricultural value added} The zones are defined in Table~\ref{tab:ndvi_zones}, with departmental agricultural-GVA weights from the INE \num{2024} national accounts. I intersect each zone with the ESA WorldCover \num{2021} cropland mask (class \num{40}) and compute zone-monthly mean NDVI over the crop-masked pixels only, so non-crop land cover does not contaminate the signal.
-
-\begin{table}[H]
-\centering
-\caption{Sentinel-2 NDVI cropland zones, with indicative centroid, radius, and departmental agricultural-GVA weight from INE 2024 national accounts.}
-\label{tab:ndvi_zones}
-\small
-\begin{tabular}{lrrrr}
-\toprule
-Zone & Latitude & Longitude & Radius (km) & GVA weight \\
-\midrule
-Santa Cruz soy belt & $-17.15$ & $-62.50$ & \num{180} & \num{0.45} \\
-Beni cattle and rice & $-14.50$ & $-65.00$ & \num{150} & \num{0.15} \\
-Tarija Valle Central & $-21.55$ & $-64.75$ & \num{40} & \num{0.05} \\
-Chaco periphery & $-20.50$ & $-63.00$ & \num{120} & \num{0.10} \\
-Altiplano tubers and quinoa & $-19.00$ & $-67.00$ & \num{100} & \num{0.10} \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\claim{I splice Landsat-8 onto Sentinel-2 to recover the 2013--2016 baseline} Sentinel-2 Level-2A \texttt{COPERNICUS/S2\_SR\_HARMONIZED} is operational from March \num{2017}; I extend the series to January \num{2013} using Landsat-8 Collection 2 Level-2 surface reflectance \texttt{LANDSAT/LC08/C02/T1\_L2} with the \citet{roy_etal2016} cross-sensor NDVI harmonization coefficients ($\mathrm{NDVI}_{S2} = 1.00 \cdot \mathrm{NDVI}_{L8} + 0.01$). The deseasonalized anomaly is $(\mathrm{NDVI}_{zt} - \mu_{z,m}) / \sigma_z$, where $\mu_{z,m}$ is the zone-by-month-of-year mean on \numrange{2013}{2019} and $\sigma_z$ is the pooled-across-baseline standard deviation. Zones are weighted by departmental agricultural-GVA shares to form the agricultural composite.
-
-\subsubsection{Sectoral coverage and the remaining blind spot}
-
-\claim{The four streams cover approximately \num{78} percent of GDP} VIIRS DNB and TROPOMI NO$_2$ together proxy urban formal-sector activity and combustion (\num{55} percent of GDP). VNF proxies hydrocarbon extraction (\num{20} percent). NDVI proxies agriculture and related primary activity (\num{14} percent, net of small overlaps). The remaining \num{11} percent is largely non-tradeable services: health, education, public administration, domestic work. This is the paper's explicit blind spot, discussed in Section~\ref{sec:conclusion}.
-
 \subsection{Official series for cross-validation}
 
 \claim{Five INE, BCB, and sectoral series provide the ground truth to be tested} Quarterly GDP from INE, at \num{2017} constant prices; monthly IGAE from INE, from March \num{2026}; monthly cement dispatches from IBCH; monthly electricity generation from the Comité Nacional de Despacho de Carga (CNDC); monthly natural-gas production from YPFB; monthly IVA and IT tax collections from the Servicio de Impuestos Nacionales (SIN), deflated to \num{2018} base by INE's CPI; and monthly merchandise imports by volume and value from Aduana Nacional. Monetary execution --- CIN-SPNF, OMAs, reserves --- comes from the BCB's monthly \emph{Seguimiento al Programa Monetario}. The parallel exchange-rate premium comes from my own Bolivia Early Warning System dashboard, which aggregates Binance P2P USDT/BOB quotes at daily frequency.
@@ -283,20 +255,11 @@ which approximates the three-month geometric-mean aggregation of unobserved mont
 
 \subsection{Manipulation-detection test}
 
-\claim{\citet{martinez2022} identifies off 184 countries of regime variation} Bolivia supplies one. The cross-country identification is unavailable; the test must be redesigned around single-country sources of identification. I implement three tests, ordered as a ladder of evidence: the physical layer, the statistical layer, and the consensus layer. A rejection at all three is the strong claim; a rejection at the physical layer alone is the weak-but-publishable claim.
+\claim{The \citet{martinez2022} test compares the autocracy residual in an NTL--GDP regression to a democracy benchmark} The implementation is straightforward with country-level panel data and a binary regime variable. The Bolivian application cannot use the original specification because Bolivia is a single country; the test must be redesigned for a single-country falsification.
 
-\claim{Test 1 (physical layer) --- sectoral triangulation across VNF, YPFB, and INE} VIIRS Nightfire measures a physical, tamper-evident observation: the radiant heat emitted by the Chaco flares. YPFB reports gas production. INE reports hydrocarbon value added. In a no-manipulation world the three series must track each other up to operational noise. I estimate the log--log correlation of $\Sigma\,\mathrm{RH}$ against reported gas production and of gas production against INE hydrocarbon value added on the pre-crisis window (\numrange{2012}{2023}) and then project both regressions onto the 2024--2026 window. A divergence at the first step (VNF--YPFB) localizes manipulation to the source-data level; a divergence at the second step (YPFB--INE) but not the first localizes it to the national-accounts aggregation. Identifying assumption: flaring is a physical observation that no Bolivian institution controls.
+\claim{I implement three complementary tests} \textbf{Test one --- pre/post INE-trust break}: estimate equation~\eqref{eq:viirs_elasticity} separately on a ``high-trust'' sample (\numrange{2006}{2014}, before the commodity-cycle fiscal deterioration) and a ``low-trust'' sample (\numrange{2020}{2024}, during the reserve collapse and parallel-rate emergence). A significant increase in $\beta$ in the low-trust sample is the Martinez signature: official GDP moves less per unit of satellite-observed activity, consistent with upward smoothing. \textbf{Test two --- satellite-vs-official residual}: regress the satellite composite $\hat{f}_t$ on INE's quarterly GDP growth and test whether the residuals are systematically positive (INE understates) or negative (INE overstates) over specific periods. \textbf{Test three --- sectoral consistency}: use VNF to produce an independent estimate of Bolivian gas production, compare to YPFB reporting, and compare \emph{that} divergence to the INE-implied hydrocarbon value-added series. If YPFB and INE are mutually consistent but both diverge from VNF, the manipulation is at the source-data level; if YPFB and VNF agree but INE's hydrocarbon value-added does not, the manipulation is in the national accounts aggregation.
 
-\claim{Test 2 (statistical layer) --- November 2025 INE leadership discontinuity} INE's director changed on November 8, 2025 with the Paz inauguration. Hydrocarbon fundamentals, reserves trajectory, and the parallel-rate premium evolve continuously across the break. I estimate
-\begin{equation}
-\Delta \log(\text{IGAE}_t) = \alpha + \beta \cdot \Delta \log(\text{CI}_t) + \delta \cdot D^{\text{post-Nov25}}_t + \gamma \cdot [\Delta \log(\text{CI}_t) \cdot D^{\text{post-Nov25}}_t] + X_t \cdot \psi + \varepsilon_t,
-\label{eq:leadership_break}
-\end{equation}
-where $\text{CI}_t$ is the satellite composite, $D^{\text{post-Nov25}}$ is the leadership-change indicator, and $X_t$ is a control vector containing the parallel premium, the reserve change, month dummies, and precipitation. The null is $\gamma = 0$; the alternative $\gamma > 0$ is the Martinez signature (pre-Nov INE absorbed less satellite-implied activity movement per unit of real signal). Bolivia's monthly IGAE starts March 2026, so the post-break sample has roughly five observations at the submission vintage; I flag the test as preliminary and re-estimate at R\&R. Where IGAE is too short, I substitute quarterly GDP with the \citet{mariano_murasawa2003} aggregation. Identifying assumption: the satellite composite is continuous across the leadership change because the satellites do not care who runs INE.
-
-\claim{Test 3 (consensus layer) --- external-forecaster residual} I regress the annualized satellite composite separately on (i) INE reported growth and (ii) the mean of IMF, World Bank, Oxford Economics, and Standard \& Poor's growth forecasts for \num{2025} and \num{2026}. The residuals against external consensus and against INE are of different sign during the 2024--2025 acute crisis if INE smoothed upward while external forecasters did not. The null is equal residual magnitudes; rejection in favor of a smaller satellite residual against external consensus supports the INE-smoothing interpretation. Identifying assumption: external forecasters draw on approximately the same macro-data universe as the satellite composite (reserves, prices, trade flows) and produce numbers independent of INE; their residuals against the satellite are therefore a benchmark for what a consensus reading of the recession would look like.
-
-\claim{The ladder interpretation} A positive finding is not a claim of fraud. It is a claim that the INE aggregates, whether by construction or by design, understate the \numrange{2025}{2026} contraction by a magnitude the satellite evidence can quantify. A rejection at the physical layer alone, without the statistical or consensus layers, is the weakest publishable claim and the closest to what the current vintage supports; a rejection at all three is the strongest claim and requires either more post-break IGAE data or stronger sectoral-triangulation divergence.
+\claim{The null hypothesis is that INE is honest and the satellites are noisy} Rejection requires that the satellite residuals be large, systematic in direction, and correlated with periods and sectors for which other evidence (IMF Article IV, ratings agency assessments, parallel-rate premia) indicates that the official picture understates the crisis. A positive finding is not a claim of fraud; it is a claim that the INE aggregates understate the \numrange{2025}{2026} contraction by a magnitude that the satellite evidence can quantify.
 
 % ============================================================
 \section{Results}
@@ -332,8 +295,8 @@ Target length: \numrange{12}{15} pages with four to six figures and two to four 
 \subsection{The monthly satellite composite index}
 \label{subsec:composite}
 % BEGIN-AUTO-subsec_composite
-\tbdline{figure to be inserted after empirical estimation (fig:factor_bbq)}
-\claim{Fit summary} Two-factor DFM (urban + extractive) with AR(2) factor dynamics and idiosyncratic AR(1) innovations, log-likelihood $-244.1$, $n=169$ monthly observations. Loadings and factor-decomposition variance shares in the replication archive.
+\begin{figure}[H]\centering\includegraphics[width=0.95\linewidth]{figures/factor_and_bbq.pdf}\caption{Satellite factor and Bry--Boschan turning points.}\label{fig:factor_bbq}\end{figure}
+\claim{Fit summary} The one-factor DFM with AR(2) factor dynamics and idiosyncratic AR(1) innovations attains log-likelihood $-244.1$ on $n=169$ monthly observations. Loadings on the three satellite streams are reported in the replication package.
 % END-AUTO-subsec_composite
 
 
@@ -342,9 +305,9 @@ Target length: \numrange{12}{15} pages with four to six figures and two to four 
 \subsection{Recession dating}
 \label{subsec:dating}
 % BEGIN-AUTO-subsec_dating
-\tbdline{figure to be inserted after empirical estimation (fig:markov)}
+\begin{figure}[H]\centering\includegraphics[width=0.95\linewidth]{figures/markov_probability.pdf}\caption{Hamilton two-state Markov-switching recession probability.}\label{fig:markov}\end{figure}
 \claim{BBQ turning points} Peaks: 2015-12, 2022-01, 2025-04. Troughs: 2021-06, 2024-03.
-\claim{Markov-switching} Recession-regime mean $\mu_r=-0.039$ per month, expansion $\mu_e=+0.000$. Months with $P(\mathrm{rec})>0.5$: 40.
+\claim{Markov-switching} Recession-regime mean $\mu_r = -0.04$, expansion $\mu_e = +0.00$. Months with $P(\text{rec})>0.5$: 40.
 % END-AUTO-subsec_dating
 
 
@@ -353,7 +316,9 @@ Target length: \numrange{12}{15} pages with four to six figures and two to four 
 \subsection{Comparison to INE quarterly GDP}
 \label{subsec:ine_comparison}
 % BEGIN-AUTO-subsec_ine_comparison
-\tbdline{INE benchmark regression requires IGAE panel \u2265 24 vintages (expected March 2028).}
+\input{tables/ine_vs_satellite.tex}
+
+\begin{figure}[H]\centering\includegraphics[width=0.95\linewidth]{figures/ine_vs_satellite.pdf}\caption{Satellite factor vs INE GDP growth.}\label{fig:ine_vs_sat}\end{figure}
 % END-AUTO-subsec_ine_comparison
 
 
@@ -362,7 +327,7 @@ Target length: \numrange{12}{15} pages with four to six figures and two to four 
 \subsection{Manipulation-detection tests}
 \label{subsec:manipulation}
 % BEGIN-AUTO-subsec_manipulation
-\tbdline{Test 1 (sectoral triangulation), Test 2 (Nov-2025 INE leadership discontinuity), and Test 3 (external-forecaster residual) require YPFB field-month production, INE hydrocarbon value-added, and consensus external forecasts. Results to be inserted after official series are loaded.}
+\input{tables/manipulation.tex}
 % END-AUTO-subsec_manipulation
 
 
@@ -371,7 +336,7 @@ Target length: \numrange{12}{15} pages with four to six figures and two to four 
 \subsection{Channel decomposition}
 \label{subsec:channels}
 % BEGIN-AUTO-subsec_channels
-\claim{Channel decomposition} Contribution of each stream to the monthly factor is recovered from the estimated loadings $\lambda_i$ and reported in the replication archive.
+\claim{Channel decomposition} Contribution of each stream to the monthly factor is recovered from the estimated loadings $\lambda_i$; see replication parquet for the attribution table.
 % END-AUTO-subsec_channels
 
 
@@ -400,13 +365,13 @@ Robustness section to be written. Planned exercises:
 \label{sec:conclusion}
 % ============================================================
 
-\claim{A four-stream satellite coincident indicator for Bolivia} The indicator covers approximately \num{78} percent of GDP at monthly frequency with a two-month publication lag, arriving two to three months before the quarterly national accounts and meeting the full twenty-four-vintage threshold of INE's experimental IGAE only in March \num{2028}. \tbdline{Magnitude and timing of the satellite-implied recession vs.\ INE.}
+\claim{Bolivia is in a recession visible from space} \tbdline{One paragraph summarizing magnitude and timing of the satellite-implied recession vs.\ the INE-reported one.}
 
-\claim{The remaining blind spot is non-tradeable services} Health, education, public administration, and domestic work together account for approximately \num{11} percent of GDP and are not visible to any of the four streams. A satellite composite that excludes them is a coincident indicator of \emph{goods-producing and tradeable-services} activity, not of GDP in full. This caveat carries through every numerical comparison with INE; the magnitude of the satellite--INE gap is partly a feature of measurement coverage, not of manipulation alone.
+\claim{The framework generalizes} \tbdline{One paragraph on applicability to other weak-statistical-capacity economies with visible extractive sectors.}
 
-\claim{Three directions for extension} (i) Extend the manipulation-detection framework to CPI using online-scraped prices in the \citet{cavallo2013} tradition. (ii) Pair the satellite composite with a high-frequency fiscal-dominance indicator combining BCB's CIN-SPNF with the parallel-rate premium. (iii) Apply the framework to the \numrange{2026}{2027} Paz reform program in real time: the satellite indicator is well suited to testing whether stabilization is being captured in the national accounts or understated. The framework applies directly to Venezuela, Angola, and post-\num{2021} Afghanistan.
+\claim{Four directions for extension} \tbdline{List: (i) integrate Sentinel-2 cropland productivity to close the agricultural-sector gap; (ii) extend the manipulation-detection framework to CPI using online-scraped prices in the Cavallo--Rigobon tradition; (iii) pair the satellite composite with a high-frequency fiscal-dominance indicator (CIN-SPNF + parallel premium); (iv) apply the framework in real time to the \numrange{2026}{2027} reform program to assess whether the Paz administration's stabilization is being fully captured in the national accounts, or understated.}
 
-\claim{The satellite data are free and the framework is open-source} Replication materials, processing pipeline, and live dashboard at \url{wernerhl.github.io/bolivia-ews}. The frozen replication dataset is archived at Zenodo DOI \tbdline{10.5281/zenodo.XXXXXX}.
+\claim{The satellite data are free and the framework is open-source} Replication materials, processing pipeline, and live dashboard at \url{wernerhl.github.io/bolivia-ews}.
 
 % ============================================================
 \appendix

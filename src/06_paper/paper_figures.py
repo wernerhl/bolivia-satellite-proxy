@@ -137,7 +137,9 @@ def fig_ine_vs_factor(palette: dict, out_path: Path) -> None:
 def main() -> None:
     _pagella()
     p = paths()
-    out_dir = abs_path("paper/figures")
+    import os
+    _v = os.environ.get("PAPER_VERSION", "v1")
+    out_dir = abs_path(f"paper/{_v}/figures")
     out_dir.mkdir(parents=True, exist_ok=True)
     palette = p["palette"]
     fig_factor_bbq(palette, out_dir / "factor_and_bbq.pdf")

@@ -22,7 +22,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from _common import abs_path, buffers, flares, load_env, ndvi_zones, paths, rois  # noqa: E402
 
 load_env()
-OUT = ROOT / "paper" / "tables"
+OUT = ROOT / "paper" / "v2" / "tables"
 OUT.mkdir(parents=True, exist_ok=True)
 
 

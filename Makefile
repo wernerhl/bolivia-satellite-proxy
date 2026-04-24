@@ -17,7 +17,11 @@ help:
 	@echo "  index          CI + DuckDB + INE benchmark + IGAE disagreement + DFM export"
 	@echo "  econometrics   single-series elasticities + DFM + BBQ + Markov-switching + manipulation tests"
 	@echo "  paper-assets   paper tables (tex) + paper figures (pdf) + inline patch"
-	@echo "  paper          compile paper/fires_lights_smog.pdf via latexmk"
+	@echo "  paper          alias for paper-v2 (compile paper/v2/fires_lights_smog.pdf)"
+	@echo "  paper-v1       compile paper/v1/fires_lights_smog.pdf (pristine pre-revision)"
+	@echo "  paper-v2       regen figures + tables, then compile paper/v2/fires_lights_smog.pdf"
+	@echo "  figures        regenerate paper/v2/figures/pdf/*.pdf"
+	@echo "  tables         regenerate paper/v2/tables/*.tex"
 	@echo "  publish        brief + monthly LaTeX report + social post"
 	@echo "  validate       quarterly validation suite"
 	@echo "  refresh-eog    refresh EOG_TOKEN from EOG_USER/EOG_PASS"
@@ -65,8 +69,13 @@ paper-assets:
 	$(PY) src/06_paper/paper_figures.py
 	$(PY) src/06_paper/fill_paper.py
 
-paper:
-	cd paper && latexmk -pdf -interaction=nonstopmode fires_lights_smog.tex
+paper: paper-v2
+
+paper-v1:
+	cd paper/v1 && pdflatex -interaction=nonstopmode fires_lights_smog.tex && \
+	               bibtex fires_lights_smog && \
+	               pdflatex -interaction=nonstopmode fires_lights_smog.tex && \
+	               pdflatex -interaction=nonstopmode fires_lights_smog.tex
 
 figures:
 	$(PY) scripts/figures/make_all_figures.py
@@ -75,10 +84,10 @@ tables:
 	$(PY) scripts/tables/make_all_tables.py
 
 paper-v2: figures tables
-	cd paper && pdflatex -interaction=nonstopmode fires_lights_smog_v2.tex && \
-	            bibtex fires_lights_smog_v2 && \
-	            pdflatex -interaction=nonstopmode fires_lights_smog_v2.tex && \
-	            pdflatex -interaction=nonstopmode fires_lights_smog_v2.tex
+	cd paper/v2 && pdflatex -interaction=nonstopmode fires_lights_smog.tex && \
+	               bibtex fires_lights_smog && \
+	               pdflatex -interaction=nonstopmode fires_lights_smog.tex && \
+	               pdflatex -interaction=nonstopmode fires_lights_smog.tex
 
 publish:
 	$(PY) src/04_publish/figures.py
@@ -103,5 +112,6 @@ test-scaffold:
 clean:
 	rm -rf data/satellite/*.csv data/satellite/*.json data/satellite/*.duckdb
 	rm -rf outputs/*.md outputs/*.tex outputs/*.txt outputs/figures/*.pdf
-	rm -rf paper/tables/*.tex paper/figures/*.pdf
-	cd paper && latexmk -C 2>/dev/null || true
+	rm -rf paper/v2/tables/*.tex paper/v2/figures/pdf/*.pdf paper/v2/figures/png/*.png
+	cd paper/v1 && latexmk -C 2>/dev/null || true
+	cd paper/v2 && latexmk -C 2>/dev/null || true

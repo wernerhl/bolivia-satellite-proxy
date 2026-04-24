@@ -158,7 +158,9 @@ Disagreement threshold ($\sigma$)         & {_f(disag.get('deviation_threshold_s
 
 
 def main() -> None:
-    out_dir = abs_path("paper/tables")
+    import os
+    _v = os.environ.get("PAPER_VERSION", "v1")
+    out_dir = abs_path(f"paper/{_v}/tables")
     out_dir.mkdir(parents=True, exist_ok=True)
     elasticities_tex(out_dir / "elasticities.tex")
     manipulation_tex(out_dir / "manipulation.tex")

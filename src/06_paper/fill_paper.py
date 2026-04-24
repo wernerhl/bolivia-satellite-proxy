@@ -35,9 +35,9 @@ load_env()
 import os
 
 # Versioned paper file. Default target is the latest version (v2); override via
-# PAPER_VERSION env var for historical re-renders.
+# PAPER_VERSION env var for historical re-renders. Layout: paper/v1/, paper/v2/.
 _VERSION = os.environ.get("PAPER_VERSION", "v2")
-PAPER = abs_path(f"paper/fires_lights_smog_{_VERSION}.tex")
+PAPER = abs_path(f"paper/{_VERSION}/fires_lights_smog.tex")
 
 
 def _safe(p: Path) -> dict:
@@ -113,7 +113,7 @@ def _tbd_fig_or_real(fig_path: str, caption: str, label: str) -> str:
     `fig_path` is relative to paper/ (the tex file's cwd at compile time);
     we check existence under paper/ but emit the path as-is so pdflatex
     resolves it."""
-    fig_abs = abs_path(f"paper/{fig_path}")
+    fig_abs = abs_path(f"paper/{_VERSION}/{fig_path}")
     if fig_abs.exists() and _any_dfm_ok():
         return (rf"\begin{{figure}}[H]\centering\includegraphics[width=0.95\linewidth]"
                 rf"{{{fig_path}}}\caption{{{caption}}}\label{{{label}}}\end{{figure}}")

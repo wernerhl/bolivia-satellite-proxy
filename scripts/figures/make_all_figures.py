@@ -32,8 +32,8 @@ load_env()
 apply_style(use_tex=False)
 
 
-OUT_PDF = ROOT / "paper" / "figures" / "pdf"
-OUT_PNG = ROOT / "paper" / "figures" / "png"
+OUT_PDF = ROOT / "paper" / "v2" / "figures" / "pdf"
+OUT_PNG = ROOT / "paper" / "v2" / "figures" / "png"
 OUT_PDF.mkdir(parents=True, exist_ok=True)
 OUT_PNG.mkdir(parents=True, exist_ok=True)
 

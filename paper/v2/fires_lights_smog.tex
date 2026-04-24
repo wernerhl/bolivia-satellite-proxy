@@ -270,6 +270,14 @@ Target length: \numrange{12}{15} pages with four to six figures and two to four 
 
 \subsection{Single-series elasticities}
 \label{subsec:elasticities}
+% BEGIN-AUTO-subsec_elasticities
+\input{tables/elasticities.tex}
+
+\claim{VIIRS} Estimated $\hat\beta = +0.128$ (SE 0.055, $n=36$) vs.\ \citet{hsw2012}.
+\claim{VNF} Data required to estimate (inputs_missing).
+\claim{NO$_2$} Data required to estimate (inputs_missing).
+% END-AUTO-subsec_elasticities
+
 
 \begin{figure}[H]
 \centering
@@ -291,23 +299,33 @@ Target length: \numrange{12}{15} pages with four to six figures and two to four 
 \end{figure}
 
 % BEGIN-AUTO-subsec_composite
+\begin{figure}[H]\centering\includegraphics[width=0.95\linewidth]{figures/factor_and_bbq.pdf}\caption{Satellite factor and Bry--Boschan turning points.}\label{fig:factor_bbq}\end{figure}
 \claim{Fit summary} Two-factor DFM over blocks $\{urban, extractive\}$ with GDP-share weights $\{urban=0.71, extractive=0.29\}$, $n=169$ monthly observations. Block factors are fit separately with AR(2) dynamics and AR(1) idiosyncratic innovations; when any block's EM fails we fall back to the \citet{lewis_mertens_stock2022} pre-specified weighted composite.
 % END-AUTO-subsec_composite
 
 \subsection{Recession dating}
 \label{subsec:dating}
 % BEGIN-AUTO-subsec_dating
+\begin{figure}[H]\centering\includegraphics[width=0.95\linewidth]{figures/markov_probability.pdf}\caption{Hamilton two-state Markov-switching recession probability on the first difference of the satellite factor.}\label{fig:markov}\end{figure}
 \claim{BBQ turning points} Peaks: 2013-01, 2021-01, 2022-03, 2025-04. Troughs: 2019-01, 2024-01.
 \claim{Markov-switching} Recession-regime mean $\mu_r=-0.017$ per month, expansion $\mu_e=-0.003$. Months with $P(\mathrm{rec})>0.5$: 27.
 % END-AUTO-subsec_dating
 
 \subsection{Comparison to INE quarterly GDP}
 \label{subsec:ine_comparison}
+% BEGIN-AUTO-subsec_ine_comparison
+\tbdline{INE benchmark regression requires IGAE panel \u2265 24 vintages (expected March 2028).}
+% END-AUTO-subsec_ine_comparison
+
 
 \input{tables/table3_satellite_vs_external.tex}
 
 \subsection{Manipulation-detection tests}
 \label{subsec:manipulation}
+% BEGIN-AUTO-subsec_manipulation
+\input{tables/manipulation.tex}
+% END-AUTO-subsec_manipulation
+
 
 \begin{figure}[H]
 \centering
@@ -320,6 +338,10 @@ Target length: \numrange{12}{15} pages with four to six figures and two to four 
 
 \subsection{Channel decomposition}
 \label{subsec:channels}
+% BEGIN-AUTO-subsec_channels
+\claim{Channel decomposition} Contribution of each stream to the monthly factor is recovered from the estimated loadings $\lambda_i$ and reported in the replication archive.
+% END-AUTO-subsec_channels
+
 
 \begin{figure}[H]
 \centering

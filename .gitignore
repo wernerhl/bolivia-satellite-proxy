@@ -15,3 +15,13 @@ outputs/build/
 *License*.pdf
 VNF_academic_license_agreement_*.pdf
 
+agent_prompts/
+
+# LaTeX intermediates (kept local; PDFs committed, source committed)
+paper/*/*.aux
+paper/*/*.bbl
+paper/*/*.blg
+paper/*/*.log
+paper/*/*.out
+paper/*/*.fdb_latexmk
+paper/*/*.fls
