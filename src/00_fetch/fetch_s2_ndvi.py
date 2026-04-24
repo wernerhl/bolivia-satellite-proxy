@@ -45,26 +45,32 @@ def crop_mask(cfg: dict) -> "ee.Image":
 
 
 def s2_monthly_ndvi(zone: dict, start: date, end: date, cfg: dict) -> pd.DataFrame:
+    """Server-side monthly NDVI aggregation. Uses a CLOUDY_PIXEL_PERCENTAGE
+    prefilter + SCL mask + NDVI normalization + median composite + zone
+    reduceRegion. scale=250 m so large zones (Santa Cruz soy belt radius
+    180 km ≈ 100 000 km², at native 30 m that's ~10^8 pixels, which blows
+    EE memory at default maxPixels). 250 m still samples the crop mask
+    densely enough for a zone-mean."""
     geom = zone_geom(zone)
     crop = crop_mask(cfg)
     excluded = ee.List(cfg["scl_excluded"])
 
     def mask_and_ndvi(img: "ee.Image") -> "ee.Image":
         scl = img.select(cfg["scl_band"])
-        # keep pixels whose SCL class is NOT in the excluded list
-        ok = excluded.map(lambda c: scl.eq(ee.Image.constant(c))).iterate(
-            lambda c, acc: ee.Image(acc).Or(ee.Image(c)),
-            ee.Image.constant(0),
-        )
-        clean = img.updateMask(ee.Image(ok).Not()).updateMask(crop)
+        # Build combined OR of excluded classes via a single .remap.
+        bad = scl.remap(excluded, ee.List.repeat(1, excluded.size()), 0)
+        ok = bad.Not()
+        clean = img.updateMask(ok).updateMask(crop)
         ndvi = clean.normalizedDifference(["B8", "B4"]).rename("ndvi")
         return ndvi.copyProperties(img, ["system:time_start"])
 
+    # Aggregate to monthly list server-side: group by year-month via map.
     rows: list[dict] = []
     y, m = start.year, start.month
     while (y, m) <= (end.year, end.month):
         nm, ny = (m + 1, y) if m < 12 else (1, y + 1)
         coll = (ee.ImageCollection(cfg["primary_collection"])
+                .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", 60))
                 .filterDate(f"{y}-{m:02d}-01", f"{ny}-{nm:02d}-01")
                 .filterBounds(geom))
         n = coll.size().getInfo()
@@ -76,7 +82,8 @@ def s2_monthly_ndvi(zone: dict, start: date, end: date, cfg: dict) -> pd.DataFra
         monthly = coll.map(mask_and_ndvi).median()
         red = monthly.reduceRegion(
             reducer=ee.Reducer.mean().combine(ee.Reducer.count(), sharedInputs=True),
-            geometry=geom, scale=cfg["scale_m"], maxPixels=int(1e10), bestEffort=True,
+            geometry=geom, scale=250, maxPixels=int(1e10), bestEffort=True,
+            tileScale=4,
         ).getInfo()
         rows.append({
             "date": f"{y:04d}-{m:02d}-01", "zone": zone["name"],
@@ -89,13 +96,14 @@ def s2_monthly_ndvi(zone: dict, start: date, end: date, cfg: dict) -> pd.DataFra
 
 
 def landsat_monthly_ndvi(zone: dict, start: date, end: date, cfg: dict) -> pd.DataFrame:
-    """Landsat-8 C02 L2 monthly composite with QA_PIXEL cloud masking."""
+    """Landsat-8 C02 L2 monthly composite with QA_PIXEL cloud masking.
+    Heavier scale (500 m) for the big zones so reduceRegion stays within
+    EE memory. Roy et al. (2016) NDVI harmonization applied."""
     geom = zone_geom(zone)
     crop = crop_mask(cfg)
 
     def qa_mask_ndvi(img: "ee.Image") -> "ee.Image":
         qa = img.select(cfg["fallback_qa_band"])
-        # bits 3 (cloud), 4 (cloud shadow), 5 (snow)
         cloud = qa.bitwiseAnd(1 << 3).neq(0)
         shadow = qa.bitwiseAnd(1 << 4).neq(0)
         snow = qa.bitwiseAnd(1 << 5).neq(0)
@@ -122,7 +130,8 @@ def landsat_monthly_ndvi(zone: dict, start: date, end: date, cfg: dict) -> pd.Da
         monthly = coll.map(qa_mask_ndvi).median()
         red = monthly.reduceRegion(
             reducer=ee.Reducer.mean().combine(ee.Reducer.count(), sharedInputs=True),
-            geometry=geom, scale=cfg["scale_m"] * 2, maxPixels=int(1e10), bestEffort=True,
+            geometry=geom, scale=500, maxPixels=int(1e10), bestEffort=True,
+            tileScale=4,
         ).getInfo()
         raw_ndvi = red.get("ndvi_l8_mean")
         harmonized = (ROY_SLOPE * raw_ndvi + ROY_INTERCEPT) if raw_ndvi is not None else None

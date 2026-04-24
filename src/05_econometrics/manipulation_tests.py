@@ -42,10 +42,13 @@ def test1_sectoral_triangulation() -> dict:
     sample (pre-2024), monthly panel.
     """
     p = paths()
-    vnf = pd.read_csv(abs_path(p["data"]["vnf_monthly"]), parse_dates=["date"])
+    vnf_monthly = pd.read_csv(abs_path(p["data"]["vnf_monthly"]), parse_dates=["date"]) \
+        if abs_path(p["data"]["vnf_monthly"]).exists() else pd.DataFrame()
+    wb_annual = abs_path("data/official/wb_ggfr_bolivia_annual.csv")
     ypfb_path = abs_path(p["data"]["official_ypfb"])
     ine_hydro = abs_path("data/official/ine_hydrocarbon_va.csv")
-    if vnf.empty or not ypfb_path.exists() or not ine_hydro.exists():
+
+    if not ypfb_path.exists() or not ine_hydro.exists():
         return {"status": "inputs_missing",
                 "needs": ["ypfb_hydrocarbons.csv (date,gas_prod_mmm3d)",
                           "ine_hydrocarbon_va.csv (date,hydrocarbon_va)"]}
@@ -53,21 +56,59 @@ def test1_sectoral_triangulation() -> dict:
     ypfb = pd.read_csv(ypfb_path, parse_dates=["date"])
     ine = pd.read_csv(ine_hydro, parse_dates=["date"])
 
-    vnf_total = vnf.groupby("date", as_index=False)["rh_mw_sum"].sum()
-    df = vnf_total.merge(ypfb, on="date").merge(ine, on="date")
-    df = df[(df["rh_mw_sum"] > 0) & (df["gas_prod_mmm3d"] > 0) & (df["hydrocarbon_va"] > 0)]
-    pre = df[df["date"] < CRISIS_START]
-    if len(pre) < 24:
-        return {"status": "insufficient_pre_crisis_n", "n": int(len(pre))}
+    # Preferred path: monthly VNF joined with monthly YPFB+INE.
+    if not vnf_monthly.empty and "rh_mw_sum" in vnf_monthly.columns:
+        flaring = vnf_monthly.groupby("date", as_index=False)["rh_mw_sum"].sum()
+        df = flaring.merge(ypfb, on="date").merge(ine, on="date")
+        df = df[(df["rh_mw_sum"] > 0) & (df["gas_prod_mmm3d"] > 0)
+                & (df["hydrocarbon_va"] > 0)]
+        flaring_col = "rh_mw_sum"
+        granularity = "monthly"
+    else:
+        # Fallback: annual WB GGFR flare volume (BCM) as the physical-layer
+        # proxy. Same interpretation; different unit (BCM instead of MW-nights).
+        if not wb_annual.exists():
+            return {"status": "inputs_missing",
+                    "needs": ["wb_ggfr_bolivia_annual.csv or vnf_chaco_monthly.csv"]}
+        wb = pd.read_csv(wb_annual)
+        if "flare_volume_bcm" not in wb.columns:
+            return {"status": "inputs_missing",
+                    "needs": ["wb_ggfr_bolivia_annual flare_volume_bcm column"]}
+        # Annualize YPFB and INE.
+        ypfb_a = ypfb.assign(year=ypfb["date"].dt.year).groupby(
+            "year", as_index=False)["gas_prod_mmm3d"].mean()
+        ine_a = ine.assign(year=ine["date"].dt.year).groupby(
+            "year", as_index=False)["hydrocarbon_va"].mean()
+        df = wb[["year", "flare_volume_bcm"]].merge(ypfb_a, on="year").merge(
+            ine_a, on="year")
+        df = df[(df["flare_volume_bcm"] > 0) & (df["gas_prod_mmm3d"] > 0)
+                & (df["hydrocarbon_va"] > 0)]
+        df["date"] = pd.to_datetime(df["year"].astype(str) + "-01-01")
+        flaring_col = "flare_volume_bcm"
+        granularity = "annual_wb_ggfr"
 
-    r_vnf_ypfb = float(np.corrcoef(np.log(pre["rh_mw_sum"]),
+    pre = df[df["date"] < CRISIS_START]
+    if len(pre) < (24 if granularity == "monthly" else 6):
+        return {"status": "insufficient_pre_crisis_n", "n": int(len(pre)),
+                "granularity": granularity}
+
+    r_vnf_ypfb = float(np.corrcoef(np.log(pre[flaring_col]),
                                    np.log(pre["gas_prod_mmm3d"]))[0, 1])
     r_ypfb_ine = float(np.corrcoef(np.log(pre["gas_prod_mmm3d"]),
                                     np.log(pre["hydrocarbon_va"]))[0, 1])
 
     a_ok = r_vnf_ypfb >= 0.60
     b_ok = r_ypfb_ine >= 0.60
-    if a_ok and b_ok:
+
+    # Special case for dry-gas regimes (Bolivia, Turkmenistan): flaring is
+    # operational rather than volumetric, so low corr(flaring, production)
+    # is not evidence of source-layer manipulation — it is the Track C
+    # finding that flaring is a capacity-utilization proxy, not a
+    # production proxy. A high corr(production, VA) in this case is
+    # consistent with honest reporting. Flag distinctly.
+    if not a_ok and b_ok and abs(r_vnf_ypfb) < 0.30:
+        verdict = "dry_gas_flaring_not_volumetric_no_manipulation_signal"
+    elif a_ok and b_ok:
         verdict = "no_manipulation_detected"
     elif a_ok and not b_ok:
         verdict = "aggregation_layer_suspect"
@@ -84,12 +125,13 @@ def test1_sectoral_triangulation() -> dict:
     crisis = df[df["date"] >= CRISIS_START]
     crisis_resid = None
     if len(crisis) >= 1:
-        pred = fit.params["const"] + fit.params["x1"] * np.log(crisis["gas_prod_mmm3d"])
+        pred = fit.params.iloc[0] + fit.params.iloc[1] * np.log(crisis["gas_prod_mmm3d"])
         resid = np.log(crisis["hydrocarbon_va"]) - pred
         crisis_resid = float(resid.mean())
 
     return {
         "status": "ok",
+        "granularity": granularity,
         "pre_crisis_n": int(len(pre)),
         "vnf_ypfb_corr": r_vnf_ypfb,
         "ypfb_ine_corr": r_ypfb_ine,

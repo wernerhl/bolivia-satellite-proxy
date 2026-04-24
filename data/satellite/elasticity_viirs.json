@@ -1,7 +1,10 @@
 {
-  "status": "inputs_missing",
-  "needs": [
-    "data/official/ine_gdp_dept.csv (year,department,gdp_usd)",
-    "data/satellite/viirs_sol_dept_annual.csv (year,department,sol)"
-  ]
+  "status": "ok",
+  "n": 36,
+  "beta": 0.12789279867988412,
+  "se": 0.05482413073427791,
+  "t": 2.332782972880247,
+  "p": 0.01965953877784332,
+  "n_units": 9,
+  "n_periods": 4
 }

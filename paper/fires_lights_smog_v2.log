@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  24 APR 2026 14:30
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  24 APR 2026 15:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -931,25 +931,24 @@ Underfull \hbox (badness 2197) in paragraph at lines 9--9
 \T1/ppl/m/n/10 (+20) la-tion (VNF--YPFB--
  []
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.9 ...n controls. & corr pre: --- / --- & inputs_
-                                                  missing \\
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
 
-! Missing $ inserted.
-<inserted text> 
-                $
-l.10 \midrule
-             
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
+Underfull \hbox (badness 10000) in paragraph at lines 9--9
+[]|\T1/ppl/m/n/10 (+20) corr pre:
+ []
 
 
-Overfull \hbox (3.02104pt too wide) in paragraph at lines 9--10
-[]|\T1/ppl/m/n/10 (-20) inputs$[]\OML/zplm/m/it/10 issing$ 
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+[]|\T1/ppl/m/n/10 (+20) dry gas
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+\T1/ppl/m/n/10 (+20) flar-ing not
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 9--10
+\T1/ppl/m/n/10 (+20) vol-u-met-ric
  []
 
 
@@ -1000,7 +999,9 @@ I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
 
 )
-<figures/pdf/fig4_sectoral_decomposition.pdf, id=354, 454.61847pt x 419.36049pt
+
+[14 <./figures/pdf/fig5_manipulation_verdict.pdf>]
+<figures/pdf/fig4_sectoral_decomposition.pdf, id=376, 454.61847pt x 419.36049pt
 >
 File: figures/pdf/fig4_sectoral_decomposition.pdf Graphic file (type pdf)
 <use figures/pdf/fig4_sectoral_decomposition.pdf>
@@ -1009,14 +1010,14 @@ nput line 326.
 (pdftex.def)             Requested size: 469.75502pt x 433.34108pt.
 
 
-[14 <./figures/pdf/fig5_manipulation_verdict.pdf>]
+[15]
 Package mdframed Info: mdframed detected package amsthm 
  changed the theorem header of amsthm
 (mdframed)              on input line 337.
 
 
-[15 <./figures/pdf/fig4_sectoral_decomposition.pdf>]
-<figures/pdf/figA1_spatial_coverage.pdf, id=397, 707.01971pt x 217.86679pt>
+[16 <./figures/pdf/fig4_sectoral_decomposition.pdf>]
+<figures/pdf/figA1_spatial_coverage.pdf, id=401, 707.01971pt x 217.86679pt>
 File: figures/pdf/figA1_spatial_coverage.pdf Graphic file (type pdf)
 <use figures/pdf/figA1_spatial_coverage.pdf>
 Package pdftex.def Info: figures/pdf/figA1_spatial_coverage.pdf  used on input 
@@ -1024,8 +1025,8 @@ line 371.
 (pdftex.def)             Requested size: 469.75502pt x 144.75658pt.
 
 
-[16]
-<figures/pdf/figA2_field_calibration.pdf, id=403, 708.24597pt x 454.9434pt>
+[17]
+<figures/pdf/figA2_field_calibration.pdf, id=407, 708.24597pt x 454.9434pt>
 File: figures/pdf/figA2_field_calibration.pdf Graphic file (type pdf)
 <use figures/pdf/figA2_field_calibration.pdf>
 Package pdftex.def Info: figures/pdf/figA2_field_calibration.pdf  used on input
@@ -1038,18 +1039,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 9--10
 
 )
 
-[17 <./figures/pdf/figA1_spatial_coverage.pdf> <./figures/pdf/figA2_field_calib
+[18 <./figures/pdf/figA1_spatial_coverage.pdf> <./figures/pdf/figA2_field_calib
 ration.pdf>] (./tables/tableA2_robustness.tex)
 
-[18] (./fires_lights_smog_v2.bbl
+[19] (./fires_lights_smog_v2.bbl
 
-[19])
+[20])
 
 Package natbib Warning: There were undefined citations.
 
 
 
-[20] (./fires_lights_smog_v2.aux)
+[21] (./fires_lights_smog_v2.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1058,11 +1059,11 @@ Package rerunfilecheck Info: File `fires_lights_smog_v2.out' has not changed.
 (rerunfilecheck)             Checksum: E61C43450D822F7ECEF5B68D8A61931F;5195.
  ) 
 Here is how much of TeX's memory you used:
- 21117 strings out of 473190
- 398958 string characters out of 5715801
+ 21123 strings out of 473190
+ 399003 string characters out of 5715801
  814492 words of memory out of 5000000
  43501 multiletter control sequences out of 15000+600000
- 637172 words of font info for 457 fonts, out of 8000000 for 9000
+ 637829 words of font info for 461 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  79i,13n,93p,1569b,1234s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
@@ -1075,10 +1076,10 @@ exlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1095.pfb></usr/local/tex
 live/2025/texmf-dist/fonts/type1/urw/palatino/uplb8a.pfb></usr/local/texlive/20
 25/texmf-dist/fonts/type1/urw/palatino/uplr8a.pfb></usr/local/texlive/2025/texm
 f-dist/fonts/type1/urw/palatino/uplri8a.pfb>
-Output written on fires_lights_smog_v2.pdf (21 pages, 343330 bytes).
+Output written on fires_lights_smog_v2.pdf (22 pages, 344514 bytes).
 PDF statistics:
- 511 PDF objects out of 1000 (max. 8388607)
- 422 compressed objects within 5 object streams
- 93 named destinations out of 1000 (max. 500000)
+ 515 PDF objects out of 1000 (max. 8388607)
+ 425 compressed objects within 5 object streams
+ 94 named destinations out of 1000 (max. 500000)
  106748 words of extra memory for PDF output out of 106986 (max. 10000000)
 

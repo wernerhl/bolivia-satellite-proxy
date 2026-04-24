@@ -1,10 +1,13 @@
 {
   "test1_sectoral_triangulation": {
-    "status": "inputs_missing",
-    "needs": [
-      "ypfb_hydrocarbons.csv (date,gas_prod_mmm3d)",
-      "ine_hydrocarbon_va.csv (date,hydrocarbon_va)"
-    ]
+    "status": "ok",
+    "granularity": "annual_wb_ggfr",
+    "pre_crisis_n": 12,
+    "vnf_ypfb_corr": 0.06422818548761176,
+    "ypfb_ine_corr": 0.9931381041644032,
+    "verdict": "dry_gas_flaring_not_volumetric_no_manipulation_signal",
+    "crisis_window_mean_residual_log_hydro_va": 0.01818451486757411,
+    "identifying_assumption": "Flaring is a physical, tamper-evident observation of field operations. If the three series diverge, the divergence localizes to either source reporting or national-accounts aggregation."
   },
   "test2_leadership_discontinuity": {
     "status": "insufficient_n",

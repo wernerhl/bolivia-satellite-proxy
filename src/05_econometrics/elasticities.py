@@ -123,17 +123,20 @@ def _fit_diff_in_diff_fe(df: pd.DataFrame, ycol: str, xcol: str,
 
 
 def viirs_elasticity() -> dict:
+    """Eq. (1) — Bolivia-specific HSW-style elasticity on the departmental
+    panel. Accepts either gdp_real (INE 1990-base) or gdp_usd."""
     p = paths()
     gdp = abs_path("data/official/ine_gdp_dept.csv")
     sol = abs_path("data/satellite/viirs_sol_dept_annual.csv")
     if not gdp.exists() or not sol.exists():
         return {"status": "inputs_missing",
-                "needs": ["data/official/ine_gdp_dept.csv (year,department,gdp_usd)",
+                "needs": ["data/official/ine_gdp_dept.csv (year,department,gdp_real|gdp_usd)",
                           "data/satellite/viirs_sol_dept_annual.csv (year,department,sol)"]}
     a = pd.read_csv(gdp); b = pd.read_csv(sol)
     df = a.merge(b, on=["year", "department"])
-    df = df[(df["gdp_usd"] > 0) & (df["sol"] > 0)]
-    df["log_gdp"] = np.log(df["gdp_usd"])
+    gdp_col = "gdp_real" if "gdp_real" in df.columns else "gdp_usd"
+    df = df[(df[gdp_col] > 0) & (df["sol"] > 0)]
+    df["log_gdp"] = np.log(df[gdp_col])
     df["log_sol"] = np.log(df["sol"])
     return _fit_diff_in_diff_fe(df, "log_gdp", "log_sol", "department", "year")
 
