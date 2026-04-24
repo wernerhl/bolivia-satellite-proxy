@@ -1,0 +1,13 @@
+{
+  "generated_at": "2026-04-24T16:35:09+00:00",
+  "git_commit": "35bfd486f00b82b4cacc1a92b8f4f239befdf642",
+  "stable_vintage_date": "2026-02-23",
+  "stream_latest": {
+    "viirs_sol_monthly": "2026-02-01",
+    "vnf_monthly": null,
+    "s5p_monthly": "2026-04-01",
+    "s2_ndvi_monthly": null,
+    "ci": "2026-04-01"
+  },
+  "cadence_notes": "Satellite streams update 48-72h after month end. INE and YPFB publish 45-75 days after month end. Full composite reaches a stable vintage 60 days after the month it describes. Historical vintages are preserved under outputs/dashboard/vintage_archive/ so researchers can reconstruct what was known when."
+}

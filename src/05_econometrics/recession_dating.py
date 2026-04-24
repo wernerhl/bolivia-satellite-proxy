@@ -25,10 +25,16 @@ load_env()
 
 
 def load_factor(raw: bool = False) -> pd.Series:
-    """Return the DFM factor (or CI fallback). raw=True returns the un-z-scored
-    factor which preserves cyclical amplitude — needed for Markov-switching
-    regime separation."""
+    """Return the coincident factor. Precedence: two-factor composite →
+    single-factor DFM → weighted CI. raw=True returns the un-z-scored
+    series when available; otherwise falls back to z-scored."""
     p = paths()
+    two = abs_path("data/satellite/dfm_twofactor_result.json")
+    if two.exists():
+        d = json.loads(two.read_text())
+        if d.get("status") == "ok":
+            idx = pd.to_datetime(d["factor_index"])
+            return pd.Series(d["composite_z"], index=idx, name="composite_z")
     dfm_path = abs_path("data/satellite/dfm_result.json")
     if dfm_path.exists():
         d = json.loads(dfm_path.read_text())

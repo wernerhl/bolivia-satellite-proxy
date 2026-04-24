@@ -1,0 +1,146 @@
+{
+  "vintage": "2026-04-24T16:35:08+00:00",
+  "project": "bolivia-satellite-proxy",
+  "git": {
+    "commit": "35bfd486f00b82b4cacc1a92b8f4f239befdf642",
+    "branch": "main",
+    "dirty": true
+  },
+  "series": {
+    "viirs_sol_monthly": {
+      "source_csv": "data/satellite/viirs_sol_monthly.csv",
+      "parquet": "outputs/zenodo/viirs_sol_monthly.parquet",
+      "rows": 1837,
+      "cols": 10,
+      "sha256": "51dbaa65ba85c7e9583772565a411974245d7ef1594decf8b2e9e4e226197bf2"
+    },
+    "viirs_sol_anomaly": {
+      "source_csv": "data/satellite/viirs_sol_anomaly.csv",
+      "parquet": "outputs/zenodo/viirs_sol_anomaly.parquet",
+      "rows": 1821,
+      "cols": 9,
+      "sha256": "8f373dfc068e0859ec70cb615b13f85c324e4d6241dd8e0923dd960f86ba1541"
+    },
+    "vnf_monthly": {
+      "source_csv": "data/satellite/vnf_chaco_monthly.csv",
+      "parquet": "outputs/zenodo/vnf_monthly.parquet",
+      "rows": 0,
+      "cols": 6,
+      "sha256": "e773e9cd3c88f1440de4216cf51769571f419ab31f5b2d2e151cc211c196c874"
+    },
+    "vnf_anomaly": {
+      "source_csv": "data/satellite/vnf_chaco_anomaly.csv",
+      "parquet": "outputs/zenodo/vnf_anomaly.parquet",
+      "rows": 0,
+      "cols": 6,
+      "sha256": "8c9795eeb25228caf6b963b1910d7a725f00ba4134b5ca14b4b9fa61740704b1"
+    },
+    "s5p_monthly": {
+      "source_csv": "data/satellite/s5p_no2_monthly.csv",
+      "parquet": "outputs/zenodo/s5p_monthly.parquet",
+      "rows": 282,
+      "cols": 5,
+      "sha256": "532fcb50a523428d4a17c062545d519a1f48c5e32ef44f855567550f97b1faee"
+    },
+    "s5p_anomaly": {
+      "source_csv": "data/satellite/s5p_no2_anomaly.csv",
+      "parquet": "outputs/zenodo/s5p_anomaly.parquet",
+      "rows": 282,
+      "cols": 12,
+      "sha256": "e577885f11e32c58178d5eb666020a2058bb6dd156fa4116ef228284435bad39"
+    },
+    "s2_ndvi_monthly": {
+      "status": "not_fetched"
+    },
+    "s2_ndvi_anomaly": {
+      "status": "not_fetched"
+    },
+    "ci": {
+      "source_csv": "data/satellite/bolivia_satellite_ci.csv",
+      "parquet": "outputs/zenodo/ci.parquet",
+      "rows": 169,
+      "cols": 5,
+      "sha256": "fbbc845262effb19398564a352047db928c1a820e51691734a57d9c84ba61746"
+    },
+    "official_igae": {
+      "status": "not_fetched"
+    },
+    "official_cement": {
+      "status": "not_fetched"
+    },
+    "official_cndc": {
+      "status": "not_fetched"
+    },
+    "official_ypfb": {
+      "status": "not_fetched"
+    },
+    "official_sin": {
+      "status": "not_fetched"
+    },
+    "official_aduana": {
+      "status": "not_fetched"
+    },
+    "wb_ggfr_country": {
+      "source_csv": "data/official/wb_ggfr_bolivia_annual.csv",
+      "parquet": "outputs/zenodo/wb_ggfr_country.parquet",
+      "rows": 13,
+      "cols": 2,
+      "sha256": "ea151437cec2cd6150ca61525b2a2af9dfce477422aa1bb31d977ea93fe9dd6c"
+    },
+    "wb_ggfr_flares": {
+      "source_csv": "data/official/wb_ggfr_bolivia_flares.csv",
+      "parquet": "outputs/zenodo/wb_ggfr_flares.parquet",
+      "rows": 113,
+      "cols": 13,
+      "sha256": "117fa0096b53d29fa9d2564fe29bc661e700192f3c5e5117a4e87ee34b024c33"
+    }
+  },
+  "results_json": {
+    "data/satellite/dfm_result.json": {
+      "copied_to": "outputs/zenodo/dfm_result.json",
+      "sha256": "b838b51ec42eea0aeeeb545b314564cd58b03af9e466ba51926f66f6065320b6"
+    },
+    "data/satellite/dfm_twofactor_result.json": {
+      "copied_to": "outputs/zenodo/dfm_twofactor_result.json",
+      "sha256": "7df70535e2e0b0620b3f00f33d82550c1269c21e32b5d73c7c7059c657de0cf3"
+    },
+    "data/satellite/recession_dating.json": {
+      "copied_to": "outputs/zenodo/recession_dating.json",
+      "sha256": "6998c9249ed79d1473757f37e772b328ef8bf4af0d274526ad4525a47bc26711"
+    },
+    "data/satellite/manipulation_tests.json": {
+      "copied_to": "outputs/zenodo/manipulation_tests.json",
+      "sha256": "d8e74052ec04b5d4328de83e98211b7bfdc9d529b6e06c18bdebb66a016b61a2"
+    },
+    "data/satellite/vnf_calibration_field.json": {
+      "copied_to": "outputs/zenodo/vnf_calibration_field.json",
+      "sha256": "91b7dbbf6b7b1223bfb1c34e8a48a4e976f792ef5174f4bd046f08cdc7e389c6"
+    },
+    "data/satellite/vnf_wb_crosscheck.json": {
+      "copied_to": "outputs/zenodo/vnf_wb_crosscheck.json",
+      "sha256": "05cd3a1a0c915da5b7b16acef4cb2e2cac38f6bf2754811e42e258760bee75fa"
+    },
+    "data/satellite/benchmark_ine.json": {
+      "copied_to": "outputs/zenodo/benchmark_ine.json",
+      "sha256": "529c4286e5e8bdc8cf30329bfed5efdd4093d106215c502c593a090a57a96ac5"
+    },
+    "data/satellite/elasticity_viirs.json": {
+      "copied_to": "outputs/zenodo/elasticity_viirs.json",
+      "sha256": "f68d5d51785c19adef576e23a114016369987161f91168ab7b0806afb6b72b73"
+    },
+    "data/satellite/elasticity_vnf.json": {
+      "copied_to": "outputs/zenodo/elasticity_vnf.json",
+      "sha256": "143b361f9215e9214136e20488510c37c8b2855dff079e8a6813c2db895f2937"
+    },
+    "data/satellite/elasticity_no2.json": {
+      "copied_to": "outputs/zenodo/elasticity_no2.json",
+      "sha256": "2ea9c80a6267fcf16782aa85b5e954406cd79f7c9334cd891186eccabcb55b54"
+    }
+  },
+  "citation": {
+    "author": "Hernani-Limarino, Werner",
+    "title": "Fires, Lights, and Smog: Replication dataset",
+    "version": "v2-draft",
+    "type": "dataset"
+  }
+}

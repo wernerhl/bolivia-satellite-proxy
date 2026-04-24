@@ -30,6 +30,7 @@ fetch:
 	$(PY) src/00_fetch/fetch_viirs_sol.py
 	$(PY) src/00_fetch/fetch_vnf.py
 	$(PY) src/00_fetch/fetch_s5p_no2.py
+	$(PY) src/00_fetch/fetch_s2_ndvi.py
 	$(PY) src/00_fetch/fetch_wb_ggfr.py
 	$(PY) src/00_fetch/fetch_binance_p2p.py
 	$(PY) src/00_fetch/fetch_official_bolivia.py
@@ -42,6 +43,7 @@ anomaly:
 	$(PY) src/02_anomaly/vnf_calibration.py
 	$(PY) src/02_anomaly/vnf_wb_crosscheck.py
 	$(PY) src/02_anomaly/s5p_anomaly.py
+	$(PY) src/02_anomaly/s2_ndvi_anomaly.py
 
 index:
 	$(PY) src/03_index/build_ci.py
@@ -52,7 +54,9 @@ index:
 
 econometrics:
 	$(PY) src/05_econometrics/elasticities.py
+	$(PY) src/05_econometrics/vnf_calibration_field.py
 	$(PY) src/05_econometrics/dfm.py
+	$(PY) src/05_econometrics/dfm_twofactor.py
 	$(PY) src/05_econometrics/recession_dating.py
 	$(PY) src/05_econometrics/manipulation_tests.py
 
@@ -74,6 +78,12 @@ validate:
 
 refresh-eog:
 	$(PY) src/00_fetch/refresh_eog_token.py
+
+freeze-zenodo:
+	$(PY) src/00_fetch/freeze_zenodo_dataset.py
+
+dashboard-vintage:
+	$(PY) src/04_publish/dashboard_vintage.py
 
 test-scaffold:
 	$(PY) -m pytest tests/ -v

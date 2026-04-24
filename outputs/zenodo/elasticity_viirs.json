@@ -1,0 +1,7 @@
+{
+  "status": "inputs_missing",
+  "needs": [
+    "data/official/ine_gdp_dept.csv (year,department,gdp_usd)",
+    "data/satellite/viirs_sol_dept_annual.csv (year,department,sol)"
+  ]
+}

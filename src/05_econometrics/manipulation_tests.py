@@ -1,25 +1,12 @@
-"""Manipulation-detection suite — paper §4.3.
+"""Manipulation-detection suite — paper §4.3 (Track B rewrite).
 
-Three tests, each designed for the single-country Bolivia setting
-(the Martinez 2022 cross-country test does not apply directly).
+Three single-country-identified tests. Order is ladder-of-evidence:
+  1. Sectoral triangulation (physical layer) — LEAD
+  2. November-2025 INE leadership discontinuity (statistical layer)
+  3. External-forecaster residual falsification (consensus layer)
 
-TEST 1 — Pre/post INE-trust break.
-  Fit eq (6) VIIRS elasticity separately on "high-trust" (2006–2014)
-  and "low-trust" (2020–2024) samples; a significant increase in β on
-  the low-trust sample is the Martinez signature.
-
-TEST 2 — Satellite-vs-official residual.
-  Regress the satellite DFM factor on INE quarterly GDP growth; test
-  whether residuals are systematically signed by period. Chow-style
-  split on the reserve-collapse break (2023Q4).
-
-TEST 3 — Sectoral consistency (VNF × YPFB × INE hydrocarbon VA).
-  Compare (a) VNF-implied production vs YPFB reported and (b) YPFB vs
-  INE hydrocarbon value added. If a agrees and b disagrees → aggregation
-  manipulation; if a disagrees → source-data manipulation.
-
-Each test writes its own JSON; a summary JSON combines all three plus
-an overall verdict flag.
+Each test writes its own block; a summary JSON combines all three and
+reports which layers reject the no-manipulation null.
 """
 from __future__ import annotations
 
@@ -29,6 +16,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import statsmodels.api as sm
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from _common import abs_path, load_env, paths  # noqa: E402
@@ -36,120 +24,31 @@ from _common import abs_path, load_env, paths  # noqa: E402
 load_env()
 
 
-def _ols(X: np.ndarray, y: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
-    beta = np.linalg.solve(X.T @ X, X.T @ y)
-    resid = y - X @ beta
-    n, k = X.shape
-    sigma2 = (resid @ resid) / (n - k)
-    V = sigma2 * np.linalg.inv(X.T @ X)
-    return beta, np.sqrt(np.diag(V))
+LEADERSHIP_BREAK = pd.Timestamp("2025-11-08")    # Paz inauguration
+CRISIS_START = pd.Timestamp("2024-01-01")
 
 
-def test1_pre_post_trust_break() -> dict:
-    """VIIRS elasticity pre/post trust break. Annual department panel."""
-    gdp = abs_path("data/official/ine_gdp_dept.csv")
-    sol = abs_path("data/satellite/viirs_sol_dept_annual.csv")
-    if not (gdp.exists() and sol.exists()):
-        return {"status": "inputs_missing"}
+# -------- TEST 1: sectoral triangulation -----------------------------
+def test1_sectoral_triangulation() -> dict:
+    """VNF ↔ YPFB ↔ INE hydrocarbon VA consistency test.
 
-    a = pd.read_csv(gdp); b = pd.read_csv(sol)
-    df = a.merge(b, on=["year", "department"])
-    df = df[(df["gdp_usd"] > 0) & (df["sol"] > 0)].copy()
-    df["log_gdp"] = np.log(df["gdp_usd"])
-    df["log_sol"] = np.log(df["sol"])
-    df = df.sort_values(["department", "year"])
-    df["dlog_gdp"] = df.groupby("department")["log_gdp"].diff()
-    df["dlog_sol"] = df.groupby("department")["log_sol"].diff()
-    df = df.dropna(subset=["dlog_gdp", "dlog_sol"])
+    If (VNF agrees with YPFB) AND (YPFB agrees with INE hydrocarbon VA),
+    no manipulation is detected. If (VNF agrees with YPFB) but (YPFB does
+    not agree with INE hydrocarbon VA), the national accounts aggregation
+    is suspicious. If (VNF does not agree with YPFB), the source reporting
+    itself is suspicious.
 
-    out: dict = {}
-    for name, mask in [
-        ("high_trust_2006_2014", df["year"].between(2006, 2014)),
-        ("low_trust_2020_2024", df["year"].between(2020, 2024)),
-    ]:
-        sub = df[mask]
-        if len(sub) < 20:
-            out[name] = {"status": "insufficient_n", "n": int(len(sub))}
-            continue
-        X = np.column_stack([np.ones(len(sub)), sub["dlog_sol"].to_numpy()])
-        y = sub["dlog_gdp"].to_numpy()
-        beta, se = _ols(X, y)
-        out[name] = {"n": int(len(sub)), "beta": float(beta[1]), "se": float(se[1])}
-
-    ht = out.get("high_trust_2006_2014", {})
-    lt = out.get("low_trust_2020_2024", {})
-    verdict = "inconclusive"
-    if "beta" in ht and "beta" in lt:
-        diff = lt["beta"] - ht["beta"]
-        joint_se = float(np.sqrt(ht["se"] ** 2 + lt["se"] ** 2))
-        z = diff / joint_se if joint_se > 0 else 0
-        out["beta_diff"] = diff
-        out["z_diff"] = z
-        out["significant_increase"] = bool(z > 1.96)
-        verdict = "martinez_signal" if z > 1.96 else "no_signal"
-    out["verdict"] = verdict
-    out["status"] = "ok"
-    return out
-
-
-def test2_satellite_vs_official_residual() -> dict:
-    """Regress factor_z on INE GDP growth; Chow split at 2023Q4."""
-    p = paths()
-    # Load satellite factor (DFM preferred, fall back to CI)
-    dfm = abs_path("data/satellite/dfm_result.json")
-    if dfm.exists() and json.loads(dfm.read_text()).get("status") == "ok":
-        d = json.loads(dfm.read_text())
-        sat = pd.Series(d["factor_z"], index=pd.to_datetime(d["factor_index"]), name="factor")
-    else:
-        ci = pd.read_csv(abs_path(p["data"]["ci"]), parse_dates=["date"]).dropna(subset=["ci"])
-        sat = ci.set_index("date")["ci"].rename("factor")
-
-    gdp_path = abs_path("data/official/ine_gdp_quarterly.csv")
-    if not gdp_path.exists():
-        return {"status": "inputs_missing"}
-    gdp = pd.read_csv(gdp_path, parse_dates=["date"]).set_index("date")
-    gdp["growth"] = np.log(gdp["gdp_real"]).diff(4)  # 4-quarter change
-    # Align satellite to quarter end
-    sat_q = sat.resample("QE").mean()
-    df = pd.concat([sat_q, gdp["growth"]], axis=1).dropna()
-    if len(df) < 12:
-        return {"status": "insufficient_n", "n": int(len(df))}
-
-    X = np.column_stack([np.ones(len(df)), df["growth"].to_numpy()])
-    y = df["factor"].to_numpy()
-    beta, se = _ols(X, y)
-    resid = y - X @ beta
-    df["residual"] = resid
-
-    split = pd.Timestamp("2023-10-01")
-    pre = df[df.index < split]["residual"]
-    post = df[df.index >= split]["residual"]
-
-    return {
-        "status": "ok",
-        "n": int(len(df)),
-        "intercept": float(beta[0]),
-        "beta_growth": float(beta[1]),
-        "se_beta": float(se[1]),
-        "pre_mean": float(pre.mean()) if len(pre) else None,
-        "post_mean": float(post.mean()) if len(post) else None,
-        "post_mean_t": float(post.mean() / (post.std(ddof=1) / np.sqrt(len(post))))
-                       if len(post) > 1 and post.std(ddof=1) > 0 else None,
-        "post_sign": "negative (satellite lower than implied by INE)"
-                    if len(post) and post.mean() < 0
-                    else "positive (satellite higher than implied by INE)",
-    }
-
-
-def test3_sectoral_consistency() -> dict:
-    """VNF → implied production vs YPFB vs INE hydrocarbon VA."""
+    Agreement threshold: log-log Pearson correlation ≥ 0.60 on pre-crisis
+    sample (pre-2024), monthly panel.
+    """
     p = paths()
     vnf = pd.read_csv(abs_path(p["data"]["vnf_monthly"]), parse_dates=["date"])
     ypfb_path = abs_path(p["data"]["official_ypfb"])
     ine_hydro = abs_path("data/official/ine_hydrocarbon_va.csv")
-
-    if not ypfb_path.exists() or not ine_hydro.exists() or vnf.empty:
-        return {"status": "inputs_missing"}
+    if vnf.empty or not ypfb_path.exists() or not ine_hydro.exists():
+        return {"status": "inputs_missing",
+                "needs": ["ypfb_hydrocarbons.csv (date,gas_prod_mmm3d)",
+                          "ine_hydrocarbon_va.csv (date,hydrocarbon_va)"]}
 
     ypfb = pd.read_csv(ypfb_path, parse_dates=["date"])
     ine = pd.read_csv(ine_hydro, parse_dates=["date"])
@@ -157,58 +56,227 @@ def test3_sectoral_consistency() -> dict:
     vnf_total = vnf.groupby("date", as_index=False)["rh_mw_sum"].sum()
     df = vnf_total.merge(ypfb, on="date").merge(ine, on="date")
     df = df[(df["rh_mw_sum"] > 0) & (df["gas_prod_mmm3d"] > 0) & (df["hydrocarbon_va"] > 0)]
-    if len(df) < 24:
-        return {"status": "insufficient_n", "n": int(len(df))}
+    pre = df[df["date"] < CRISIS_START]
+    if len(pre) < 24:
+        return {"status": "insufficient_pre_crisis_n", "n": int(len(pre))}
 
-    # Agreement (a): VNF–YPFB log-log correlation
-    r_vnf_ypfb = float(np.corrcoef(np.log(df["rh_mw_sum"]),
-                                   np.log(df["gas_prod_mmm3d"]))[0, 1])
-    # Agreement (b): YPFB–INE hydrocarbon VA correlation
-    r_ypfb_ine = float(np.corrcoef(np.log(df["gas_prod_mmm3d"]),
-                                    np.log(df["hydrocarbon_va"]))[0, 1])
+    r_vnf_ypfb = float(np.corrcoef(np.log(pre["rh_mw_sum"]),
+                                   np.log(pre["gas_prod_mmm3d"]))[0, 1])
+    r_ypfb_ine = float(np.corrcoef(np.log(pre["gas_prod_mmm3d"]),
+                                    np.log(pre["hydrocarbon_va"]))[0, 1])
 
-    a_agrees = r_vnf_ypfb >= 0.80
-    b_agrees = r_ypfb_ine >= 0.80
-
-    if a_agrees and not b_agrees:
-        verdict = "aggregation_manipulation"
-    elif not a_agrees:
-        verdict = "source_data_manipulation"
-    elif a_agrees and b_agrees:
+    a_ok = r_vnf_ypfb >= 0.60
+    b_ok = r_ypfb_ine >= 0.60
+    if a_ok and b_ok:
         verdict = "no_manipulation_detected"
+    elif a_ok and not b_ok:
+        verdict = "aggregation_layer_suspect"
+    elif not a_ok and b_ok:
+        verdict = "source_layer_suspect"
     else:
-        verdict = "inconclusive"
+        verdict = "both_layers_suspect"
+
+    # Crisis-window residual: compute log-log regression coefficients on
+    # pre-crisis and project onto crisis window; report mean residual.
+    X_pre = sm.add_constant(np.log(pre["gas_prod_mmm3d"]))
+    y_pre = np.log(pre["hydrocarbon_va"])
+    fit = sm.OLS(y_pre, X_pre).fit()
+    crisis = df[df["date"] >= CRISIS_START]
+    crisis_resid = None
+    if len(crisis) >= 1:
+        pred = fit.params["const"] + fit.params["x1"] * np.log(crisis["gas_prod_mmm3d"])
+        resid = np.log(crisis["hydrocarbon_va"]) - pred
+        crisis_resid = float(resid.mean())
 
     return {
-        "status": "ok", "n": int(len(df)),
-        "vnf_ypfb_corr": r_vnf_ypfb, "ypfb_ine_corr": r_ypfb_ine,
+        "status": "ok",
+        "pre_crisis_n": int(len(pre)),
+        "vnf_ypfb_corr": r_vnf_ypfb,
+        "ypfb_ine_corr": r_ypfb_ine,
         "verdict": verdict,
+        "crisis_window_mean_residual_log_hydro_va": crisis_resid,
+        "identifying_assumption":
+            "Flaring is a physical, tamper-evident observation of field operations. "
+            "If the three series diverge, the divergence localizes to either source "
+            "reporting or national-accounts aggregation.",
+    }
+
+
+# -------- TEST 2: Nov-2025 INE leadership discontinuity --------------
+def test2_leadership_discontinuity() -> dict:
+    """Δlog(IGAE_t) = α + β Δlog(CI_t) + δ D_post + γ [Δlog(CI_t)·D_post]
+                    + ψ·X_t + ε_t,   H0: γ = 0.
+
+    Controls X_t: parallel premium, reserve change, month dummies,
+    precipitation anomaly (if present). Uses quarterly GDP when IGAE is
+    shorter than 12 months post-break.
+    """
+    p = paths()
+    ci = pd.read_csv(abs_path(p["data"]["ci"]), parse_dates=["date"])
+    ci = ci.dropna(subset=["ci"]).sort_values("date").set_index("date")
+
+    igae_path = abs_path(p["data"]["official_igae"])
+    gdp_path = abs_path("data/official/ine_gdp_quarterly.csv")
+    if not igae_path.exists() and not gdp_path.exists():
+        return {"status": "inputs_missing",
+                "needs": ["ine_igae.csv OR ine_gdp_quarterly.csv"]}
+
+    if igae_path.exists():
+        y = pd.read_csv(igae_path, parse_dates=["date"]).set_index("date")["igae"]
+        y = np.log(y).diff().rename("dy")
+        ci_aligned = ci["ci"].diff().rename("dx")
+        frequency = "monthly_igae"
+    else:
+        q = pd.read_csv(gdp_path, parse_dates=["date"]).set_index("date")["gdp_real"]
+        y = np.log(q).diff().rename("dy")
+        # Project CI to quarterly
+        ci_q = ci["ci"].resample("QE").mean().diff().rename("dx")
+        ci_aligned = ci_q
+        frequency = "quarterly_gdp"
+
+    df = pd.concat([y, ci_aligned], axis=1).dropna()
+    if len(df) < 12:
+        return {"status": "insufficient_n", "n": int(len(df)), "frequency": frequency}
+
+    df["D_post"] = (df.index >= LEADERSHIP_BREAK).astype(int)
+    df["dx_x_D"] = df["dx"] * df["D_post"]
+
+    # Optional control: dollar premium if present
+    prem_path = abs_path("data/official/dollar_premium.csv")
+    if prem_path.exists():
+        prem = pd.read_csv(prem_path, parse_dates=["date"]).set_index("date")
+        if "dollar_premium" in prem.columns:
+            pm = prem["dollar_premium"]
+            if frequency == "quarterly_gdp":
+                pm = pm.resample("QE").mean()
+            df = df.join(pm.rename("dollar_premium"), how="left")
+
+    X_cols = ["dx", "D_post", "dx_x_D"]
+    if "dollar_premium" in df.columns:
+        X_cols.append("dollar_premium")
+    X = sm.add_constant(df[X_cols])
+    model = sm.OLS(df["dy"], X).fit(cov_type="HAC", cov_kwds={"maxlags": 3})
+
+    n_post = int(df["D_post"].sum())
+    return {
+        "status": "ok",
+        "frequency": frequency,
+        "n": int(len(df)),
+        "n_post_break": n_post,
+        "beta_pre": float(model.params["dx"]),
+        "beta_se_pre": float(model.bse["dx"]),
+        "gamma_interaction": float(model.params["dx_x_D"]),
+        "gamma_se": float(model.bse["dx_x_D"]),
+        "gamma_pvalue": float(model.pvalues["dx_x_D"]),
+        "delta_intercept_shift": float(model.params["D_post"]),
+        "verdict": (
+            "martinez_signal" if (model.params["dx_x_D"] > 0
+                                  and model.pvalues["dx_x_D"] < 0.10) else
+            "no_signal"
+        ),
+        "preliminary":
+            ("Bolivia's monthly IGAE starts March 2026; post-break sample has "
+             f"{n_post} observations as of this vintage. Interpret with caution; "
+             "revisit at R&R.") if frequency == "monthly_igae" else None,
+        "identifying_assumption":
+            "Hydrocarbon fundamentals, reserves trajectory, and the parallel-rate "
+            "premium are continuous across November 2025. A discontinuity in the "
+            "satellite-to-GDP elasticity is therefore attributable to statistical "
+            "production, not fundamentals.",
+    }
+
+
+# -------- TEST 3: external-forecaster residual ----------------------
+def test3_external_forecaster_residual() -> dict:
+    """Regress CI on INE growth and on external forecaster growth separately;
+    compare the sign and magnitude of residuals during 2024-2025.
+
+    Expected consensus: external forecasters (IMF, World Bank, Oxford, S&P)
+    forecasts for 2025/2026 are more negative than INE. If INE smoothed
+    upward during the acute crisis, satellite-implied growth should be
+    systematically closer to external forecasters than to INE in 2024-2025.
+    """
+    p = paths()
+    ci = pd.read_csv(abs_path(p["data"]["ci"]), parse_dates=["date"])
+    ci = ci.dropna(subset=["ci"]).sort_values("date").set_index("date")
+
+    gdp_path = abs_path("data/official/ine_gdp_quarterly.csv")
+    ext_path = abs_path("data/official/external_forecasters.csv")
+    if not gdp_path.exists() or not ext_path.exists():
+        return {"status": "inputs_missing",
+                "needs": ["ine_gdp_quarterly.csv (date,gdp_real)",
+                          "external_forecasters.csv (year,imf,wb,oxford,snp)"]}
+
+    gdp = pd.read_csv(gdp_path, parse_dates=["date"]).set_index("date")
+    # INE growth (YoY) from quarterly
+    ine_g = np.log(gdp["gdp_real"]).diff(4).rename("ine_g")
+    ext = pd.read_csv(ext_path)  # year, imf, wb, oxford, snp (percent growth)
+    ext["consensus"] = ext[["imf", "wb", "oxford", "snp"]].mean(axis=1) / 100.0
+
+    # Resample CI to annual (mean)
+    ci_a = ci["ci"].resample("YE").mean()
+    # Annualize INE growth
+    ine_a = ine_g.resample("YE").mean()
+    ext_a = ext.set_index(pd.to_datetime(ext["year"].astype(str) + "-12-31"))["consensus"]
+
+    df = pd.concat([ci_a.rename("ci"), ine_a, ext_a], axis=1).dropna()
+    if len(df) < 6:
+        return {"status": "insufficient_n", "n": int(len(df))}
+
+    crisis_years = df.index.year >= 2024
+    resid_ine = df["ci"] - df["ine_g"]
+    resid_ext = df["ci"] - df["consensus"]
+    return {
+        "status": "ok",
+        "n": int(len(df)),
+        "ine_residual_crisis_mean": float(resid_ine[crisis_years].mean())
+            if crisis_years.any() else None,
+        "ext_residual_crisis_mean": float(resid_ext[crisis_years].mean())
+            if crisis_years.any() else None,
+        "verdict": (
+            "consistent_with_external_consensus"
+            if (crisis_years.any()
+                and abs(resid_ext[crisis_years].mean())
+                    < abs(resid_ine[crisis_years].mean()))
+            else "consistent_with_ine"
+        ),
+        "identifying_assumption":
+            "External forecasters and the satellite composite draw from the "
+            "same macro-data universe (reserves, prices, trade) but produce "
+            "independent numbers. A satellite residual smaller against the "
+            "external consensus than against INE places the satellite "
+            "evidence closer to the external-consensus reading of the "
+            "recession.",
     }
 
 
 def main() -> None:
     out = {
-        "test1_pre_post": test1_pre_post_trust_break(),
-        "test2_residual": test2_satellite_vs_official_residual(),
-        "test3_sectoral": test3_sectoral_consistency(),
+        "test1_sectoral_triangulation": test1_sectoral_triangulation(),
+        "test2_leadership_discontinuity": test2_leadership_discontinuity(),
+        "test3_external_forecaster_residual": test3_external_forecaster_residual(),
     }
     signals = [r.get("verdict") for r in out.values() if isinstance(r, dict)]
-    out["overall"] = {
-        "any_manipulation_signal": any(s in ("martinez_signal",
-                                              "aggregation_manipulation",
-                                              "source_data_manipulation")
-                                        for s in signals if s),
-        "signals": signals,
+    layer_rejections = {
+        "physical": out["test1_sectoral_triangulation"].get("verdict") in (
+            "aggregation_layer_suspect", "source_layer_suspect", "both_layers_suspect"),
+        "statistical": out["test2_leadership_discontinuity"].get("verdict") == "martinez_signal",
+        "consensus": out["test3_external_forecaster_residual"].get("verdict")
+                     == "consistent_with_external_consensus",
+    }
+    out["ladder_summary"] = {
+        "layer_rejections": layer_rejections,
+        "n_layers_rejecting": sum(1 for v in layer_rejections.values() if v),
+        "strong_claim": all(layer_rejections.values()),
+        "publishable_claim": any(layer_rejections.values()),
     }
     out_path = abs_path("data/satellite/manipulation_tests.json")
     out_path.parent.mkdir(parents=True, exist_ok=True)
     out_path.write_text(json.dumps(out, indent=2))
     print(f"[ok] manipulation tests → {out_path}")
     for k, v in out.items():
-        if isinstance(v, dict) and v.get("status") == "ok":
-            print(f"   {k}: {v.get('verdict', '-')}")
-        elif isinstance(v, dict):
-            print(f"   {k}: {v.get('status')}")
+        if isinstance(v, dict) and "status" in v:
+            print(f"   {k}: {v.get('status')} / {v.get('verdict', '-')}")
 
 
 if __name__ == "__main__":

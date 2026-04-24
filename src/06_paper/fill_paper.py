@@ -93,60 +93,96 @@ def body_elasticities() -> str:
     return "\n".join(lines + parts)
 
 
+def _tbd_fig_or_real(fig_path: str, caption: str, label: str) -> str:
+    """Render a figure if all required inputs are non-empty; otherwise a TBD box."""
+    fig_abs = abs_path(fig_path)
+    dfm = _safe(abs_path("data/satellite/dfm_result.json"))
+    if fig_abs.exists() and dfm.get("status") == "ok":
+        return (rf"\begin{{figure}}[H]\centering\includegraphics[width=0.95\linewidth]"
+                rf"{{{fig_path}}}\caption{{{caption}}}\label{{{label}}}\end{{figure}}")
+    return rf"\tbdline{{figure to be inserted after empirical estimation ({label})}}"
+
+
 def body_composite() -> str:
     dfm = _safe(abs_path("data/satellite/dfm_result.json"))
-    lines = [r"\begin{figure}[H]\centering\includegraphics[width=0.95\linewidth]"
-             r"{figures/factor_and_bbq.pdf}\caption{Satellite factor and "
-             r"Bry--Boschan turning points.}\label{fig:factor_bbq}\end{figure}"]
-    if dfm.get("status") == "ok":
-        lines.append(rf"\claim{{Fit summary}} The one-factor DFM with AR(2) "
-                     rf"factor dynamics and idiosyncratic AR(1) innovations "
-                     rf"attains log-likelihood ${_fmt(dfm['log_likelihood'],'{:.1f}')}$ "
-                     rf"on $n={dfm['n_obs']}$ monthly observations. Loadings on the "
-                     rf"three satellite streams are reported in the replication package.")
-    else:
-        lines.append(r"\claim{Fit summary} DFM not yet fit ("
-                     + dfm.get("status", "pending") + ").")
-    return "\n".join(lines)
+    if dfm.get("status") != "ok":
+        return (r"\tbdline{figure to be inserted after empirical estimation "
+                r"(fig:factor)}")
+    return "\n".join([
+        _tbd_fig_or_real("figures/factor_and_bbq.pdf",
+                         "Satellite factor and Bry--Boschan turning points.",
+                         "fig:factor_bbq"),
+        rf"\claim{{Fit summary}} Two-factor DFM (urban + extractive) "
+        rf"with AR(2) factor dynamics and idiosyncratic AR(1) innovations, "
+        rf"log-likelihood ${_fmt(dfm['log_likelihood'],'{:.1f}')}$, "
+        rf"$n={dfm['n_obs']}$ monthly observations. Loadings and factor-"
+        rf"decomposition variance shares in the replication archive.",
+    ])
 
 
 def body_dating() -> str:
     d = _safe(abs_path("data/satellite/recession_dating.json"))
-    lines = [r"\begin{figure}[H]\centering\includegraphics[width=0.95\linewidth]"
-             r"{figures/markov_probability.pdf}\caption{Hamilton two-state "
-             r"Markov-switching recession probability.}\label{fig:markov}\end{figure}"]
     bbq = d.get("bbq", {})
     ms = d.get("markov_switching", {})
-    if bbq.get("status") == "ok":
-        peaks = ", ".join(bbq.get("peaks", [])) or "---"
-        troughs = ", ".join(bbq.get("troughs", [])) or "---"
-        lines.append(rf"\claim{{BBQ turning points}} Peaks: {peaks}. Troughs: {troughs}.")
+    dfm_ok = _safe(abs_path("data/satellite/dfm_result.json")).get("status") == "ok"
+    if not dfm_ok or bbq.get("status") != "ok":
+        return (r"\tbdline{figure to be inserted after empirical estimation "
+                r"(fig:markov)}")
+    lines = [
+        _tbd_fig_or_real("figures/markov_probability.pdf",
+                         "Hamilton two-state Markov-switching recession probability "
+                         "on the first difference of the satellite factor.",
+                         "fig:markov"),
+        rf"\claim{{BBQ turning points}} Peaks: "
+        rf"{', '.join(bbq.get('peaks', [])) or '---'}. Troughs: "
+        rf"{', '.join(bbq.get('troughs', [])) or '---'}.",
+    ]
     if ms.get("status") == "ok":
         n_rec = sum(1 for p in ms["p_recession"] if p > 0.5)
-        lines.append(rf"\claim{{Markov-switching}} Recession-regime mean $\mu_r = "
-                     rf"{_fmt(ms['recession_mean'])}$, expansion $\mu_e = "
-                     rf"{_fmt(ms['expansion_mean'])}$. Months with "
-                     rf"$P(\text{{rec}})>0.5$: {n_rec}.")
+        lines.append(
+            rf"\claim{{Markov-switching}} Recession-regime mean "
+            rf"$\mu_r={_fmt(ms['recession_mean'],'{:+.3f}')}$ "
+            rf"per month, expansion $\mu_e={_fmt(ms['expansion_mean'],'{:+.3f}')}$. "
+            rf"Months with $P(\mathrm{{rec}})>0.5$: {n_rec}."
+        )
     return "\n".join(lines)
 
 
 def body_ine_comparison() -> str:
-    return ("\n".join([
+    bench = _safe(abs_path("data/satellite/benchmark_ine.json"))
+    if bench.get("status") != "ok":
+        return r"\tbdline{INE benchmark regression requires IGAE panel \u2265 24 vintages (expected March 2028).}"
+    return "\n".join([
         r"\input{tables/ine_vs_satellite.tex}", "",
-        r"\begin{figure}[H]\centering\includegraphics[width=0.95\linewidth]"
-        r"{figures/ine_vs_satellite.pdf}\caption{Satellite factor vs INE GDP growth.}"
-        r"\label{fig:ine_vs_sat}\end{figure}",
-    ]))
+        _tbd_fig_or_real("figures/ine_vs_satellite.pdf",
+                         "Satellite factor vs INE GDP growth.",
+                         "fig:ine_vs_sat"),
+    ])
 
 
 def body_manipulation() -> str:
+    m = _safe(abs_path("data/satellite/manipulation_tests.json"))
+    any_ok = any(
+        isinstance(v, dict) and v.get("status") == "ok"
+        for v in m.values()
+    )
+    if not any_ok:
+        return (r"\tbdline{Test 1 (sectoral triangulation), Test 2 (Nov-2025 INE "
+                r"leadership discontinuity), and Test 3 (external-forecaster residual) "
+                r"require YPFB field-month production, INE hydrocarbon value-added, "
+                r"and consensus external forecasts. Results to be inserted after "
+                r"official series are loaded.}")
     return r"\input{tables/manipulation.tex}"
 
 
 def body_channels() -> str:
+    dfm = _safe(abs_path("data/satellite/dfm_result.json"))
+    if dfm.get("status") != "ok":
+        return (r"\tbdline{Channel-decomposition table to be inserted after "
+                r"two-factor DFM estimation.}")
     return (r"\claim{Channel decomposition} Contribution of each stream to the "
             r"monthly factor is recovered from the estimated loadings "
-            r"$\lambda_i$; see replication parquet for the attribution table.")
+            r"$\lambda_i$ and reported in the replication archive.")
 
 
 def body_abstract_headline() -> str:

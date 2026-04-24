@@ -45,6 +45,23 @@ streams:
     baseline_end: "2019-12"
     min_valid_days_per_month: 15
     subsidy_break: "2025-12-01"
+  s2_ndvi:
+    primary_collection: "COPERNICUS/S2_SR_HARMONIZED"
+    scl_band: "SCL"
+    # SCL classes to exclude: 3 cloud_shadow, 8 cloud_medium, 9 cloud_high,
+    # 10 cirrus, 11 snow.
+    scl_excluded: [3, 8, 9, 10, 11]
+    bands: ["B4", "B8"]
+    fallback_collection: "LANDSAT/LC08/C02/T1_L2"
+    fallback_red_band: "SR_B4"
+    fallback_nir_band: "SR_B5"
+    fallback_qa_band: "QA_PIXEL"
+    worldcover: "ESA/WorldCover/v200"
+    worldcover_crop_class: 40
+    start: "2013-01"
+    baseline_start: "2013-01"
+    baseline_end: "2019-12"
+    scale_m: 30
 
 data:
   raw_viirs: "data/satellite/viirs_raw"
@@ -56,6 +73,8 @@ data:
   vnf_anomaly: "data/satellite/vnf_chaco_anomaly.csv"
   s5p_monthly: "data/satellite/s5p_no2_monthly.csv"
   s5p_anomaly: "data/satellite/s5p_no2_anomaly.csv"
+  s2_ndvi_monthly: "data/satellite/s2_ndvi_monthly.csv"
+  s2_ndvi_anomaly: "data/satellite/s2_ndvi_anomaly.csv"
   ci: "data/satellite/bolivia_satellite_ci.csv"
   ci_db: "data/satellite/bolivia_satellite_ci.duckdb"
   official_igae: "data/official/ine_igae.csv"

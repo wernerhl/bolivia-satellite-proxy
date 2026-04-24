@@ -20,12 +20,14 @@ import numpy as np
 import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from _common import abs_path, buffers, load_env, paths  # noqa: E402
+from _common import abs_path, buffers, load_env, ndvi_zones, paths  # noqa: E402
 
 load_env()
 
 
-WEIGHTS = {"viirs": 0.40, "vnf": 0.30, "no2": 0.30}
+# Track A revision: NDVI added as fourth stream. Weights re-balanced from
+# 0.40 / 0.30 / 0.30 to 0.30 / 0.25 / 0.20 / 0.25 (VIIRS / VNF / NO2 / NDVI).
+WEIGHTS = {"viirs": 0.30, "vnf": 0.25, "no2": 0.20, "ndvi": 0.25}
 
 
 def viirs_composite(anomaly: pd.DataFrame, pop_by_city: dict[str, float]) -> pd.DataFrame:
@@ -70,31 +72,50 @@ def vnf_composite(anomaly: pd.DataFrame) -> pd.DataFrame:
     return df[["date", "rh_anomaly_z"]].rename(columns={"rh_anomaly_z": "vnf_z"})
 
 
+def ndvi_composite(anomaly: pd.DataFrame, gva_weight: dict[str, float]) -> pd.DataFrame:
+    df = anomaly.copy()
+    df["date"] = pd.to_datetime(df["date"])
+    df = df.dropna(subset=["anomaly_z"])
+    df["w"] = df["zone"].map(gva_weight).fillna(0)
+    return (df.groupby("date")
+              .apply(lambda g: np.average(g["anomaly_z"], weights=g["w"])
+                     if g["w"].sum() > 0 else np.nan, include_groups=False)
+              .rename("ndvi_z").reset_index())
+
+
 def main() -> None:
     p = paths()
     pop_by_city = {c["name"]: c["population"] for c in buffers()}
+    gva_weight = {z["name"]: z["gva_weight"] for z in ndvi_zones()}
 
     viirs = pd.read_csv(abs_path(p["data"]["viirs_sol_anomaly"]))
     vnf = pd.read_csv(abs_path(p["data"]["vnf_anomaly"]))
     no2 = pd.read_csv(abs_path(p["data"]["s5p_anomaly"]))
+    ndvi_path = abs_path(p["data"]["s2_ndvi_anomaly"])
+    ndvi = pd.read_csv(ndvi_path) if ndvi_path.exists() else pd.DataFrame()
 
     v = viirs_composite(viirs, pop_by_city) if not viirs.empty else pd.DataFrame(columns=["date", "viirs_z"])
     f = vnf_composite(vnf) if not vnf.empty else pd.DataFrame(columns=["date", "vnf_z"])
     n = no2_composite(no2) if not no2.empty else pd.DataFrame(columns=["date", "no2_z"])
+    nd = ndvi_composite(ndvi, gva_weight) if not ndvi.empty else pd.DataFrame(columns=["date", "ndvi_z"])
 
-    ci = v.merge(f, on="date", how="outer").merge(n, on="date", how="outer").sort_values("date")
+    ci = (v.merge(f, on="date", how="outer")
+          .merge(n, on="date", how="outer")
+          .merge(nd, on="date", how="outer")
+          .sort_values("date"))
 
     w = WEIGHTS
     ci["ci"] = (
         w["viirs"] * ci["viirs_z"].fillna(0)
         + w["vnf"] * ci["vnf_z"].fillna(0)
         + w["no2"] * ci["no2_z"].fillna(0)
+        + w["ndvi"] * ci.get("ndvi_z", pd.Series(0, index=ci.index)).fillna(0)
     )
-    # If all three missing, CI is NA
-    mask_all_na = ci[["viirs_z", "vnf_z", "no2_z"]].isna().all(axis=1)
+    # If all four missing, CI is NA
+    mask_all_na = ci[["viirs_z", "vnf_z", "no2_z", "ndvi_z"]].isna().all(axis=1)
     ci.loc[mask_all_na, "ci"] = np.nan
 
-    ci = ci[["date", "ci", "viirs_z", "vnf_z", "no2_z"]]
+    ci = ci[["date", "ci", "viirs_z", "vnf_z", "no2_z", "ndvi_z"]]
     out_csv = abs_path(p["data"]["ci"])
     ci.to_csv(out_csv, index=False)
     print(f"[ok] wrote {out_csv} ({len(ci)} rows)")

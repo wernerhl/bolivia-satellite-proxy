@@ -73,9 +73,9 @@ $^{{*}}$, $^{{**}}$, $^{{***}}$: $p<0.10,0.05,0.01$.}}
 \toprule
 Specification & $\hat\beta$ & (SE) & $n$ & Benchmark from literature \\
 \midrule
-{row('Eq.~(6) VIIRS $\\to$ GDP (annual, department)', v, '\\citet{hsw2012}: 0.30')}
-{row('Eq.~(7) VNF $\\to$ gas production (monthly, field)', f, '\\citet{do_etal2018}: $\\approx 1.0$')}
-{row('Eq.~(8) NO$_2$ $\\to$ fuel sales (monthly, metro)', n, '\\citet{bauwens2020}: 0.2--0.5')}
+{row('Eq.~(1) VIIRS $\\to$ GDP (annual, department)', v, '\\citet{hsw2012}: 0.30')}
+{row('Eq.~(2) VNF $\\to$ gas production (monthly, field)', f, '\\citet{do_etal2018}: $\\approx 1.0$')}
+{row('Eq.~(3) NO$_2$ $\\to$ fuel sales (monthly, metro)', n, '\\citet{bauwens2020}: 0.2--0.5')}
 \bottomrule
 \end{{tabular}}
 \end{{table}}

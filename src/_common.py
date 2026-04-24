@@ -47,6 +47,10 @@ def rois() -> list[dict]:
     return load_yaml("config/rois.yaml")["rois"]
 
 
+def ndvi_zones() -> list[dict]:
+    return load_yaml("config/ndvi_zones.yaml")["zones"]
+
+
 def ensure_dir(p: str | Path) -> Path:
     q = project_root() / p if not Path(p).is_absolute() else Path(p)
     q.mkdir(parents=True, exist_ok=True)
