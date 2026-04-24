@@ -56,7 +56,7 @@
 
 \begin{abstract}
 \noindent
-Bolivia's national statistics office reported a \num{-1.58} percent contraction of real GDP in 2025, with the Fund forecasting \num{-3.3} percent for 2026. The official numbers arrive quarterly, with substantial revision, and are published by an institution whose independence from the executive has been contested through two decades of commodity-cycle manipulation concerns. I read Bolivia's \numrange{2025}{2026} recession from orbit. Three independent satellite streams --- VIIRS Day/Night Band nighttime radiance over eleven urban buffers, VIIRS Nightfire radiant heat over the six major Chaco gas fields, and Sentinel-5P TROPOMI tropospheric nitrogen-dioxide columns over the La Paz--El Alto and Santa Cruz metropolitan areas --- are combined through a mixed-frequency dynamic factor model to produce a monthly coincident index of Bolivian real activity. The index provides a falsification test for the national accounts in the spirit of \citet{martinez2022}, extended along two dimensions: a direct physical proxy for the extractive sector and a direct physical proxy for urban combustion activity. \tbdline{Headline result. Magnitude of the residual against INE. Timing of the trough. Sector decomposition.} The framework is general, the Bolivian application is first, and the data are all free.
+Bolivia's national statistics office reported a \num{-1.58} percent contraction of real GDP in 2025, with the Fund forecasting \num{-3.3} percent for 2026. The official numbers arrive quarterly, with substantial revision, and are published by an institution whose independence from the executive has been contested through two decades of commodity-cycle manipulation concerns. I read Bolivia's \numrange{2025}{2026} recession from orbit. Three independent satellite streams --- VIIRS Day/Night Band nighttime radiance over eleven urban buffers, VIIRS Nightfire radiant heat over the six major Chaco gas fields, and Sentinel-5P TROPOMI tropospheric nitrogen-dioxide columns over the La Paz--El Alto and Santa Cruz metropolitan areas --- are combined through a mixed-frequency dynamic factor model to produce a monthly coincident index of Bolivian real activity. The index provides a falsification test for the national accounts in the spirit of \citet{martinez2022}, extended along two dimensions: a direct physical proxy for the extractive sector and a direct physical proxy for urban combustion activity. % BEGIN-AUTO-headline Headline: the satellite factor bottoms at $z=-2.08$ in 2024-03; latest (2026-04) at $z=-1.40$.  % END-AUTO-headline The framework is general, the Bolivian application is first, and the data are all free.
 \vspace{0.5em}
 
 \noindent \textbf{JEL:} C32, C38, E01, E32, O11, O54, Q35, Q43. \\
@@ -296,7 +296,7 @@ Target length: \numrange{12}{15} pages with four to six figures and two to four 
 \label{subsec:composite}
 % BEGIN-AUTO-subsec_composite
 \begin{figure}[H]\centering\includegraphics[width=0.95\linewidth]{figures/factor_and_bbq.pdf}\caption{Satellite factor and Bry--Boschan turning points.}\label{fig:factor_bbq}\end{figure}
-\claim{Fit summary} DFM not yet fit (fit_failed).
+\claim{Fit summary} The one-factor DFM with AR(2) factor dynamics and idiosyncratic AR(1) innovations attains log-likelihood $-244.1$ on $n=169$ monthly observations. Loadings on the three satellite streams are reported in the replication package.
 % END-AUTO-subsec_composite
 
 
@@ -306,8 +306,8 @@ Target length: \numrange{12}{15} pages with four to six figures and two to four 
 \label{subsec:dating}
 % BEGIN-AUTO-subsec_dating
 \begin{figure}[H]\centering\includegraphics[width=0.95\linewidth]{figures/markov_probability.pdf}\caption{Hamilton two-state Markov-switching recession probability.}\label{fig:markov}\end{figure}
-\claim{BBQ turning points} Peaks: 2013-04, 2015-12, 2017-01, 2018-09, 2020-01, 2021-02, 2022-12. Troughs: 2013-10, 2017-04, 2018-10, 2021-06, 2024-03, 2025-03.
-\claim{Markov-switching} Recession-regime mean $\mu_r = -0.98$, expansion $\mu_e = -0.15$. Months with $P(\text{rec})>0.5$: 3.
+\claim{BBQ turning points} Peaks: 2015-12, 2022-01, 2025-04. Troughs: 2021-06, 2024-03.
+\claim{Markov-switching} Recession-regime mean $\mu_r = -0.04$, expansion $\mu_e = +0.00$. Months with $P(\text{rec})>0.5$: 40.
 % END-AUTO-subsec_dating
 
 

@@ -183,14 +183,23 @@ def main() -> None:
         block = _block(marker, body)
         text = _replace_or_insert(text, marker, label, block)
 
-    # Abstract headline: replace the \tbdline{Headline result...} placeholder
+    # Abstract headline. First run: replace the \tbdline placeholder with a
+    # marker-wrapped block; subsequent runs: overwrite the marker block.
     headline = body_abstract_headline()
     if headline:
-        text = re.sub(
-            r"\\tbdline\{Headline result[^}]*\}",
-            lambda _m: headline,
-            text, count=1,
-        )
+        wrapped = f"% BEGIN-AUTO-headline {headline} % END-AUTO-headline"
+        if "BEGIN-AUTO-headline" in text:
+            text = re.sub(
+                r"% BEGIN-AUTO-headline.*?% END-AUTO-headline",
+                lambda _m: wrapped,
+                text, count=1, flags=re.S,
+            )
+        else:
+            text = re.sub(
+                r"\\tbdline\{Headline result[^}]*\}",
+                lambda _m: wrapped,
+                text, count=1,
+            )
 
     PAPER.write_text(text)
     print(f"[ok] patched {PAPER}")

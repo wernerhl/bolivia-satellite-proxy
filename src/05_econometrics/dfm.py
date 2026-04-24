@@ -81,7 +81,14 @@ def fit_dfm(panel: pd.DataFrame, k_factors: int = 1, factor_order: int = 2) -> d
     from statsmodels.tsa.statespace.dynamic_factor_mq import DynamicFactorMQ
 
     monthly_cols = [c for c in panel.columns if c != "gdp_q"]
-    endog_monthly = panel[monthly_cols].dropna(how="all")
+    endog_monthly = panel[monthly_cols].copy()
+    # Drop columns that are entirely missing (official series not yet fetched).
+    endog_monthly = endog_monthly.dropna(axis=1, how="all")
+    # Drop rows where every remaining column is missing; the Kalman smoother
+    # handles ragged edges and partial-NaN months fine.
+    endog_monthly = endog_monthly.dropna(how="all")
+    if endog_monthly.shape[1] == 0:
+        return {"status": "no_indicators"}
     endog_quarterly = None
     if "gdp_q" in panel.columns:
         gdp = panel["gdp_q"].dropna()
@@ -99,6 +106,17 @@ def fit_dfm(panel: pd.DataFrame, k_factors: int = 1, factor_order: int = 2) -> d
         )
         res = model.fit(disp=False)
         factor = res.factors.smoothed.iloc[:, 0]
+        # Orient so positive factor = expansion. Correlate with the
+        # weighted CI from build_ci; flip sign if negative.
+        try:
+            import pandas as _pd
+            ci = _pd.read_csv(abs_path(paths()["data"]["ci"]), parse_dates=["date"])
+            ci = ci.set_index("date")["ci"].dropna()
+            overlap = _pd.concat([factor.rename("f"), ci], axis=1).dropna()
+            if len(overlap) >= 12 and overlap["f"].corr(overlap["ci"]) < 0:
+                factor = -factor
+        except Exception:
+            pass
         factor_zscore = _zscore(factor)
         return {
             "status": "ok",

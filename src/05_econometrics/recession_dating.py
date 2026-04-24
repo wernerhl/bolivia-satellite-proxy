@@ -24,14 +24,18 @@ from _common import abs_path, load_env, paths  # noqa: E402
 load_env()
 
 
-def load_factor() -> pd.Series:
+def load_factor(raw: bool = False) -> pd.Series:
+    """Return the DFM factor (or CI fallback). raw=True returns the un-z-scored
+    factor which preserves cyclical amplitude — needed for Markov-switching
+    regime separation."""
     p = paths()
     dfm_path = abs_path("data/satellite/dfm_result.json")
     if dfm_path.exists():
         d = json.loads(dfm_path.read_text())
         if d.get("status") == "ok":
             idx = pd.to_datetime(d["factor_index"])
-            return pd.Series(d["factor_z"], index=idx, name="factor_z")
+            key = "factor" if (raw and "factor" in d) else "factor_z"
+            return pd.Series(d[key], index=idx, name=key)
     ci = pd.read_csv(abs_path(p["data"]["ci"]), parse_dates=["date"])
     ci = ci.dropna(subset=["ci"]).sort_values("date")
     return ci.set_index("date")["ci"].rename("factor_z")
@@ -95,39 +99,44 @@ def bbq_monthly(y: pd.Series, min_phase: int = 6, min_cycle: int = 15) -> dict:
 
 
 def hamilton_switching(y: pd.Series) -> dict:
-    """Two-state Markov-switching AR(2) on the factor. Regime 0 = expansion
-    (higher mean), Regime 1 = recession (lower mean). Returns smoothed
-    recession probabilities per month."""
-    from statsmodels.tsa.regime_switching.markov_autoregression import MarkovAutoregression
+    """Two-state Markov-switching on the factor's monthly CHANGE. Regime 1 =
+    recession (negative mean), regime 0 = expansion (positive mean). The
+    factor level is highly persistent (autocorr ≈ 1), so switching on the
+    level alone fails to separate regimes; the first difference is what
+    the Hamilton framework is designed for. Returns smoothed recession
+    probabilities per month."""
+    from statsmodels.tsa.regime_switching.markov_regression import MarkovRegression
     y = y.dropna()
     if len(y) < 60:
         return {"status": "insufficient_n", "n": int(len(y))}
+    dy = y.diff().dropna()
     try:
-        mod = MarkovAutoregression(y, k_regimes=2, order=2, switching_ar=False)
+        mod = MarkovRegression(dy, k_regimes=2, trend="c", switching_variance=True)
         res = mod.fit(disp=False)
-        # Orient so regime 1 = recession (lower mean)
-        mu0 = float(res.params[f"const[0]"])
-        mu1 = float(res.params[f"const[1]"])
+        mu0 = float(res.params["const[0]"])
+        mu1 = float(res.params["const[1]"])
         rec_regime = 1 if mu1 < mu0 else 0
         p_rec = res.smoothed_marginal_probabilities[rec_regime]
         return {
             "status": "ok",
-            "n_obs": int(len(y)),
+            "n_obs": int(len(dy)),
             "recession_mean": min(mu0, mu1),
             "expansion_mean": max(mu0, mu1),
             "index": [d.strftime("%Y-%m") for d in p_rec.index],
             "p_recession": p_rec.round(3).tolist(),
             "log_likelihood": float(res.llf),
+            "model": "MarkovRegression on first-differenced factor",
         }
     except Exception as e:
         return {"status": "fit_failed", "error": str(e)[:200]}
 
 
 def main() -> None:
-    y = load_factor()
+    y_z = load_factor(raw=False)      # z-scored: clean BBQ turning points
+    y_raw = load_factor(raw=True)     # raw amplitude: Markov regime separation
     out = {
-        "bbq": bbq_monthly(y),
-        "markov_switching": hamilton_switching(y),
+        "bbq": bbq_monthly(y_z),
+        "markov_switching": hamilton_switching(y_raw),
     }
     out_path = abs_path("data/satellite/recession_dating.json")
     out_path.parent.mkdir(parents=True, exist_ok=True)
