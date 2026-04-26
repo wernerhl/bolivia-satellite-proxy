@@ -1,0 +1,1377 @@
+year,department,isic_section,sector_label,value
+2017,beni,,Impuestos netos de subvenciones a los productos,100.0
+2017,beni,,PRODUCTO  INTERNO  BRUTO(1),100.0
+2017,beni,,VALOR AGREGADO BRUTO,100.0
+2017,beni,A,"Agricultura, ganaderia, silvicultura y pesca",100.0
+2017,beni,B,Actividad extractiva,100.0
+2017,beni,C,Industrias manufactureras,100.0
+2017,beni,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",100.0
+2017,beni,F,Construcción,100.0
+2017,beni,G,Comercio; reparacion de vehículos automotores y motocicletas,100.0
+2017,beni,H,Transporte y almacenamiento,100.0
+2017,beni,I,Actividades de alojamiento y de servicio de comidas y bebidas,100.0
+2017,beni,J,Comunicación e informaciones,100.0
+2017,beni,K,Actividades financieras y de seguros,100.0
+2017,beni,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",100.0
+2017,beni,O,Administracion publica,100.0
+2017,beni,P,Enseñanza,100.0
+2017,beni,Q,Actividades de atencion de la salud humana y de asistencia social,100.0
+2017,beni,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",100.0
+2018,beni,,Impuestos netos de subvenciones a los productos,107.3555392673391
+2018,beni,,PRODUCTO  INTERNO  BRUTO(1),108.17332524449503
+2018,beni,,VALOR AGREGADO BRUTO,108.24243254541707
+2018,beni,A,"Agricultura, ganaderia, silvicultura y pesca",103.15283796520835
+2018,beni,B,Actividad extractiva,124.69798999708341
+2018,beni,C,Industrias manufactureras,130.30123418902912
+2018,beni,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",108.81331749844654
+2018,beni,F,Construcción,92.36723902300541
+2018,beni,G,Comercio; reparacion de vehículos automotores y motocicletas,123.03328630535827
+2018,beni,H,Transporte y almacenamiento,104.67809438907108
+2018,beni,I,Actividades de alojamiento y de servicio de comidas y bebidas,103.3143962340549
+2018,beni,J,Comunicación e informaciones,103.30754334037194
+2018,beni,K,Actividades financieras y de seguros,104.95375745517393
+2018,beni,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",92.1322109527966
+2018,beni,O,Administracion publica,102.01912082929876
+2018,beni,P,Enseñanza,107.74048412137056
+2018,beni,Q,Actividades de atencion de la salud humana y de asistencia social,109.62185273987262
+2018,beni,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",111.8074546557111
+2019,beni,,Impuestos netos de subvenciones a los productos,119.05647626368234
+2019,beni,,PRODUCTO  INTERNO  BRUTO(1),115.6734324310055
+2019,beni,,VALOR AGREGADO BRUTO,115.4063920035224
+2019,beni,A,"Agricultura, ganaderia, silvicultura y pesca",109.30533583204522
+2019,beni,B,Actividad extractiva,123.53894848556091
+2019,beni,C,Industrias manufactureras,129.11566130906215
+2019,beni,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",128.56202244816944
+2019,beni,F,Construcción,135.57055523739334
+2019,beni,G,Comercio; reparacion de vehículos automotores y motocicletas,121.45708662960897
+2019,beni,H,Transporte y almacenamiento,116.42991986482652
+2019,beni,I,Actividades de alojamiento y de servicio de comidas y bebidas,104.84269872898831
+2019,beni,J,Comunicación e informaciones,104.94760408855075
+2019,beni,K,Actividades financieras y de seguros,109.90369345980098
+2019,beni,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",105.03787709979434
+2019,beni,O,Administracion publica,114.87319124089616
+2019,beni,P,Enseñanza,105.19681490137306
+2019,beni,Q,Actividades de atencion de la salud humana y de asistencia social,117.18610403844552
+2019,beni,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",112.89813288158496
+2020,beni,,Impuestos netos de subvenciones a los productos,91.65541413060711
+2020,beni,,PRODUCTO  INTERNO  BRUTO(1),102.89694446655001
+2020,beni,,VALOR AGREGADO BRUTO,103.72138153824068
+2020,beni,A,"Agricultura, ganaderia, silvicultura y pesca",113.86345422714989
+2020,beni,B,Actividad extractiva,113.46056761963906
+2020,beni,C,Industrias manufactureras,110.5679252315267
+2020,beni,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",118.570933644594
+2020,beni,F,Construcción,94.2992613476917
+2020,beni,G,Comercio; reparacion de vehículos automotores y motocicletas,101.97310829553588
+2020,beni,H,Transporte y almacenamiento,84.24866958155962
+2020,beni,I,Actividades de alojamiento y de servicio de comidas y bebidas,77.77362701306885
+2020,beni,J,Comunicación e informaciones,96.3732438524996
+2020,beni,K,Actividades financieras y de seguros,107.07759246777348
+2020,beni,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",97.70809141620579
+2020,beni,O,Administracion publica,101.74611489385812
+2020,beni,P,Enseñanza,105.44959389499405
+2020,beni,Q,Actividades de atencion de la salud humana y de asistencia social,136.1425159888245
+2020,beni,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",92.18353040949327
+2021,beni,,Impuestos netos de subvenciones a los productos,95.36228456662496
+2021,beni,,PRODUCTO  INTERNO  BRUTO(1),108.84430603281123
+2021,beni,,VALOR AGREGADO BRUTO,109.81765202078732
+2021,beni,A,"Agricultura, ganaderia, silvicultura y pesca",119.96024631168261
+2021,beni,B,Actividad extractiva,105.79630780392418
+2021,beni,C,Industrias manufactureras,122.54774843130471
+2021,beni,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",116.98947180679002
+2021,beni,F,Construcción,81.22917222630008
+2021,beni,G,Comercio; reparacion de vehículos automotores y motocicletas,120.46061582200421
+2021,beni,H,Transporte y almacenamiento,99.79914418352345
+2021,beni,I,Actividades de alojamiento y de servicio de comidas y bebidas,95.77061860060593
+2021,beni,J,Comunicación e informaciones,99.39475923565716
+2021,beni,K,Actividades financieras y de seguros,107.52883552886084
+2021,beni,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",103.96153399657226
+2021,beni,O,Administracion publica,106.12598183841563
+2021,beni,P,Enseñanza,106.16261004232346
+2021,beni,Q,Actividades de atencion de la salud humana y de asistencia social,142.40071373582168
+2021,beni,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",111.56486903832484
+2022,beni,,Impuestos netos de subvenciones a los productos,112.28980573655896
+2022,beni,,PRODUCTO  INTERNO  BRUTO(1),118.21444941051459
+2022,beni,,VALOR AGREGADO BRUTO,118.65527764240886
+2022,beni,A,"Agricultura, ganaderia, silvicultura y pesca",129.22204756197695
+2022,beni,B,Actividad extractiva,104.60090942266939
+2022,beni,C,Industrias manufactureras,131.70944932677236
+2022,beni,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",123.02820227899917
+2022,beni,F,Construcción,147.2007506560402
+2022,beni,G,Comercio; reparacion de vehículos automotores y motocicletas,130.74397205246595
+2022,beni,H,Transporte y almacenamiento,89.81303823912398
+2022,beni,I,Actividades de alojamiento y de servicio de comidas y bebidas,109.22067726030193
+2022,beni,J,Comunicación e informaciones,107.8924132486132
+2022,beni,K,Actividades financieras y de seguros,107.1232143132197
+2022,beni,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",121.04010187611156
+2022,beni,O,Administracion publica,100.01045430497884
+2022,beni,P,Enseñanza,109.2374028388553
+2022,beni,Q,Actividades de atencion de la salud humana y de asistencia social,142.6788339735678
+2022,beni,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",106.57538351656603
+2023,beni,,Impuestos netos de subvenciones a los productos,111.11487884821159
+2023,beni,,PRODUCTO  INTERNO  BRUTO(1),123.64550821388261
+2023,beni,,VALOR AGREGADO BRUTO,124.5899884783171
+2023,beni,A,"Agricultura, ganaderia, silvicultura y pesca",150.50345546912374
+2023,beni,B,Actividad extractiva,115.08401935413562
+2023,beni,C,Industrias manufactureras,128.61222643814202
+2023,beni,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",134.83081158867478
+2023,beni,F,Construcción,128.36919906346517
+2023,beni,G,Comercio; reparacion de vehículos automotores y motocicletas,141.44483023475382
+2023,beni,H,Transporte y almacenamiento,83.18054375450478
+2023,beni,I,Actividades de alojamiento y de servicio de comidas y bebidas,113.73656976658818
+2023,beni,J,Comunicación e informaciones,117.06912147305903
+2023,beni,K,Actividades financieras y de seguros,117.37545566376131
+2023,beni,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",135.99662298427404
+2023,beni,O,Administracion publica,98.0307073918592
+2023,beni,P,Enseñanza,113.53006930195906
+2023,beni,Q,Actividades de atencion de la salud humana y de asistencia social,158.1434051365459
+2023,beni,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",106.8476216915688
+2024,beni,,Impuestos netos de subvenciones a los productos,109.18197425179136
+2024,beni,,PRODUCTO  INTERNO  BRUTO(1),126.26123112768818
+2024,beni,,VALOR AGREGADO BRUTO,127.56197459074902
+2024,beni,A,"Agricultura, ganaderia, silvicultura y pesca",145.44924955597014
+2024,beni,B,Actividad extractiva,148.60116331658062
+2024,beni,C,Industrias manufactureras,131.62597470664042
+2024,beni,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",135.73729001753364
+2024,beni,F,Construcción,132.504051512483
+2024,beni,G,Comercio; reparacion de vehículos automotores y motocicletas,133.86486706349405
+2024,beni,H,Transporte y almacenamiento,87.50023914026583
+2024,beni,I,Actividades de alojamiento y de servicio de comidas y bebidas,116.4158653412677
+2024,beni,J,Comunicación e informaciones,121.410888002283
+2024,beni,K,Actividades financieras y de seguros,119.03877276087589
+2024,beni,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",128.59988838659044
+2024,beni,O,Administracion publica,99.63220846703013
+2024,beni,P,Enseñanza,115.05668237954089
+2024,beni,Q,Actividades de atencion de la salud humana y de asistencia social,160.01506420327797
+2024,beni,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",114.75037421855383
+2017,chuquisaca,,Impuestos netos de subvenciones a los productos,100.0
+2017,chuquisaca,,PRODUCTO  INTERNO  BRUTO(1),100.0
+2017,chuquisaca,,VALOR AGREGADO BRUTO,100.0
+2017,chuquisaca,A,"Agricultura, ganaderia, silvicultura y pesca",100.0
+2017,chuquisaca,B,Actividad extractiva,100.0
+2017,chuquisaca,C,Industrias manufactureras,100.0
+2017,chuquisaca,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",100.0
+2017,chuquisaca,F,Construcción,100.0
+2017,chuquisaca,G,Comercio; reparacion de vehículos automotores y motocicletas,100.0
+2017,chuquisaca,H,Transporte y almacenamiento,100.0
+2017,chuquisaca,I,Actividades de alojamiento y de servicio de comidas y bebidas,100.0
+2017,chuquisaca,J,Comunicación e informaciones,100.0
+2017,chuquisaca,K,Actividades financieras y de seguros,100.0
+2017,chuquisaca,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",100.0
+2017,chuquisaca,O,Administracion publica,100.0
+2017,chuquisaca,P,Enseñanza,100.0
+2017,chuquisaca,Q,Actividades de atencion de la salud humana y de asistencia social,100.0
+2017,chuquisaca,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",100.0
+2018,chuquisaca,,Impuestos netos de subvenciones a los productos,103.41457295094128
+2018,chuquisaca,,PRODUCTO  INTERNO  BRUTO(1),103.37722067929165
+2018,chuquisaca,,VALOR AGREGADO BRUTO,103.37454720366135
+2018,chuquisaca,A,"Agricultura, ganaderia, silvicultura y pesca",108.27317010285509
+2018,chuquisaca,B,Actividad extractiva,104.25534118691058
+2018,chuquisaca,C,Industrias manufactureras,104.48873375723657
+2018,chuquisaca,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",102.42447220287379
+2018,chuquisaca,F,Construcción,93.2653309075514
+2018,chuquisaca,G,Comercio; reparacion de vehículos automotores y motocicletas,110.82910453092882
+2018,chuquisaca,H,Transporte y almacenamiento,104.67188699421779
+2018,chuquisaca,I,Actividades de alojamiento y de servicio de comidas y bebidas,103.16742317267381
+2018,chuquisaca,J,Comunicación e informaciones,99.38065322167205
+2018,chuquisaca,K,Actividades financieras y de seguros,104.35817051537748
+2018,chuquisaca,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",106.80914967417168
+2018,chuquisaca,O,Administracion publica,96.00134112569204
+2018,chuquisaca,P,Enseñanza,105.16580906160583
+2018,chuquisaca,Q,Actividades de atencion de la salud humana y de asistencia social,107.91175740436256
+2018,chuquisaca,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",94.42239657142436
+2019,chuquisaca,,Impuestos netos de subvenciones a los productos,99.81606291119228
+2019,chuquisaca,,PRODUCTO  INTERNO  BRUTO(1),104.4620405459901
+2019,chuquisaca,,VALOR AGREGADO BRUTO,104.78109115068028
+2019,chuquisaca,A,"Agricultura, ganaderia, silvicultura y pesca",110.46888377507952
+2019,chuquisaca,B,Actividad extractiva,110.93571555892127
+2019,chuquisaca,C,Industrias manufactureras,105.46218050766699
+2019,chuquisaca,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",100.56635312477368
+2019,chuquisaca,F,Construcción,91.95389386085567
+2019,chuquisaca,G,Comercio; reparacion de vehículos automotores y motocicletas,109.04709772558526
+2019,chuquisaca,H,Transporte y almacenamiento,106.11457727337302
+2019,chuquisaca,I,Actividades de alojamiento y de servicio de comidas y bebidas,102.29010909256073
+2019,chuquisaca,J,Comunicación e informaciones,93.42708472428077
+2019,chuquisaca,K,Actividades financieras y de seguros,111.67099347505363
+2019,chuquisaca,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",107.26117797465997
+2019,chuquisaca,O,Administracion publica,100.71844166996388
+2019,chuquisaca,P,Enseñanza,100.2364764568198
+2019,chuquisaca,Q,Actividades de atencion de la salud humana y de asistencia social,115.97701311673185
+2019,chuquisaca,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",82.14905175752307
+2020,chuquisaca,,Impuestos netos de subvenciones a los productos,73.30537917472559
+2020,chuquisaca,,PRODUCTO  INTERNO  BRUTO(1),91.83048076522273
+2020,chuquisaca,,VALOR AGREGADO BRUTO,93.04581232236143
+2020,chuquisaca,A,"Agricultura, ganaderia, silvicultura y pesca",111.34011215919185
+2020,chuquisaca,B,Actividad extractiva,103.42519828655114
+2020,chuquisaca,C,Industrias manufactureras,79.52393075387785
+2020,chuquisaca,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",93.01848914370532
+2020,chuquisaca,F,Construcción,52.86725340377006
+2020,chuquisaca,G,Comercio; reparacion de vehículos automotores y motocicletas,83.71844921405643
+2020,chuquisaca,H,Transporte y almacenamiento,73.62128742619265
+2020,chuquisaca,I,Actividades de alojamiento y de servicio de comidas y bebidas,72.7346446814014
+2020,chuquisaca,J,Comunicación e informaciones,91.58222277116576
+2020,chuquisaca,K,Actividades financieras y de seguros,114.6245361249258
+2020,chuquisaca,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",105.83353411465743
+2020,chuquisaca,O,Administracion publica,98.15164236482894
+2020,chuquisaca,P,Enseñanza,98.09955861910132
+2020,chuquisaca,Q,Actividades de atencion de la salud humana y de asistencia social,135.54724752025706
+2020,chuquisaca,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",86.96970010075223
+2021,chuquisaca,,Impuestos netos de subvenciones a los productos,83.40961977950842
+2021,chuquisaca,,PRODUCTO  INTERNO  BRUTO(1),94.40315793270818
+2021,chuquisaca,,VALOR AGREGADO BRUTO,95.1670527287202
+2021,chuquisaca,A,"Agricultura, ganaderia, silvicultura y pesca",119.69149821608133
+2021,chuquisaca,B,Actividad extractiva,88.96010617177559
+2021,chuquisaca,C,Industrias manufactureras,83.08327293711979
+2021,chuquisaca,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",101.1911360379291
+2021,chuquisaca,F,Construcción,55.609361626033525
+2021,chuquisaca,G,Comercio; reparacion de vehículos automotores y motocicletas,95.5308867276022
+2021,chuquisaca,H,Transporte y almacenamiento,86.78283608584277
+2021,chuquisaca,I,Actividades de alojamiento y de servicio de comidas y bebidas,86.04786058532895
+2021,chuquisaca,J,Comunicación e informaciones,93.15950383981823
+2021,chuquisaca,K,Actividades financieras y de seguros,116.17057411075304
+2021,chuquisaca,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",103.79277787084465
+2021,chuquisaca,O,Administracion publica,100.67743758640103
+2021,chuquisaca,P,Enseñanza,98.14870692400675
+2021,chuquisaca,Q,Actividades de atencion de la salud humana y de asistencia social,144.03226716559212
+2021,chuquisaca,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",88.13226288451482
+2022,chuquisaca,,Impuestos netos de subvenciones a los productos,90.06880468194252
+2022,chuquisaca,,PRODUCTO  INTERNO  BRUTO(1),99.95694649603068
+2022,chuquisaca,,VALOR AGREGADO BRUTO,100.64851977555874
+2022,chuquisaca,A,"Agricultura, ganaderia, silvicultura y pesca",118.7560258746599
+2022,chuquisaca,B,Actividad extractiva,101.83821391371592
+2022,chuquisaca,C,Industrias manufactureras,89.84207035006689
+2022,chuquisaca,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",106.0723355238078
+2022,chuquisaca,F,Construcción,54.01772165456131
+2022,chuquisaca,G,Comercio; reparacion de vehículos automotores y motocicletas,107.16520367920846
+2022,chuquisaca,H,Transporte y almacenamiento,92.20584543808083
+2022,chuquisaca,I,Actividades de alojamiento y de servicio de comidas y bebidas,104.06367626636975
+2022,chuquisaca,J,Comunicación e informaciones,100.91765519255561
+2022,chuquisaca,K,Actividades financieras y de seguros,117.20117654922119
+2022,chuquisaca,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",116.68612593673737
+2022,chuquisaca,O,Administracion publica,100.32254243523207
+2022,chuquisaca,P,Enseñanza,97.84985152413486
+2022,chuquisaca,Q,Actividades de atencion de la salud humana y de asistencia social,127.0429707123433
+2022,chuquisaca,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",104.54954356412392
+2023,chuquisaca,,Impuestos netos de subvenciones a los productos,94.27436367379552
+2023,chuquisaca,,PRODUCTO  INTERNO  BRUTO(1),101.9084639623291
+2023,chuquisaca,,VALOR AGREGADO BRUTO,102.44359794343744
+2023,chuquisaca,A,"Agricultura, ganaderia, silvicultura y pesca",131.49992208844557
+2023,chuquisaca,B,Actividad extractiva,105.90116597071685
+2023,chuquisaca,C,Industrias manufactureras,93.97240654847275
+2023,chuquisaca,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",104.67308067965932
+2023,chuquisaca,F,Construcción,47.523066160771606
+2023,chuquisaca,G,Comercio; reparacion de vehículos automotores y motocicletas,112.88681577319258
+2023,chuquisaca,H,Transporte y almacenamiento,92.5896218880377
+2023,chuquisaca,I,Actividades de alojamiento y de servicio de comidas y bebidas,108.3801748636445
+2023,chuquisaca,J,Comunicación e informaciones,101.79840863572267
+2023,chuquisaca,K,Actividades financieras y de seguros,124.54286449747653
+2023,chuquisaca,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",109.59330858293171
+2023,chuquisaca,O,Administracion publica,106.56003369398766
+2023,chuquisaca,P,Enseñanza,98.8414867571106
+2023,chuquisaca,Q,Actividades de atencion de la salud humana y de asistencia social,141.88613869038136
+2023,chuquisaca,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",81.98642461072235
+2024,chuquisaca,,Impuestos netos de subvenciones a los productos,87.78606736961412
+2024,chuquisaca,,PRODUCTO  INTERNO  BRUTO(1),101.58235682850183
+2024,chuquisaca,,VALOR AGREGADO BRUTO,102.5450503145479
+2024,chuquisaca,A,"Agricultura, ganaderia, silvicultura y pesca",147.1325352556447
+2024,chuquisaca,B,Actividad extractiva,83.59402870442435
+2024,chuquisaca,C,Industrias manufactureras,95.98777912849084
+2024,chuquisaca,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",104.41648845501432
+2024,chuquisaca,F,Construcción,47.56538295766079
+2024,chuquisaca,G,Comercio; reparacion de vehículos automotores y motocicletas,117.19187049421902
+2024,chuquisaca,H,Transporte y almacenamiento,93.79010640463392
+2024,chuquisaca,I,Actividades de alojamiento y de servicio de comidas y bebidas,107.62106679188145
+2024,chuquisaca,J,Comunicación e informaciones,109.29456158138632
+2024,chuquisaca,K,Actividades financieras y de seguros,127.58531531655966
+2024,chuquisaca,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",116.18478571941317
+2024,chuquisaca,O,Administracion publica,113.14976289276586
+2024,chuquisaca,P,Enseñanza,106.15928054675788
+2024,chuquisaca,Q,Actividades de atencion de la salud humana y de asistencia social,142.49222541982516
+2024,chuquisaca,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",99.04743516405473
+2017,cochabamba,,Impuestos netos de subvenciones a los productos,100.0
+2017,cochabamba,,PRODUCTO  INTERNO  BRUTO(1),100.0
+2017,cochabamba,,VALOR AGREGADO BRUTO,100.0
+2017,cochabamba,A,"Agricultura, ganaderia, silvicultura y pesca",100.0
+2017,cochabamba,B,Actividad extractiva,100.0
+2017,cochabamba,C,Industrias manufactureras,100.0
+2017,cochabamba,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",100.0
+2017,cochabamba,F,Construcción,100.0
+2017,cochabamba,G,Comercio; reparacion de vehículos automotores y motocicletas,100.0
+2017,cochabamba,H,Transporte y almacenamiento,100.0
+2017,cochabamba,I,Actividades de alojamiento y de servicio de comidas y bebidas,100.0
+2017,cochabamba,J,Comunicación e informaciones,100.0
+2017,cochabamba,K,Actividades financieras y de seguros,100.0
+2017,cochabamba,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",100.0
+2017,cochabamba,O,Administracion publica,100.0
+2017,cochabamba,P,Enseñanza,100.0
+2017,cochabamba,Q,Actividades de atencion de la salud humana y de asistencia social,100.0
+2017,cochabamba,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",100.0
+2018,cochabamba,,Impuestos netos de subvenciones a los productos,107.92996063721927
+2018,cochabamba,,PRODUCTO  INTERNO  BRUTO(1),104.0494870221007
+2018,cochabamba,,VALOR AGREGADO BRUTO,103.44761381803814
+2018,cochabamba,A,"Agricultura, ganaderia, silvicultura y pesca",100.96921415988301
+2018,cochabamba,B,Actividad extractiva,105.77079738401538
+2018,cochabamba,C,Industrias manufactureras,97.16850319883672
+2018,cochabamba,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",113.12152436885593
+2018,cochabamba,F,Construcción,110.51204492624287
+2018,cochabamba,G,Comercio; reparacion de vehículos automotores y motocicletas,100.5359912703926
+2018,cochabamba,H,Transporte y almacenamiento,109.06311839149963
+2018,cochabamba,I,Actividades de alojamiento y de servicio de comidas y bebidas,103.96780062193262
+2018,cochabamba,J,Comunicación e informaciones,104.27883769185267
+2018,cochabamba,K,Actividades financieras y de seguros,103.76083365770027
+2018,cochabamba,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",108.24287658299212
+2018,cochabamba,O,Administracion publica,99.58780427395205
+2018,cochabamba,P,Enseñanza,106.9169886387927
+2018,cochabamba,Q,Actividades de atencion de la salud humana y de asistencia social,106.41114853035415
+2018,cochabamba,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",89.8284668075438
+2019,cochabamba,,Impuestos netos de subvenciones a los productos,101.48150048932666
+2019,cochabamba,,PRODUCTO  INTERNO  BRUTO(1),103.5897538361661
+2019,cochabamba,,VALOR AGREGADO BRUTO,103.7223572306987
+2019,cochabamba,A,"Agricultura, ganaderia, silvicultura y pesca",103.19919506040553
+2019,cochabamba,B,Actividad extractiva,92.58620661912435
+2019,cochabamba,C,Industrias manufactureras,101.19785759766282
+2019,cochabamba,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",123.35515739879044
+2019,cochabamba,F,Construcción,110.5909231563851
+2019,cochabamba,G,Comercio; reparacion de vehículos automotores y motocicletas,102.33530683948096
+2019,cochabamba,H,Transporte y almacenamiento,106.49701064755754
+2019,cochabamba,I,Actividades de alojamiento y de servicio de comidas y bebidas,105.25778233803958
+2019,cochabamba,J,Comunicación e informaciones,103.7086148939683
+2019,cochabamba,K,Actividades financieras y de seguros,101.13342798641196
+2019,cochabamba,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",104.177669704459
+2019,cochabamba,O,Administracion publica,97.18851254318456
+2019,cochabamba,P,Enseñanza,103.87758487009121
+2019,cochabamba,Q,Actividades de atencion de la salud humana y de asistencia social,112.91639236218418
+2019,cochabamba,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",91.37122546935498
+2020,cochabamba,,Impuestos netos de subvenciones a los productos,90.17218220216141
+2020,cochabamba,,PRODUCTO  INTERNO  BRUTO(1),91.62585903543491
+2020,cochabamba,,VALOR AGREGADO BRUTO,91.70273392529143
+2020,cochabamba,A,"Agricultura, ganaderia, silvicultura y pesca",110.58846672218456
+2020,cochabamba,B,Actividad extractiva,81.07797587337767
+2020,cochabamba,C,Industrias manufactureras,87.5028841401274
+2020,cochabamba,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",119.78723580898955
+2020,cochabamba,F,Construcción,90.00083783116399
+2020,cochabamba,G,Comercio; reparacion de vehículos automotores y motocicletas,79.16927827803603
+2020,cochabamba,H,Transporte y almacenamiento,74.76677857951363
+2020,cochabamba,I,Actividades de alojamiento y de servicio de comidas y bebidas,77.27084893485726
+2020,cochabamba,J,Comunicación e informaciones,102.15213775930064
+2020,cochabamba,K,Actividades financieras y de seguros,96.1575097079687
+2020,cochabamba,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",96.3598913431595
+2020,cochabamba,O,Administracion publica,85.64642745159759
+2020,cochabamba,P,Enseñanza,102.66902593775141
+2020,cochabamba,Q,Actividades de atencion de la salud humana y de asistencia social,124.30738667500665
+2020,cochabamba,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",57.0251215278769
+2021,cochabamba,,Impuestos netos de subvenciones a los productos,91.36973152099934
+2021,cochabamba,,PRODUCTO  INTERNO  BRUTO(1),98.81968214127235
+2021,cochabamba,,VALOR AGREGADO BRUTO,99.4937495524722
+2021,cochabamba,A,"Agricultura, ganaderia, silvicultura y pesca",114.47121941866214
+2021,cochabamba,B,Actividad extractiva,73.38236390824503
+2021,cochabamba,C,Industrias manufactureras,93.03292970483837
+2021,cochabamba,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",126.74463159372357
+2021,cochabamba,F,Construcción,104.31339760456463
+2021,cochabamba,G,Comercio; reparacion de vehículos automotores y motocicletas,92.73876375585922
+2021,cochabamba,H,Transporte y almacenamiento,92.863502013286
+2021,cochabamba,I,Actividades de alojamiento y de servicio de comidas y bebidas,92.60455569894135
+2021,cochabamba,J,Comunicación e informaciones,103.83748829181299
+2021,cochabamba,K,Actividades financieras y de seguros,95.28919571119843
+2021,cochabamba,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",101.68725126356908
+2021,cochabamba,O,Administracion publica,96.35866262925234
+2021,cochabamba,P,Enseñanza,103.35387988253129
+2021,cochabamba,Q,Actividades de atencion de la salud humana y de asistencia social,130.9213310053352
+2021,cochabamba,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",67.66135107119489
+2022,cochabamba,,Impuestos netos de subvenciones a los productos,82.68988915915882
+2022,cochabamba,,PRODUCTO  INTERNO  BRUTO(1),104.18961226583902
+2022,cochabamba,,VALOR AGREGADO BRUTO,106.10885369783492
+2022,cochabamba,A,"Agricultura, ganaderia, silvicultura y pesca",116.3181104113481
+2022,cochabamba,B,Actividad extractiva,63.79138846037156
+2022,cochabamba,C,Industrias manufactureras,100.44975072631775
+2022,cochabamba,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",123.87682667100893
+2022,cochabamba,F,Construcción,104.7397007978579
+2022,cochabamba,G,Comercio; reparacion de vehículos automotores y motocicletas,107.92306701733058
+2022,cochabamba,H,Transporte y almacenamiento,93.84691969920816
+2022,cochabamba,I,Actividades de alojamiento y de servicio de comidas y bebidas,107.25470510583312
+2022,cochabamba,J,Comunicación e informaciones,106.79024783284362
+2022,cochabamba,K,Actividades financieras y de seguros,95.75662695265062
+2022,cochabamba,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",111.21187142610523
+2022,cochabamba,O,Administracion publica,101.49574870049736
+2022,cochabamba,P,Enseñanza,104.48408647307025
+2022,cochabamba,Q,Actividades de atencion de la salud humana y de asistencia social,137.06046290805295
+2022,cochabamba,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",92.73920989342885
+2023,cochabamba,,Impuestos netos de subvenciones a los productos,55.31838338917712
+2023,cochabamba,,PRODUCTO  INTERNO  BRUTO(1),110.31523313437556
+2023,cochabamba,,VALOR AGREGADO BRUTO,112.63991045166908
+2023,cochabamba,A,"Agricultura, ganaderia, silvicultura y pesca",119.11780396006918
+2023,cochabamba,B,Actividad extractiva,99.97916762036688
+2023,cochabamba,C,Industrias manufactureras,104.9199827805732
+2023,cochabamba,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",124.9411689625206
+2023,cochabamba,F,Construcción,110.40761164145916
+2023,cochabamba,G,Comercio; reparacion de vehículos automotores y motocicletas,109.03443178860024
+2023,cochabamba,H,Transporte y almacenamiento,99.60235874309048
+2023,cochabamba,I,Actividades de alojamiento y de servicio de comidas y bebidas,111.44675204965255
+2023,cochabamba,J,Comunicación e informaciones,110.8309799112349
+2023,cochabamba,K,Actividades financieras y de seguros,100.116527974322
+2023,cochabamba,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",130.0274264322017
+2023,cochabamba,O,Administracion publica,104.32387454505042
+2023,cochabamba,P,Enseñanza,107.52225992167783
+2023,cochabamba,Q,Actividades de atencion de la salud humana y de asistencia social,135.74266232109497
+2023,cochabamba,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",105.31551881249807
+2024,cochabamba,,Impuestos netos de subvenciones a los productos,33.039753485686184
+2024,cochabamba,,PRODUCTO  INTERNO  BRUTO(1),110.0882247304497
+2024,cochabamba,,VALOR AGREGADO BRUTO,113.6524565331004
+2024,cochabamba,A,"Agricultura, ganaderia, silvicultura y pesca",121.89822924843648
+2024,cochabamba,B,Actividad extractiva,149.47841864766477
+2024,cochabamba,C,Industrias manufactureras,108.11717216154965
+2024,cochabamba,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",139.60313856201503
+2024,cochabamba,F,Construcción,110.11437716377584
+2024,cochabamba,G,Comercio; reparacion de vehículos automotores y motocicletas,108.33663799355548
+2024,cochabamba,H,Transporte y almacenamiento,95.46148637096998
+2024,cochabamba,I,Actividades de alojamiento y de servicio de comidas y bebidas,114.54240945068346
+2024,cochabamba,J,Comunicación e informaciones,115.11329439386786
+2024,cochabamba,K,Actividades financieras y de seguros,101.9121447225344
+2024,cochabamba,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",120.75313444690678
+2024,cochabamba,O,Administracion publica,100.916778070106
+2024,cochabamba,P,Enseñanza,111.53576208470669
+2024,cochabamba,Q,Actividades de atencion de la salud humana y de asistencia social,136.6080925297938
+2024,cochabamba,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",94.73789558129901
+2017,la_paz,,Impuestos netos de subvenciones a los productos,100.0
+2017,la_paz,,PRODUCTO  INTERNO  BRUTO(1),100.0
+2017,la_paz,,VALOR AGREGADO BRUTO,100.0
+2017,la_paz,A,"Agricultura, ganaderia, silvicultura y pesca",100.0
+2017,la_paz,B,Actividad extractiva,100.0
+2017,la_paz,C,Industrias manufactureras,100.0
+2017,la_paz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",100.0
+2017,la_paz,F,Construcción,100.0
+2017,la_paz,G,Comercio; reparacion de vehículos automotores y motocicletas,100.0
+2017,la_paz,H,Transporte y almacenamiento,100.0
+2017,la_paz,I,Actividades de alojamiento y de servicio de comidas y bebidas,100.0
+2017,la_paz,J,Comunicación e informaciones,100.0
+2017,la_paz,K,Actividades financieras y de seguros,100.0
+2017,la_paz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",100.0
+2017,la_paz,O,Administracion publica,100.0
+2017,la_paz,P,Enseñanza,100.0
+2017,la_paz,Q,Actividades de atencion de la salud humana y de asistencia social,100.0
+2017,la_paz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",100.0
+2018,la_paz,,Impuestos netos de subvenciones a los productos,103.05018629825881
+2018,la_paz,,PRODUCTO  INTERNO  BRUTO(1),100.89342115914076
+2018,la_paz,,VALOR AGREGADO BRUTO,100.62397527068339
+2018,la_paz,A,"Agricultura, ganaderia, silvicultura y pesca",101.62729065739148
+2018,la_paz,B,Actividad extractiva,98.91332867848968
+2018,la_paz,C,Industrias manufactureras,101.05323275381912
+2018,la_paz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",101.0549793009
+2018,la_paz,F,Construcción,103.31846911487561
+2018,la_paz,G,Comercio; reparacion de vehículos automotores y motocicletas,99.5981011813846
+2018,la_paz,H,Transporte y almacenamiento,99.38836144948104
+2018,la_paz,I,Actividades de alojamiento y de servicio de comidas y bebidas,103.45272165043986
+2018,la_paz,J,Comunicación e informaciones,102.53077093967799
+2018,la_paz,K,Actividades financieras y de seguros,98.47343283737396
+2018,la_paz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",100.5839534062192
+2018,la_paz,O,Administracion publica,95.8204131643437
+2018,la_paz,P,Enseñanza,106.38959793209105
+2018,la_paz,Q,Actividades de atencion de la salud humana y de asistencia social,108.32804594494164
+2018,la_paz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",97.45729849059985
+2019,la_paz,,Impuestos netos de subvenciones a los productos,103.7478353592423
+2019,la_paz,,PRODUCTO  INTERNO  BRUTO(1),104.91532603125982
+2019,la_paz,,VALOR AGREGADO BRUTO,105.05058604861523
+2019,la_paz,A,"Agricultura, ganaderia, silvicultura y pesca",105.8698725261548
+2019,la_paz,B,Actividad extractiva,132.03942522684284
+2019,la_paz,C,Industrias manufactureras,105.97986303789645
+2019,la_paz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",108.32532881430993
+2019,la_paz,F,Construcción,113.13638861266041
+2019,la_paz,G,Comercio; reparacion de vehículos automotores y motocicletas,100.61091287317919
+2019,la_paz,H,Transporte y almacenamiento,95.4996782475731
+2019,la_paz,I,Actividades de alojamiento y de servicio de comidas y bebidas,104.18202188610042
+2019,la_paz,J,Comunicación e informaciones,102.07721678733208
+2019,la_paz,K,Actividades financieras y de seguros,100.74864095288521
+2019,la_paz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",104.64397403341654
+2019,la_paz,O,Administracion publica,97.36232020185881
+2019,la_paz,P,Enseñanza,102.72003949861595
+2019,la_paz,Q,Actividades de atencion de la salud humana y de asistencia social,121.6058244755273
+2019,la_paz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",84.96623785018826
+2020,la_paz,,Impuestos netos de subvenciones a los productos,81.63719238851729
+2020,la_paz,,PRODUCTO  INTERNO  BRUTO(1),88.5642314447423
+2020,la_paz,,VALOR AGREGADO BRUTO,89.33906568541438
+2020,la_paz,A,"Agricultura, ganaderia, silvicultura y pesca",109.81013009585864
+2020,la_paz,B,Actividad extractiva,75.96987016784965
+2020,la_paz,C,Industrias manufactureras,86.4787679534166
+2020,la_paz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",99.05247086334663
+2020,la_paz,F,Construcción,64.06558729065412
+2020,la_paz,G,Comercio; reparacion de vehículos automotores y motocicletas,80.88254042732483
+2020,la_paz,H,Transporte y almacenamiento,72.92799767723749
+2020,la_paz,I,Actividades de alojamiento y de servicio de comidas y bebidas,75.64711071761448
+2020,la_paz,J,Comunicación e informaciones,92.64758353881433
+2020,la_paz,K,Actividades financieras y de seguros,94.505101650649
+2020,la_paz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",101.93975352389603
+2020,la_paz,O,Administracion publica,91.73890549709729
+2020,la_paz,P,Enseñanza,101.13434754335557
+2020,la_paz,Q,Actividades de atencion de la salud humana y de asistencia social,136.32175894417279
+2020,la_paz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",84.42352100974007
+2021,la_paz,,Impuestos netos de subvenciones a los productos,93.50130499805961
+2021,la_paz,,PRODUCTO  INTERNO  BRUTO(1),100.85880427384727
+2021,la_paz,,VALOR AGREGADO BRUTO,101.68635508081702
+2021,la_paz,A,"Agricultura, ganaderia, silvicultura y pesca",107.92802118387436
+2021,la_paz,B,Actividad extractiva,140.06514862844438
+2021,la_paz,C,Industrias manufactureras,106.55270324983952
+2021,la_paz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",108.0249344463728
+2021,la_paz,F,Construcción,78.0884116663371
+2021,la_paz,G,Comercio; reparacion de vehículos automotores y motocicletas,98.86670773243253
+2021,la_paz,H,Transporte y almacenamiento,95.25375433113129
+2021,la_paz,I,Actividades de alojamiento y de servicio de comidas y bebidas,90.10651165539689
+2021,la_paz,J,Comunicación e informaciones,93.18729954405617
+2021,la_paz,K,Actividades financieras y de seguros,92.20256452529371
+2021,la_paz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",104.39145673303946
+2021,la_paz,O,Administracion publica,93.09721303558585
+2021,la_paz,P,Enseñanza,101.80337240832057
+2021,la_paz,Q,Actividades de atencion de la salud humana y de asistencia social,144.24248802297882
+2021,la_paz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",66.99865735267969
+2022,la_paz,,Impuestos netos de subvenciones a los productos,98.54030033309911
+2022,la_paz,,PRODUCTO  INTERNO  BRUTO(1),105.39765118074008
+2022,la_paz,,VALOR AGREGADO BRUTO,106.1697406841581
+2022,la_paz,A,"Agricultura, ganaderia, silvicultura y pesca",109.22022655920574
+2022,la_paz,B,Actividad extractiva,152.92523571221633
+2022,la_paz,C,Industrias manufactureras,106.94345317465792
+2022,la_paz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",112.21644026044729
+2022,la_paz,F,Construcción,75.25063153396388
+2022,la_paz,G,Comercio; reparacion de vehículos automotores y motocicletas,97.63024619422049
+2022,la_paz,H,Transporte y almacenamiento,109.26844557421029
+2022,la_paz,I,Actividades de alojamiento y de servicio de comidas y bebidas,104.74876041489897
+2022,la_paz,J,Comunicación e informaciones,95.80607402740584
+2022,la_paz,K,Actividades financieras y de seguros,93.94515750534525
+2022,la_paz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",108.90524187234062
+2022,la_paz,O,Administracion publica,96.89650214970989
+2022,la_paz,P,Enseñanza,102.58525731988153
+2022,la_paz,Q,Actividades de atencion de la salud humana y de asistencia social,165.43966198309448
+2022,la_paz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",73.54344789858754
+2023,la_paz,,Impuestos netos de subvenciones a los productos,101.98891872097097
+2023,la_paz,,PRODUCTO  INTERNO  BRUTO(1),108.04621893336447
+2023,la_paz,,VALOR AGREGADO BRUTO,108.71992964740639
+2023,la_paz,A,"Agricultura, ganaderia, silvicultura y pesca",107.03147118925602
+2023,la_paz,B,Actividad extractiva,143.06164137999363
+2023,la_paz,C,Industrias manufactureras,111.0603863315755
+2023,la_paz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",113.18291404988821
+2023,la_paz,F,Construcción,82.53834166875134
+2023,la_paz,G,Comercio; reparacion de vehículos automotores y motocicletas,95.85870804122683
+2023,la_paz,H,Transporte y almacenamiento,108.28706955535415
+2023,la_paz,I,Actividades de alojamiento y de servicio de comidas y bebidas,109.29823228170913
+2023,la_paz,J,Comunicación e informaciones,99.55048125648786
+2023,la_paz,K,Actividades financieras y de seguros,104.37894917357329
+2023,la_paz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",112.27271051021631
+2023,la_paz,O,Administracion publica,102.9639372920731
+2023,la_paz,P,Enseñanza,104.7307509629238
+2023,la_paz,Q,Actividades de atencion de la salud humana y de asistencia social,175.67046234370252
+2023,la_paz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",75.5769265346461
+2024,la_paz,,Impuestos netos de subvenciones a los productos,103.16384437633263
+2024,la_paz,,PRODUCTO  INTERNO  BRUTO(1),106.23227974575748
+2024,la_paz,,VALOR AGREGADO BRUTO,106.54422613172991
+2024,la_paz,A,"Agricultura, ganaderia, silvicultura y pesca",117.16836777363585
+2024,la_paz,B,Actividad extractiva,103.52784388341165
+2024,la_paz,C,Industrias manufactureras,111.85028340374687
+2024,la_paz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",112.04871640225232
+2024,la_paz,F,Construcción,88.19265223393974
+2024,la_paz,G,Comercio; reparacion de vehículos automotores y motocicletas,92.74451404865943
+2024,la_paz,H,Transporte y almacenamiento,106.74315857769476
+2024,la_paz,I,Actividades de alojamiento y de servicio de comidas y bebidas,110.62455492986744
+2024,la_paz,J,Comunicación e informaciones,104.10925308939619
+2024,la_paz,K,Actividades financieras y de seguros,104.16029028964017
+2024,la_paz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",112.82104805341311
+2024,la_paz,O,Administracion publica,106.95915084612962
+2024,la_paz,P,Enseñanza,109.08218449446117
+2024,la_paz,Q,Actividades de atencion de la salud humana y de asistencia social,177.5940289889324
+2024,la_paz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",76.85955574606407
+2017,national_summary,100.0,100.89342115914073,100.0
+2017,national_summary,100.0,102.68294024283671,100.0
+2017,national_summary,100.0,102.86808478284584,100.0
+2017,national_summary,100.0,103.20546670121486,100.0
+2017,national_summary,100.0,103.37722067929168,100.0
+2017,national_summary,100.0,104.04948702210073,100.0
+2017,national_summary,100.0,108.17332524449495,100.0
+2017,national_summary,100.0,108.94049269762218,100.0
+2017,national_summary,100.0,109.66186269507621,100.0
+2017,national_summary,100.0,96.68768067647567,100.0
+2018,national_summary,100.0,100.89342115914073,100.89342115914073
+2018,national_summary,100.0,102.68294024283671,102.68294024283671
+2018,national_summary,100.0,102.86808478284584,102.86808478284584
+2018,national_summary,100.0,103.20546670121486,103.20546670121486
+2018,national_summary,100.0,103.37722067929168,103.37722067929168
+2018,national_summary,100.0,104.04948702210073,104.04948702210073
+2018,national_summary,100.0,108.17332524449495,108.17332524449495
+2018,national_summary,100.0,108.94049269762218,108.94049269762218
+2018,national_summary,100.0,109.66186269507621,109.66186269507621
+2018,national_summary,100.0,96.68768067647567,96.68768067647567
+2019,national_summary,100.0,100.89342115914073,104.91532603125982
+2019,national_summary,100.0,102.68294024283671,103.76594550085117
+2019,national_summary,100.0,102.86808478284584,104.41801987214595
+2019,national_summary,100.0,103.20546670121486,106.28611075079256
+2019,national_summary,100.0,103.37722067929168,104.46204054599009
+2019,national_summary,100.0,104.04948702210073,103.58975383616612
+2019,national_summary,100.0,108.17332524449495,115.67343243100542
+2019,national_summary,100.0,108.94049269762218,114.25129212074334
+2019,national_summary,100.0,109.66186269507621,107.62705876505429
+2019,national_summary,100.0,96.68768067647567,89.4523853486184
+2020,national_summary,100.0,100.89342115914073,88.5642314447423
+2020,national_summary,100.0,102.68294024283671,90.12133588585957
+2020,national_summary,100.0,102.86808478284584,91.1366021923554
+2020,national_summary,100.0,103.20546670121486,95.43092946234347
+2020,national_summary,100.0,103.37722067929168,91.83048076522273
+2020,national_summary,100.0,104.04948702210073,91.62585903543493
+2020,national_summary,100.0,108.17332524449495,102.89694446654994
+2020,national_summary,100.0,108.94049269762218,91.36894013156898
+2020,national_summary,100.0,109.66186269507621,87.76333450004412
+2020,national_summary,100.0,96.68768067647567,80.1785430611503
+2021,national_summary,100.0,100.89342115914073,100.85880427384727
+2021,national_summary,100.0,102.68294024283671,105.1042851973283
+2021,national_summary,100.0,102.86808478284584,100.27673655362759
+2021,national_summary,100.0,103.20546670121486,103.72799103151543
+2021,national_summary,100.0,103.37722067929168,94.40315793270821
+2021,national_summary,100.0,104.04948702210073,98.81968214127237
+2021,national_summary,100.0,108.17332524449495,108.84430603281123
+2021,national_summary,100.0,108.94049269762218,108.75765576131047
+2021,national_summary,100.0,109.66186269507621,101.36520281236731
+2021,national_summary,100.0,96.68768067647567,83.8007499330228
+2022,national_summary,100.0,100.89342115914073,105.39765118074001
+2022,national_summary,100.0,102.68294024283671,97.46596979080182
+2022,national_summary,100.0,102.86808478284584,104.03452194731464
+2022,national_summary,100.0,103.20546670121486,109.9903810520149
+2022,national_summary,100.0,103.37722067929168,99.95694649603071
+2022,national_summary,100.0,104.04948702210073,104.18961226583907
+2022,national_summary,100.0,108.17332524449495,118.21444941051459
+2022,national_summary,100.0,108.94049269762218,113.10160884202158
+2022,national_summary,100.0,109.66186269507621,101.00973475561834
+2022,national_summary,100.0,96.68768067647567,77.55850893723725
+2023,national_summary,100.0,100.89342115914073,108.04621893336443
+2023,national_summary,100.0,102.68294024283671,105.60832336398853
+2023,national_summary,100.0,102.86808478284584,106.65241118001686
+2023,national_summary,100.0,103.20546670121486,110.9318732409484
+2023,national_summary,100.0,103.37722067929168,101.90846396232914
+2023,national_summary,100.0,104.04948702210073,110.31523313437562
+2023,national_summary,100.0,108.17332524449495,123.64550821388258
+2023,national_summary,100.0,108.94049269762218,115.41758704737855
+2023,national_summary,100.0,109.66186269507621,104.01643819924669
+2023,national_summary,100.0,96.68768067647567,76.32148280006173
+2024,national_summary,100.0,100.89342115914073,106.23227974575742
+2024,national_summary,100.0,102.68294024283671,112.3014256487263
+2024,national_summary,100.0,102.86808478284584,105.45432360766077
+2024,national_summary,100.0,103.20546670121486,107.54825885861685
+2024,national_summary,100.0,103.37722067929168,101.58235682850187
+2024,national_summary,100.0,104.04948702210073,110.08822473044978
+2024,national_summary,100.0,108.17332524449495,126.26123112768813
+2024,national_summary,100.0,108.94049269762218,120.76055010091417
+2024,national_summary,100.0,109.66186269507621,108.94286365195858
+2024,national_summary,100.0,96.68768067647567,71.89408861381352
+2017,oruro,,Impuestos netos de subvenciones a los productos,100.0
+2017,oruro,,PRODUCTO  INTERNO  BRUTO(1),100.0
+2017,oruro,,VALOR AGREGADO BRUTO,100.0
+2017,oruro,A,"Agricultura, ganaderia, silvicultura y pesca",100.0
+2017,oruro,B,Actividad extractiva,100.0
+2017,oruro,C,Industrias manufactureras,100.0
+2017,oruro,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",100.0
+2017,oruro,F,Construcción,100.0
+2017,oruro,G,Comercio; reparacion de vehículos automotores y motocicletas,100.0
+2017,oruro,H,Transporte y almacenamiento,100.0
+2017,oruro,I,Actividades de alojamiento y de servicio de comidas y bebidas,100.0
+2017,oruro,J,Comunicación e informaciones,100.0
+2017,oruro,K,Actividades financieras y de seguros,100.0
+2017,oruro,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",100.0
+2017,oruro,O,Administracion publica,100.0
+2017,oruro,P,Enseñanza,100.0
+2017,oruro,Q,Actividades de atencion de la salud humana y de asistencia social,100.0
+2017,oruro,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",100.0
+2018,oruro,,Impuestos netos de subvenciones a los productos,108.03442688111038
+2018,oruro,,PRODUCTO  INTERNO  BRUTO(1),102.68294024283674
+2018,oruro,,VALOR AGREGADO BRUTO,102.14316847808158
+2018,oruro,A,"Agricultura, ganaderia, silvicultura y pesca",103.26124281094661
+2018,oruro,B,Actividad extractiva,91.76832636450135
+2018,oruro,C,Industrias manufactureras,105.63065341001699
+2018,oruro,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",103.56608659811437
+2018,oruro,F,Construcción,104.708888954708
+2018,oruro,G,Comercio; reparacion de vehículos automotores y motocicletas,108.43232647527397
+2018,oruro,H,Transporte y almacenamiento,101.9444205003092
+2018,oruro,I,Actividades de alojamiento y de servicio de comidas y bebidas,103.52857918473096
+2018,oruro,J,Comunicación e informaciones,100.48130005909259
+2018,oruro,K,Actividades financieras y de seguros,107.70986001662025
+2018,oruro,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",102.99894499764409
+2018,oruro,O,Administracion publica,98.91291106416429
+2018,oruro,P,Enseñanza,107.51735335778314
+2018,oruro,Q,Actividades de atencion de la salud humana y de asistencia social,102.69134120872963
+2018,oruro,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",87.4986768474457
+2019,oruro,,Impuestos netos de subvenciones a los productos,110.99806296267688
+2019,oruro,,PRODUCTO  INTERNO  BRUTO(1),103.76594550085117
+2019,oruro,,VALOR AGREGADO BRUTO,103.04343860035473
+2019,oruro,A,"Agricultura, ganaderia, silvicultura y pesca",104.79660102892313
+2019,oruro,B,Actividad extractiva,100.52389745006116
+2019,oruro,C,Industrias manufactureras,98.30489283276361
+2019,oruro,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",116.33402412047644
+2019,oruro,F,Construcción,117.35828688530671
+2019,oruro,G,Comercio; reparacion de vehículos automotores y motocicletas,98.56135373527916
+2019,oruro,H,Transporte y almacenamiento,99.26410321757926
+2019,oruro,I,Actividades de alojamiento y de servicio de comidas y bebidas,103.00263592767415
+2019,oruro,J,Comunicación e informaciones,101.48540465337324
+2019,oruro,K,Actividades financieras y de seguros,113.81757232124696
+2019,oruro,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",103.20254217310696
+2019,oruro,O,Administracion publica,100.64680481287458
+2019,oruro,P,Enseñanza,104.40187774897782
+2019,oruro,Q,Actividades de atencion de la salud humana y de asistencia social,107.83939977658862
+2019,oruro,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",79.17174797946201
+2020,oruro,,Impuestos netos de subvenciones a los productos,89.29927202574169
+2020,oruro,,PRODUCTO  INTERNO  BRUTO(1),90.12133588585961
+2020,oruro,,VALOR AGREGADO BRUTO,90.09474596296346
+2020,oruro,A,"Agricultura, ganaderia, silvicultura y pesca",106.44406107896177
+2020,oruro,B,Actividad extractiva,75.9568537461041
+2020,oruro,C,Industrias manufactureras,83.23338528770863
+2020,oruro,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",110.78424319376661
+2020,oruro,F,Construcción,71.74089337015002
+2020,oruro,G,Comercio; reparacion de vehículos automotores y motocicletas,78.5969237530508
+2020,oruro,H,Transporte y almacenamiento,73.8414440578851
+2020,oruro,I,Actividades de alojamiento y de servicio de comidas y bebidas,78.15298940912227
+2020,oruro,J,Comunicación e informaciones,102.11287129288401
+2020,oruro,K,Actividades financieras y de seguros,122.3709104461609
+2020,oruro,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",106.50113265324516
+2020,oruro,O,Administracion publica,92.11153963893581
+2020,oruro,P,Enseñanza,103.87679862036948
+2020,oruro,Q,Actividades de atencion de la salud humana y de asistencia social,118.5573413869194
+2020,oruro,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",61.29529756765369
+2021,oruro,,Impuestos netos de subvenciones a los productos,108.27389819709812
+2021,oruro,,PRODUCTO  INTERNO  BRUTO(1),105.10428519732834
+2021,oruro,,VALOR AGREGADO BRUTO,104.75124041625094
+2021,oruro,A,"Agricultura, ganaderia, silvicultura y pesca",91.4000794536832
+2021,oruro,B,Actividad extractiva,125.4897577172539
+2021,oruro,C,Industrias manufactureras,96.03408000485504
+2021,oruro,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",131.8425007638891
+2021,oruro,F,Construcción,108.05528171287646
+2021,oruro,G,Comercio; reparacion de vehículos automotores y motocicletas,103.58270371059172
+2021,oruro,H,Transporte y almacenamiento,96.5497496947649
+2021,oruro,I,Actividades de alojamiento y de servicio de comidas y bebidas,96.50504853521298
+2021,oruro,J,Comunicación e informaciones,100.86351540485794
+2021,oruro,K,Actividades financieras y de seguros,128.112470577918
+2021,oruro,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",107.81149636970575
+2021,oruro,O,Administracion publica,108.04832286427656
+2021,oruro,P,Enseñanza,104.46559733958651
+2021,oruro,Q,Actividades de atencion de la salud humana y de asistencia social,125.06300715743481
+2021,oruro,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",52.821631802889705
+2022,oruro,,Impuestos netos de subvenciones a los productos,99.65030229667315
+2022,oruro,,PRODUCTO  INTERNO  BRUTO(1),97.46596979080186
+2022,oruro,,VALOR AGREGADO BRUTO,97.2025235310441
+2022,oruro,A,"Agricultura, ganaderia, silvicultura y pesca",82.23113057655578
+2022,oruro,B,Actividad extractiva,107.13749285568161
+2022,oruro,C,Industrias manufactureras,89.9220329610155
+2022,oruro,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",136.0088790416918
+2022,oruro,F,Construcción,58.9358018522097
+2022,oruro,G,Comercio; reparacion de vehículos automotores y motocicletas,91.70673888419566
+2022,oruro,H,Transporte y almacenamiento,108.38434760325791
+2022,oruro,I,Actividades de alojamiento y de servicio de comidas y bebidas,106.91516822383326
+2022,oruro,J,Comunicación e informaciones,104.1906836303893
+2022,oruro,K,Actividades financieras y de seguros,130.44350267924622
+2022,oruro,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",106.93542958613736
+2022,oruro,O,Administracion publica,92.81803827148892
+2022,oruro,P,Enseñanza,105.83044002307005
+2022,oruro,Q,Actividades de atencion de la salud humana y de asistencia social,131.2600136165398
+2022,oruro,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",61.254353566194375
+2023,oruro,,Impuestos netos de subvenciones a los productos,106.3831490932433
+2023,oruro,,PRODUCTO  INTERNO  BRUTO(1),105.60832336398856
+2023,oruro,,VALOR AGREGADO BRUTO,105.46334926953521
+2023,oruro,A,"Agricultura, ganaderia, silvicultura y pesca",79.00243264501516
+2023,oruro,B,Actividad extractiva,120.99068417585995
+2023,oruro,C,Industrias manufactureras,96.80681500632777
+2023,oruro,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",144.18253185319887
+2023,oruro,F,Construcción,75.35679324239645
+2023,oruro,G,Comercio; reparacion de vehículos automotores y motocicletas,89.19701432690708
+2023,oruro,H,Transporte y almacenamiento,121.04153342508205
+2023,oruro,I,Actividades de alojamiento y de servicio de comidas y bebidas,108.70492148121961
+2023,oruro,J,Comunicación e informaciones,112.13228167470345
+2023,oruro,K,Actividades financieras y de seguros,142.8580255270761
+2023,oruro,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",111.585564930889
+2023,oruro,O,Administracion publica,100.27568013229366
+2023,oruro,P,Enseñanza,109.07151865037841
+2023,oruro,Q,Actividades de atencion de la salud humana y de asistencia social,138.87100788916632
+2023,oruro,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",87.59378397428041
+2024,oruro,,Impuestos netos de subvenciones a los productos,107.36158555620436
+2024,oruro,,PRODUCTO  INTERNO  BRUTO(1),112.30142564872632
+2024,oruro,,VALOR AGREGADO BRUTO,112.66488589787728
+2024,oruro,A,"Agricultura, ganaderia, silvicultura y pesca",90.13111554167331
+2024,oruro,B,Actividad extractiva,141.67470115421213
+2024,oruro,C,Industrias manufactureras,116.50723826912002
+2024,oruro,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",146.58277123294675
+2024,oruro,F,Construcción,76.49313245852329
+2024,oruro,G,Comercio; reparacion de vehículos automotores y motocicletas,103.36876866668771
+2024,oruro,H,Transporte y almacenamiento,130.94971627983603
+2024,oruro,I,Actividades de alojamiento y de servicio de comidas y bebidas,114.01776528539018
+2024,oruro,J,Comunicación e informaciones,116.38565089292601
+2024,oruro,K,Actividades financieras y de seguros,147.10579659289857
+2024,oruro,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",111.9936241795875
+2024,oruro,O,Administracion publica,98.27092082602732
+2024,oruro,P,Enseñanza,112.60571236545134
+2024,oruro,Q,Actividades de atencion de la salud humana y de asistencia social,139.65467803515392
+2024,oruro,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",72.29473708624792
+2017,pando,,Impuestos netos de subvenciones a los productos,100.0
+2017,pando,,PRODUCTO  INTERNO  BRUTO(1),100.0
+2017,pando,,VALOR AGREGADO BRUTO,100.0
+2017,pando,A,"Agricultura, ganaderia, silvicultura y pesca",100.0
+2017,pando,B,Actividad extractiva,100.0
+2017,pando,C,Industrias manufactureras,100.0
+2017,pando,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",100.0
+2017,pando,F,Construcción,100.0
+2017,pando,G,Comercio; reparacion de vehículos automotores y motocicletas,100.0
+2017,pando,H,Transporte y almacenamiento,100.0
+2017,pando,I,Actividades de alojamiento y de servicio de comidas y bebidas,100.0
+2017,pando,J,Comunicación e informaciones,100.0
+2017,pando,K,Actividades financieras y de seguros,100.0
+2017,pando,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",100.0
+2017,pando,O,Administracion publica,100.0
+2017,pando,P,Enseñanza,100.0
+2017,pando,Q,Actividades de atencion de la salud humana y de asistencia social,100.0
+2017,pando,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",100.0
+2018,pando,,Impuestos netos de subvenciones a los productos,105.16007518428576
+2018,pando,,PRODUCTO  INTERNO  BRUTO(1),108.94049269762218
+2018,pando,,VALOR AGREGADO BRUTO,109.20085419674243
+2018,pando,A,"Agricultura, ganaderia, silvicultura y pesca",117.07809226762376
+2018,pando,B,Actividad extractiva,66.70549719030893
+2018,pando,C,Industrias manufactureras,116.15149794144253
+2018,pando,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",93.50955868640473
+2018,pando,F,Construcción,118.57725465389746
+2018,pando,G,Comercio; reparacion de vehículos automotores y motocicletas,117.79468005291459
+2018,pando,H,Transporte y almacenamiento,107.0374678892416
+2018,pando,I,Actividades de alojamiento y de servicio de comidas y bebidas,109.2342736662853
+2018,pando,J,Comunicación e informaciones,101.7774019875277
+2018,pando,K,Actividades financieras y de seguros,89.8509457849878
+2018,pando,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",100.14059941154537
+2018,pando,O,Administracion publica,109.169039051437
+2018,pando,P,Enseñanza,110.61404334957972
+2018,pando,Q,Actividades de atencion de la salud humana y de asistencia social,106.32068095170185
+2018,pando,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",111.37743361549846
+2019,pando,,Impuestos netos de subvenciones a los productos,119.00307949342174
+2019,pando,,PRODUCTO  INTERNO  BRUTO(1),114.2512921207434
+2019,pando,,VALOR AGREGADO BRUTO,113.94186448253907
+2019,pando,A,"Agricultura, ganaderia, silvicultura y pesca",118.28200465448194
+2019,pando,B,Actividad extractiva,40.827168467574836
+2019,pando,C,Industrias manufactureras,116.63135118658653
+2019,pando,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",108.25206371607213
+2019,pando,F,Construcción,164.62294498293028
+2019,pando,G,Comercio; reparacion de vehículos automotores y motocicletas,109.17532941920341
+2019,pando,H,Transporte y almacenamiento,114.31252645044597
+2019,pando,I,Actividades de alojamiento y de servicio de comidas y bebidas,116.48488142561231
+2019,pando,J,Comunicación e informaciones,97.42377805750351
+2019,pando,K,Actividades financieras y de seguros,93.84711110754296
+2019,pando,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",103.38215485096671
+2019,pando,O,Administracion publica,124.39882725106517
+2019,pando,P,Enseñanza,108.74321236008332
+2019,pando,Q,Actividades de atencion de la salud humana y de asistencia social,122.76565156178036
+2019,pando,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",91.71342023268866
+2020,pando,,Impuestos netos de subvenciones a los productos,75.29945524563331
+2020,pando,,PRODUCTO  INTERNO  BRUTO(1),91.36894013156905
+2020,pando,,VALOR AGREGADO BRUTO,92.39685519821538
+2020,pando,A,"Agricultura, ganaderia, silvicultura y pesca",111.35237383059142
+2020,pando,B,Actividad extractiva,36.04334583681992
+2020,pando,C,Industrias manufactureras,94.2308863319985
+2020,pando,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",101.97395514432966
+2020,pando,F,Construcción,55.21524375055956
+2020,pando,G,Comercio; reparacion de vehículos automotores y motocicletas,93.27171163976912
+2020,pando,H,Transporte y almacenamiento,46.675552115266946
+2020,pando,I,Actividades de alojamiento y de servicio de comidas y bebidas,86.89178140391543
+2020,pando,J,Comunicación e informaciones,89.52567590330203
+2020,pando,K,Actividades financieras y de seguros,89.20938407249561
+2020,pando,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",87.77988679582438
+2020,pando,O,Administracion publica,99.5121909864246
+2020,pando,P,Enseñanza,108.66708089851319
+2020,pando,Q,Actividades de atencion de la salud humana y de asistencia social,143.2023072272434
+2020,pando,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",80.92572771730039
+2021,pando,,Impuestos netos de subvenciones a los productos,92.67312516247048
+2021,pando,,PRODUCTO  INTERNO  BRUTO(1),108.75765576131057
+2021,pando,,VALOR AGREGADO BRUTO,109.78774988410852
+2021,pando,A,"Agricultura, ganaderia, silvicultura y pesca",117.13327146239823
+2021,pando,B,Actividad extractiva,65.62496601078207
+2021,pando,C,Industrias manufactureras,117.03624363447307
+2021,pando,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",115.11198829943761
+2021,pando,F,Construcción,113.75037943629587
+2021,pando,G,Comercio; reparacion de vehículos automotores y motocicletas,123.03260668880341
+2021,pando,H,Transporte y almacenamiento,46.525576414908
+2021,pando,I,Actividades de alojamiento y de servicio de comidas y bebidas,110.66008179942556
+2021,pando,J,Comunicación e informaciones,85.5512203729137
+2021,pando,K,Actividades financieras y de seguros,95.37813694558885
+2021,pando,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",116.83141878647821
+2021,pando,O,Administracion publica,104.38179902709537
+2021,pando,P,Enseñanza,110.72364908387064
+2021,pando,Q,Actividades de atencion de la salud humana y de asistencia social,156.96775884255777
+2021,pando,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",76.31665998975446
+2022,pando,,Impuestos netos de subvenciones a los productos,83.03866536752872
+2022,pando,,PRODUCTO  INTERNO  BRUTO(1),113.10160884202165
+2022,pando,,VALOR AGREGADO BRUTO,115.0391661174363
+2022,pando,A,"Agricultura, ganaderia, silvicultura y pesca",122.76401700872007
+2022,pando,B,Actividad extractiva,61.169749935626115
+2022,pando,C,Industrias manufactureras,177.56123771036332
+2022,pando,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",18.967361534218156
+2022,pando,F,Construcción,58.62492781298909
+2022,pando,G,Comercio; reparacion de vehículos automotores y motocicletas,122.21780703333017
+2022,pando,H,Transporte y almacenamiento,61.630951237995575
+2022,pando,I,Actividades de alojamiento y de servicio de comidas y bebidas,130.99823455201297
+2022,pando,J,Comunicación e informaciones,101.66084682094288
+2022,pando,K,Actividades financieras y de seguros,95.60088616821982
+2022,pando,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",111.72261519351996
+2022,pando,O,Administracion publica,106.61180681019223
+2022,pando,P,Enseñanza,113.57586653860406
+2022,pando,Q,Actividades de atencion de la salud humana y de asistencia social,149.94170574458516
+2022,pando,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",85.44818028577565
+2023,pando,,Impuestos netos de subvenciones a los productos,89.51924625177467
+2023,pando,,PRODUCTO  INTERNO  BRUTO(1),115.41758704737866
+2023,pando,,VALOR AGREGADO BRUTO,117.03850910213862
+2023,pando,A,"Agricultura, ganaderia, silvicultura y pesca",116.11596737826177
+2023,pando,B,Actividad extractiva,65.24246036791709
+2023,pando,C,Industrias manufactureras,166.42218553613978
+2023,pando,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",20.939666920340713
+2023,pando,F,Construcción,83.20022190176479
+2023,pando,G,Comercio; reparacion de vehículos automotores y motocicletas,119.55741935515125
+2023,pando,H,Transporte y almacenamiento,61.668135754129345
+2023,pando,I,Actividades de alojamiento y de servicio de comidas y bebidas,138.02886261964352
+2023,pando,J,Comunicación e informaciones,102.29522568653259
+2023,pando,K,Actividades financieras y de seguros,106.68023871666513
+2023,pando,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",118.01662738611626
+2023,pando,O,Administracion publica,106.0637429889294
+2023,pando,P,Enseñanza,116.59617334823835
+2023,pando,Q,Actividades de atencion de la salud humana y de asistencia social,159.66022156370377
+2023,pando,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",83.62561530985955
+2024,pando,,Impuestos netos de subvenciones a los productos,105.7580736046216
+2024,pando,,PRODUCTO  INTERNO  BRUTO(1),120.76055010091424
+2024,pando,,VALOR AGREGADO BRUTO,121.53143554938184
+2024,pando,A,"Agricultura, ganaderia, silvicultura y pesca",121.86289828729831
+2024,pando,B,Actividad extractiva,25.39224561856336
+2024,pando,C,Industrias manufactureras,180.0283081232966
+2024,pando,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",20.02626958985341
+2024,pando,F,Construcción,134.26893353348797
+2024,pando,G,Comercio; reparacion de vehículos automotores y motocicletas,121.61484417599362
+2024,pando,H,Transporte y almacenamiento,75.82564631324959
+2024,pando,I,Actividades de alojamiento y de servicio de comidas y bebidas,149.64190826751224
+2024,pando,J,Comunicación e informaciones,101.2240141820632
+2024,pando,K,Actividades financieras y de seguros,105.91074777586948
+2024,pando,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",116.99211883400659
+2024,pando,O,Administracion publica,94.82530816809242
+2024,pando,P,Enseñanza,118.63493749286776
+2024,pando,Q,Actividades de atencion de la salud humana y de asistencia social,157.70706921698658
+2024,pando,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",87.38770767311703
+2017,potosi,,Impuestos netos de subvenciones a los productos,100.0
+2017,potosi,,PRODUCTO  INTERNO  BRUTO(1),100.0
+2017,potosi,,VALOR AGREGADO BRUTO,100.0
+2017,potosi,A,"Agricultura, ganaderia, silvicultura y pesca",100.0
+2017,potosi,B,Actividad extractiva,100.0
+2017,potosi,C,Industrias manufactureras,100.0
+2017,potosi,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",100.0
+2017,potosi,F,Construcción,100.0
+2017,potosi,G,Comercio; reparacion de vehículos automotores y motocicletas,100.0
+2017,potosi,H,Transporte y almacenamiento,100.0
+2017,potosi,I,Actividades de alojamiento y de servicio de comidas y bebidas,100.0
+2017,potosi,J,Comunicación e informaciones,100.0
+2017,potosi,K,Actividades financieras y de seguros,100.0
+2017,potosi,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",100.0
+2017,potosi,O,Administracion publica,100.0
+2017,potosi,P,Enseñanza,100.0
+2017,potosi,Q,Actividades de atencion de la salud humana y de asistencia social,100.0
+2017,potosi,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",100.0
+2018,potosi,,Impuestos netos de subvenciones a los productos,105.81864411870453
+2018,potosi,,PRODUCTO  INTERNO  BRUTO(1),109.66186269507625
+2018,potosi,,VALOR AGREGADO BRUTO,109.89790972586962
+2018,potosi,A,"Agricultura, ganaderia, silvicultura y pesca",104.68958408366183
+2018,potosi,B,Actividad extractiva,110.11531368431183
+2018,potosi,C,Industrias manufactureras,112.39218742545656
+2018,potosi,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",112.37198444613294
+2018,potosi,F,Construcción,142.29085979714318
+2018,potosi,G,Comercio; reparacion de vehículos automotores y motocicletas,110.1704399209467
+2018,potosi,H,Transporte y almacenamiento,98.866860899995
+2018,potosi,I,Actividades de alojamiento y de servicio de comidas y bebidas,103.56189537742263
+2018,potosi,J,Comunicación e informaciones,105.87648656647413
+2018,potosi,K,Actividades financieras y de seguros,105.33271853174982
+2018,potosi,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",105.52168662279277
+2018,potosi,O,Administracion publica,73.56623334744025
+2018,potosi,P,Enseñanza,106.56790679561094
+2018,potosi,Q,Actividades de atencion de la salud humana y de asistencia social,107.0463757863001
+2018,potosi,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",114.60571464585485
+2019,potosi,,Impuestos netos de subvenciones a los productos,99.37683248500439
+2019,potosi,,PRODUCTO  INTERNO  BRUTO(1),107.62705876505433
+2019,potosi,,VALOR AGREGADO BRUTO,108.13645572377379
+2019,potosi,A,"Agricultura, ganaderia, silvicultura y pesca",110.8648628090502
+2019,potosi,B,Actividad extractiva,107.32549766185502
+2019,potosi,C,Industrias manufactureras,116.95130684190515
+2019,potosi,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",117.18653245960073
+2019,potosi,F,Construcción,120.0178294622783
+2019,potosi,G,Comercio; reparacion de vehículos automotores y motocicletas,108.47052220278269
+2019,potosi,H,Transporte y almacenamiento,93.74878159589302
+2019,potosi,I,Actividades de alojamiento y de servicio de comidas y bebidas,103.59720733538481
+2019,potosi,J,Comunicación e informaciones,104.75991236269263
+2019,potosi,K,Actividades financieras y de seguros,112.7540467079271
+2019,potosi,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",112.20633318675135
+2019,potosi,O,Administracion publica,75.11221096658579
+2019,potosi,P,Enseñanza,102.00293818115371
+2019,potosi,Q,Actividades de atencion de la salud humana y de asistencia social,116.92204832214098
+2019,potosi,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",89.71538252405765
+2020,potosi,,Impuestos netos de subvenciones a los productos,73.30353525750036
+2020,potosi,,PRODUCTO  INTERNO  BRUTO(1),87.76333450004417
+2020,potosi,,VALOR AGREGADO BRUTO,88.64967077088787
+2020,potosi,A,"Agricultura, ganaderia, silvicultura y pesca",111.62860725631798
+2020,potosi,B,Actividad extractiva,79.14149003834159
+2020,potosi,C,Industrias manufactureras,94.04596549276101
+2020,potosi,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",102.88837855928378
+2020,potosi,F,Construcción,60.34458192519035
+2020,potosi,G,Comercio; reparacion de vehículos automotores y motocicletas,79.96411651920661
+2020,potosi,H,Transporte y almacenamiento,65.83080522365115
+2020,potosi,I,Actividades de alojamiento y de servicio de comidas y bebidas,76.40985703106912
+2020,potosi,J,Comunicación e informaciones,101.50974573209537
+2020,potosi,K,Actividades financieras y de seguros,113.29126282825423
+2020,potosi,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",102.82230076161107
+2020,potosi,O,Administracion publica,73.5080677448872
+2020,potosi,P,Enseñanza,100.07671045144397
+2020,potosi,Q,Actividades de atencion de la salud humana y de asistencia social,129.5717916702638
+2020,potosi,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",98.38552452569513
+2021,potosi,,Impuestos netos de subvenciones a los productos,89.18369340346615
+2021,potosi,,PRODUCTO  INTERNO  BRUTO(1),101.36520281236737
+2021,potosi,,VALOR AGREGADO BRUTO,102.14734568816043
+2021,potosi,A,"Agricultura, ganaderia, silvicultura y pesca",107.492124238218
+2021,potosi,B,Actividad extractiva,106.95249116656362
+2021,potosi,C,Industrias manufactureras,97.26417160989394
+2021,potosi,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",129.8333899171476
+2021,potosi,F,Construcción,80.44693930233908
+2021,potosi,G,Comercio; reparacion de vehículos automotores y motocicletas,88.56099921752991
+2021,potosi,H,Transporte y almacenamiento,85.32856983241275
+2021,potosi,I,Actividades de alojamiento y de servicio de comidas y bebidas,91.41137834870565
+2021,potosi,J,Comunicación e informaciones,104.02353361613461
+2021,potosi,K,Actividades financieras y de seguros,115.71439034480487
+2021,potosi,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",106.20174984930814
+2021,potosi,O,Administracion publica,79.32299217515995
+2021,potosi,P,Enseñanza,100.89690939650076
+2021,potosi,Q,Actividades de atencion de la salud humana y de asistencia social,139.15255787493058
+2021,potosi,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",95.28800849955985
+2022,potosi,,Impuestos netos de subvenciones a los productos,84.10378575989932
+2022,potosi,,PRODUCTO  INTERNO  BRUTO(1),101.00973475561835
+2022,potosi,,VALOR AGREGADO BRUTO,102.0416163219149
+2022,potosi,A,"Agricultura, ganaderia, silvicultura y pesca",102.76214406006564
+2022,potosi,B,Actividad extractiva,106.48577375366904
+2022,potosi,C,Industrias manufactureras,108.48024113777286
+2022,potosi,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",133.73908896683136
+2022,potosi,F,Construcción,60.5331989327758
+2022,potosi,G,Comercio; reparacion de vehículos automotores y motocicletas,97.13757696094076
+2022,potosi,H,Transporte y almacenamiento,102.91726607891053
+2022,potosi,I,Actividades de alojamiento y de servicio de comidas y bebidas,105.72024833256161
+2022,potosi,J,Comunicación e informaciones,112.012470088136
+2022,potosi,K,Actividades financieras y de seguros,118.19903762929934
+2022,potosi,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",109.14789394507586
+2022,potosi,O,Administracion publica,76.81229585026261
+2022,potosi,P,Enseñanza,102.24737811495712
+2022,potosi,Q,Actividades de atencion de la salud humana y de asistencia social,136.08096793411423
+2022,potosi,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",82.80819205923494
+2023,potosi,,Impuestos netos de subvenciones a los productos,93.72127098114377
+2023,potosi,,PRODUCTO  INTERNO  BRUTO(1),104.01643819924668
+2023,potosi,,VALOR AGREGADO BRUTO,104.65162515745878
+2023,potosi,A,"Agricultura, ganaderia, silvicultura y pesca",96.72041575863398
+2023,potosi,B,Actividad extractiva,104.54891500755306
+2023,potosi,C,Industrias manufactureras,111.95140499233268
+2023,potosi,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",141.6362239822027
+2023,potosi,F,Construcción,65.49235808022121
+2023,potosi,G,Comercio; reparacion de vehículos automotores y motocicletas,95.75787183515833
+2023,potosi,H,Transporte y almacenamiento,100.42775444249669
+2023,potosi,I,Actividades de alojamiento y de servicio de comidas y bebidas,109.71096808376622
+2023,potosi,J,Comunicación e informaciones,120.65532841604403
+2023,potosi,K,Actividades financieras y de seguros,127.9443955805725
+2023,potosi,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",114.18221494853825
+2023,potosi,O,Administracion publica,78.99157038200222
+2023,potosi,P,Enseñanza,104.32797816634292
+2023,potosi,Q,Actividades de atencion de la salud humana y de asistencia social,153.5971285594194
+2023,potosi,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",116.77674333756848
+2024,potosi,,Impuestos netos de subvenciones a los productos,84.71316422720864
+2024,potosi,,PRODUCTO  INTERNO  BRUTO(1),108.94286365195858
+2024,potosi,,VALOR AGREGADO BRUTO,110.45376073471822
+2024,potosi,A,"Agricultura, ganaderia, silvicultura y pesca",112.77284610695266
+2024,potosi,B,Actividad extractiva,118.56037108553595
+2024,potosi,C,Industrias manufactureras,122.99965663259917
+2024,potosi,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",149.7912159953785
+2024,potosi,F,Construcción,58.96766788143191
+2024,potosi,G,Comercio; reparacion de vehículos automotores y motocicletas,105.3882546464962
+2024,potosi,H,Transporte y almacenamiento,101.39424647999849
+2024,potosi,I,Actividades de alojamiento y de servicio de comidas y bebidas,111.89038433091231
+2024,potosi,J,Comunicación e informaciones,122.51823409814924
+2024,potosi,K,Actividades financieras y de seguros,132.68422544532643
+2024,potosi,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",114.28211451431079
+2024,potosi,O,Administracion publica,80.18503704432595
+2024,potosi,P,Enseñanza,108.78696133686358
+2024,potosi,Q,Actividades de atencion de la salud humana y de asistencia social,156.49083547630448
+2024,potosi,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",105.59859687698099
+2017,santa_cruz,,Impuestos netos de subvenciones a los productos,100.0
+2017,santa_cruz,,PRODUCTO  INTERNO  BRUTO(1),100.0
+2017,santa_cruz,,VALOR AGREGADO BRUTO,100.0
+2017,santa_cruz,A,"Agricultura, ganaderia, silvicultura y pesca",100.0
+2017,santa_cruz,B,Actividad extractiva,100.0
+2017,santa_cruz,C,Industrias manufactureras,100.0
+2017,santa_cruz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",100.0
+2017,santa_cruz,F,Construcción,100.0
+2017,santa_cruz,G,Comercio; reparacion de vehículos automotores y motocicletas,100.0
+2017,santa_cruz,H,Transporte y almacenamiento,100.0
+2017,santa_cruz,I,Actividades de alojamiento y de servicio de comidas y bebidas,100.0
+2017,santa_cruz,J,Comunicación e informaciones,100.0
+2017,santa_cruz,K,Actividades financieras y de seguros,100.0
+2017,santa_cruz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",100.0
+2017,santa_cruz,O,Administracion publica,100.0
+2017,santa_cruz,P,Enseñanza,100.0
+2017,santa_cruz,Q,Actividades de atencion de la salud humana y de asistencia social,100.0
+2017,santa_cruz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",100.0
+2018,santa_cruz,,Impuestos netos de subvenciones a los productos,101.46956351665682
+2018,santa_cruz,,PRODUCTO  INTERNO  BRUTO(1),103.2054667012149
+2018,santa_cruz,,VALOR AGREGADO BRUTO,103.44605317114313
+2018,santa_cruz,A,"Agricultura, ganaderia, silvicultura y pesca",102.00938177339192
+2018,santa_cruz,B,Actividad extractiva,96.93503684296444
+2018,santa_cruz,C,Industrias manufactureras,104.1255920801152
+2018,santa_cruz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",104.10203246084191
+2018,santa_cruz,F,Construcción,102.98435055237066
+2018,santa_cruz,G,Comercio; reparacion de vehículos automotores y motocicletas,103.99140787775553
+2018,santa_cruz,H,Transporte y almacenamiento,106.63613091713697
+2018,santa_cruz,I,Actividades de alojamiento y de servicio de comidas y bebidas,104.57583586139482
+2018,santa_cruz,J,Comunicación e informaciones,100.15857047874188
+2018,santa_cruz,K,Actividades financieras y de seguros,103.54247300154937
+2018,santa_cruz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",104.58402069980397
+2018,santa_cruz,O,Administracion publica,89.46851879832059
+2018,santa_cruz,P,Enseñanza,107.85869025618749
+2018,santa_cruz,Q,Actividades de atencion de la salud humana y de asistencia social,99.91319224819743
+2018,santa_cruz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",113.64186797094682
+2019,santa_cruz,,Impuestos netos de subvenciones a los productos,103.36594738800991
+2019,santa_cruz,,PRODUCTO  INTERNO  BRUTO(1),106.2861107507926
+2019,santa_cruz,,VALOR AGREGADO BRUTO,106.67677344548481
+2019,santa_cruz,A,"Agricultura, ganaderia, silvicultura y pesca",105.55529104894272
+2019,santa_cruz,B,Actividad extractiva,88.24400464155087
+2019,santa_cruz,C,Industrias manufactureras,105.8145530648338
+2019,santa_cruz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",111.10861297711185
+2019,santa_cruz,F,Construcción,108.93482495013744
+2019,santa_cruz,G,Comercio; reparacion de vehículos automotores y motocicletas,106.55362484255562
+2019,santa_cruz,H,Transporte y almacenamiento,110.14622857904195
+2019,santa_cruz,I,Actividades de alojamiento y de servicio de comidas y bebidas,107.19480113185017
+2019,santa_cruz,J,Comunicación e informaciones,102.22367240347198
+2019,santa_cruz,K,Actividades financieras y de seguros,110.17101503641199
+2019,santa_cruz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",116.41459510445657
+2019,santa_cruz,O,Administracion publica,94.97870088904679
+2019,santa_cruz,P,Enseñanza,106.0142380967867
+2019,santa_cruz,Q,Actividades de atencion de la salud humana y de asistencia social,103.57713507317398
+2019,santa_cruz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",124.83013808633652
+2020,santa_cruz,,Impuestos netos de subvenciones a los productos,87.87718483091672
+2020,santa_cruz,,PRODUCTO  INTERNO  BRUTO(1),95.4309294623435
+2020,santa_cruz,,VALOR AGREGADO BRUTO,96.32190763645987
+2020,santa_cruz,A,"Agricultura, ganaderia, silvicultura y pesca",111.52778025837524
+2020,santa_cruz,B,Actividad extractiva,85.45164916575173
+2020,santa_cruz,C,Industrias manufactureras,94.74352584938292
+2020,santa_cruz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",108.78403065428769
+2020,santa_cruz,F,Construcción,63.9959258329024
+2020,santa_cruz,G,Comercio; reparacion de vehículos automotores y motocicletas,91.89031905835108
+2020,santa_cruz,H,Transporte y almacenamiento,85.21601594191216
+2020,santa_cruz,I,Actividades de alojamiento y de servicio de comidas y bebidas,79.00404926282141
+2020,santa_cruz,J,Comunicación e informaciones,97.66910505803666
+2020,santa_cruz,K,Actividades financieras y de seguros,107.89510926115905
+2020,santa_cruz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",107.12218993516241
+2020,santa_cruz,O,Administracion publica,81.20991609778565
+2020,santa_cruz,P,Enseñanza,105.34774469030657
+2020,santa_cruz,Q,Actividades de atencion de la salud humana y de asistencia social,111.86917549026583
+2020,santa_cruz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",110.98640118372103
+2021,santa_cruz,,Impuestos netos de subvenciones a los productos,95.28874434351728
+2021,santa_cruz,,PRODUCTO  INTERNO  BRUTO(1),103.72799103151547
+2021,santa_cruz,,VALOR AGREGADO BRUTO,104.72084981635356
+2021,santa_cruz,A,"Agricultura, ganaderia, silvicultura y pesca",116.90230942481737
+2021,santa_cruz,B,Actividad extractiva,95.23515953257844
+2021,santa_cruz,C,Industrias manufactureras,102.82194531307985
+2021,santa_cruz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",118.00582185735773
+2021,santa_cruz,F,Construcción,82.94163976664198
+2021,santa_cruz,G,Comercio; reparacion de vehículos automotores y motocicletas,101.79345607191357
+2021,santa_cruz,H,Transporte y almacenamiento,102.9272803688892
+2021,santa_cruz,I,Actividades de alojamiento y de servicio de comidas y bebidas,94.66947100363228
+2021,santa_cruz,J,Comunicación e informaciones,100.50241970306921
+2021,santa_cruz,K,Actividades financieras y de seguros,108.56562441685199
+2021,santa_cruz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",117.31531960184974
+2021,santa_cruz,O,Administracion publica,88.53838803438707
+2021,santa_cruz,P,Enseñanza,105.18947657315366
+2021,santa_cruz,Q,Actividades de atencion de la salud humana y de asistencia social,120.06298366733171
+2021,santa_cruz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",111.17692593762389
+2022,santa_cruz,,Impuestos netos de subvenciones a los productos,99.67695087664865
+2022,santa_cruz,,PRODUCTO  INTERNO  BRUTO(1),109.99038105201494
+2022,santa_cruz,,VALOR AGREGADO BRUTO,111.18189256750578
+2022,santa_cruz,A,"Agricultura, ganaderia, silvicultura y pesca",118.9229068861697
+2022,santa_cruz,B,Actividad extractiva,100.78269636940381
+2022,santa_cruz,C,Industrias manufactureras,108.8982737854396
+2022,santa_cruz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",130.74253833920528
+2022,santa_cruz,F,Construcción,111.6409627010025
+2022,santa_cruz,G,Comercio; reparacion de vehículos automotores y motocicletas,108.76053017073187
+2022,santa_cruz,H,Transporte y almacenamiento,111.68111865970572
+2022,santa_cruz,I,Actividades de alojamiento y de servicio de comidas y bebidas,111.92928843136907
+2022,santa_cruz,J,Comunicación e informaciones,102.15336524023398
+2022,santa_cruz,K,Actividades financieras y de seguros,106.5329110924344
+2022,santa_cruz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",124.03398603544254
+2022,santa_cruz,O,Administracion publica,93.99486030610278
+2022,santa_cruz,P,Enseñanza,107.43831047716711
+2022,santa_cruz,Q,Actividades de atencion de la salud humana y de asistencia social,133.51909038088868
+2022,santa_cruz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",104.5032997216318
+2023,santa_cruz,,Impuestos netos de subvenciones a los productos,98.7094653152149
+2023,santa_cruz,,PRODUCTO  INTERNO  BRUTO(1),110.93187324094848
+2023,santa_cruz,,VALOR AGREGADO BRUTO,112.28007964022527
+2023,santa_cruz,A,"Agricultura, ganaderia, silvicultura y pesca",130.67398105861167
+2023,santa_cruz,B,Actividad extractiva,86.89620385996874
+2023,santa_cruz,C,Industrias manufactureras,113.94937934302021
+2023,santa_cruz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",139.47294250211425
+2023,santa_cruz,F,Construcción,105.56360094935027
+2023,santa_cruz,G,Comercio; reparacion de vehículos automotores y motocicletas,111.08214661351805
+2023,santa_cruz,H,Transporte y almacenamiento,115.02943968279371
+2023,santa_cruz,I,Actividades de alojamiento y de servicio de comidas y bebidas,118.0497236380986
+2023,santa_cruz,J,Comunicación e informaciones,100.86727447960895
+2023,santa_cruz,K,Actividades financieras y de seguros,103.76651154481435
+2023,santa_cruz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",115.97502691351102
+2023,santa_cruz,O,Administracion publica,96.37270387794669
+2023,santa_cruz,P,Enseñanza,111.93426398974036
+2023,santa_cruz,Q,Actividades de atencion de la salud humana y de asistencia social,127.10838708923367
+2023,santa_cruz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",103.64492903220382
+2024,santa_cruz,,Impuestos netos de subvenciones a los productos,90.56333725989154
+2024,santa_cruz,,PRODUCTO  INTERNO  BRUTO(1),107.54825885861686
+2024,santa_cruz,,VALOR AGREGADO BRUTO,109.3397335257321
+2024,santa_cruz,A,"Agricultura, ganaderia, silvicultura y pesca",113.77738101660862
+2024,santa_cruz,B,Actividad extractiva,72.99511705195458
+2024,santa_cruz,C,Industrias manufactureras,111.80434290522379
+2024,santa_cruz,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",139.00348699231716
+2024,santa_cruz,F,Construcción,99.213638429118
+2024,santa_cruz,G,Comercio; reparacion de vehículos automotores y motocicletas,106.81156847161377
+2024,santa_cruz,H,Transporte y almacenamiento,113.99687299468683
+2024,santa_cruz,I,Actividades de alojamiento y de servicio de comidas y bebidas,121.65894242718922
+2024,santa_cruz,J,Comunicación e informaciones,96.84878864124674
+2024,santa_cruz,K,Actividades financieras y de seguros,108.01905411756603
+2024,santa_cruz,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",124.58281427923666
+2024,santa_cruz,O,Administracion publica,95.9782274376688
+2024,santa_cruz,P,Enseñanza,114.4169848890926
+2024,santa_cruz,Q,Actividades de atencion de la salud humana y de asistencia social,128.48560645636056
+2024,santa_cruz,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",113.42810114836557
+2017,tarija,,Impuestos netos de subvenciones a los productos,100.0
+2017,tarija,,PRODUCTO  INTERNO  BRUTO(1),100.0
+2017,tarija,,VALOR AGREGADO BRUTO,100.0
+2017,tarija,A,"Agricultura, ganaderia, silvicultura y pesca",100.0
+2017,tarija,B,Actividad extractiva,100.0
+2017,tarija,C,Industrias manufactureras,100.0
+2017,tarija,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",100.0
+2017,tarija,F,Construcción,100.0
+2017,tarija,G,Comercio; reparacion de vehículos automotores y motocicletas,100.0
+2017,tarija,H,Transporte y almacenamiento,100.0
+2017,tarija,I,Actividades de alojamiento y de servicio de comidas y bebidas,100.0
+2017,tarija,J,Comunicación e informaciones,100.0
+2017,tarija,K,Actividades financieras y de seguros,100.0
+2017,tarija,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",100.0
+2017,tarija,O,Administracion publica,100.0
+2017,tarija,P,Enseñanza,100.0
+2017,tarija,Q,Actividades de atencion de la salud humana y de asistencia social,100.0
+2017,tarija,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",100.0
+2018,tarija,,Impuestos netos de subvenciones a los productos,99.62061778313749
+2018,tarija,,PRODUCTO  INTERNO  BRUTO(1),96.68768067647565
+2018,tarija,,VALOR AGREGADO BRUTO,96.51762211722297
+2018,tarija,A,"Agricultura, ganaderia, silvicultura y pesca",108.56442724244545
+2018,tarija,B,Actividad extractiva,92.82035625892837
+2018,tarija,C,Industrias manufactureras,104.7627324607698
+2018,tarija,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",101.23038915415621
+2018,tarija,F,Construcción,85.48568384568374
+2018,tarija,G,Comercio; reparacion de vehículos automotores y motocicletas,104.03721675509088
+2018,tarija,H,Transporte y almacenamiento,93.78114028780655
+2018,tarija,I,Actividades de alojamiento y de servicio de comidas y bebidas,104.49439742443892
+2018,tarija,J,Comunicación e informaciones,102.89089986290377
+2018,tarija,K,Actividades financieras y de seguros,104.63815822792498
+2018,tarija,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",98.49003753867953
+2018,tarija,O,Administracion publica,87.93311776436067
+2018,tarija,P,Enseñanza,106.78859511342542
+2018,tarija,Q,Actividades de atencion de la salud humana y de asistencia social,107.89863258706775
+2018,tarija,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",102.15786218463407
+2019,tarija,,Impuestos netos de subvenciones a los productos,89.09346738442927
+2019,tarija,,PRODUCTO  INTERNO  BRUTO(1),89.45238534861838
+2019,tarija,,VALOR AGREGADO BRUTO,89.46762972468103
+2019,tarija,A,"Agricultura, ganaderia, silvicultura y pesca",107.97183008440193
+2019,tarija,B,Actividad extractiva,79.2966722539715
+2019,tarija,C,Industrias manufactureras,104.47487839735847
+2019,tarija,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",109.05181688623517
+2019,tarija,F,Construcción,56.506225993394594
+2019,tarija,G,Comercio; reparacion de vehículos automotores y motocicletas,101.7418382757632
+2019,tarija,H,Transporte y almacenamiento,89.77965719362496
+2019,tarija,I,Actividades de alojamiento y de servicio de comidas y bebidas,106.21934324477148
+2019,tarija,J,Comunicación e informaciones,99.9908199857609
+2019,tarija,K,Actividades financieras y de seguros,108.4457667361028
+2019,tarija,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",105.93048185201907
+2019,tarija,O,Administracion publica,95.15312023857128
+2019,tarija,P,Enseñanza,103.48771188117291
+2019,tarija,Q,Actividades de atencion de la salud humana y de asistencia social,113.26209471810824
+2019,tarija,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",131.20969012763032
+2020,tarija,,Impuestos netos de subvenciones a los productos,79.06235153456151
+2020,tarija,,PRODUCTO  INTERNO  BRUTO(1),80.17854306115028
+2020,tarija,,VALOR AGREGADO BRUTO,80.23218450657572
+2020,tarija,A,"Agricultura, ganaderia, silvicultura y pesca",112.23307489506253
+2020,tarija,B,Actividad extractiva,73.0360775099742
+2020,tarija,C,Industrias manufactureras,89.53517410935709
+2020,tarija,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",97.0024846254032
+2020,tarija,F,Construcción,65.63624437186427
+2020,tarija,G,Comercio; reparacion de vehículos automotores y motocicletas,83.38031934889761
+2020,tarija,H,Transporte y almacenamiento,63.25099087893922
+2020,tarija,I,Actividades de alojamiento y de servicio de comidas y bebidas,78.51419308338536
+2020,tarija,J,Comunicación e informaciones,92.19111958571932
+2020,tarija,K,Actividades financieras y de seguros,108.23746690140342
+2020,tarija,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",81.04795235358287
+2020,tarija,O,Administracion publica,82.92130487212741
+2020,tarija,P,Enseñanza,102.66902982526616
+2020,tarija,Q,Actividades de atencion de la salud humana y de asistencia social,128.44113673142047
+2020,tarija,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",98.99363269887597
+2021,tarija,,Impuestos netos de subvenciones a los productos,89.71765310233279
+2021,tarija,,PRODUCTO  INTERNO  BRUTO(1),83.8007499330228
+2021,tarija,,VALOR AGREGADO BRUTO,83.51059088131353
+2021,tarija,A,"Agricultura, ganaderia, silvicultura y pesca",123.85544089518879
+2021,tarija,B,Actividad extractiva,71.72412909615892
+2021,tarija,C,Industrias manufactureras,95.53149349336441
+2021,tarija,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",115.38185700341207
+2021,tarija,F,Construcción,83.02371172651661
+2021,tarija,G,Comercio; reparacion de vehículos automotores y motocicletas,93.90720372170037
+2021,tarija,H,Transporte y almacenamiento,67.47861257379421
+2021,tarija,I,Actividades de alojamiento y de servicio de comidas y bebidas,96.91654642367342
+2021,tarija,J,Comunicación e informaciones,94.98775571245376
+2021,tarija,K,Actividades financieras y de seguros,110.23059409843245
+2021,tarija,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",80.63309835305031
+2021,tarija,O,Administracion publica,80.11564542933448
+2021,tarija,P,Enseñanza,103.49601083761254
+2021,tarija,Q,Actividades de atencion de la salud humana y de asistencia social,137.11117053151077
+2021,tarija,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",94.19651625458548
+2022,tarija,,Impuestos netos de subvenciones a los productos,86.4058358453813
+2022,tarija,,PRODUCTO  INTERNO  BRUTO(1),77.55850893723722
+2022,tarija,,VALOR AGREGADO BRUTO,77.10917685635255
+2022,tarija,A,"Agricultura, ganaderia, silvicultura y pesca",130.16343451103
+2022,tarija,B,Actividad extractiva,58.09171181101728
+2022,tarija,C,Industrias manufactureras,98.69047155680494
+2022,tarija,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",123.12906742568535
+2022,tarija,F,Construcción,54.10087054751202
+2022,tarija,G,Comercio; reparacion de vehículos automotores y motocicletas,94.18511961442942
+2022,tarija,H,Transporte y almacenamiento,59.215415627474194
+2022,tarija,I,Actividades de alojamiento y de servicio de comidas y bebidas,112.12437849866778
+2022,tarija,J,Comunicación e informaciones,104.08391311860073
+2022,tarija,K,Actividades financieras y de seguros,114.33163639509281
+2022,tarija,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",88.45676350700653
+2022,tarija,O,Administracion publica,77.11595044765026
+2022,tarija,P,Enseñanza,104.63784335930877
+2022,tarija,Q,Actividades de atencion de la salud humana y de asistencia social,149.6305889252419
+2022,tarija,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",87.2529310586328
+2023,tarija,,Impuestos netos de subvenciones a los productos,84.70932252863628
+2023,tarija,,PRODUCTO  INTERNO  BRUTO(1),76.32148280006169
+2023,tarija,,VALOR AGREGADO BRUTO,75.894425472246
+2023,tarija,A,"Agricultura, ganaderia, silvicultura y pesca",148.54645174651176
+2023,tarija,B,Actividad extractiva,51.27995195673682
+2023,tarija,C,Industrias manufactureras,101.88313516271299
+2023,tarija,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",133.5289576743092
+2023,tarija,F,Construcción,69.87867413579285
+2023,tarija,G,Comercio; reparacion de vehículos automotores y motocicletas,96.69250205646468
+2023,tarija,H,Transporte y almacenamiento,58.08483317886101
+2023,tarija,I,Actividades de alojamiento y de servicio de comidas y bebidas,116.02719922267286
+2023,tarija,J,Comunicación e informaciones,113.66873246628002
+2023,tarija,K,Actividades financieras y de seguros,119.53944342793446
+2023,tarija,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",89.33726871392082
+2023,tarija,O,Administracion publica,87.12443719738252
+2023,tarija,P,Enseñanza,107.81219660708422
+2023,tarija,Q,Actividades de atencion de la salud humana y de asistencia social,154.74293108459247
+2023,tarija,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",77.23128082107107
+2024,tarija,,Impuestos netos de subvenciones a los productos,75.01979997894578
+2024,tarija,,PRODUCTO  INTERNO  BRUTO(1),71.8940886138135
+2024,tarija,,VALOR AGREGADO BRUTO,71.71951074637211
+2024,tarija,A,"Agricultura, ganaderia, silvicultura y pesca",145.3151170729665
+2024,tarija,B,Actividad extractiva,44.614495317066115
+2024,tarija,C,Industrias manufactureras,103.71593031778322
+2024,tarija,D+E,"Suministro de electricidad, agua y recolección de desechos sólidos",135.73162355283296
+2024,tarija,F,Construcción,64.28247567958961
+2024,tarija,G,Comercio; reparacion de vehículos automotores y motocicletas,98.91721433177831
+2024,tarija,H,Transporte y almacenamiento,58.94474989477756
+2024,tarija,I,Actividades de alojamiento y de servicio de comidas y bebidas,119.99928356688255
+2024,tarija,J,Comunicación e informaciones,106.92582883057494
+2024,tarija,K,Actividades financieras y de seguros,117.88619024371876
+2024,tarija,L+M+N,"Actividades inmobiliarias, empresariales y de alquiler",77.34290814789773
+2024,tarija,O,Administracion publica,79.30433560280369
+2024,tarija,P,Enseñanza,111.77203571033424
+2024,tarija,Q,Actividades de atencion de la salud humana y de asistencia social,156.519187951672
+2024,tarija,R+S+T,"Actividades artisticas, de entretenimiento, recreativas y otros servicios",91.89937970441632

@@ -74,17 +74,22 @@ def e1_elasticities() -> None:
         ann = viirs.groupby(["year", "department"], as_index=False)["sol"].sum()
 
         gdp = d["ine_dep_gdp_annual.parquet"]
+        # Filter to 2017-base only — the 1990-base sub-period uses a
+        # different unit (thousands vs millions of bolivianos) and a
+        # different sectoral classification, so mixing creates a
+        # spurious 10x break around 2016->2017.
+        gdp = gdp[gdp["base_year"] == 2017]
         gdp_total = gdp[gdp["sector_code"].str.contains(
             "PRODUCTO_INTERNO_BRUTO", na=False)
         ].drop_duplicates(subset=["year", "department"])
         merged = ann.merge(gdp_total[["year", "department",
-                                      "real_value_1990base"]],
+                                      "real_value"]],
                            on=["year", "department"])
-        merged = merged[(merged["sol"] > 0) & (merged["real_value_1990base"] > 0)]
+        merged = merged[(merged["sol"] > 0) & (merged["real_value"] > 0)]
         merged = merged.sort_values(["department", "year"])
         merged["dlog_sol"] = merged.groupby("department")["sol"].apply(
             lambda s: np.log(s).diff()).reset_index(level=0, drop=True)
-        merged["dlog_gdp"] = merged.groupby("department")["real_value_1990base"].apply(
+        merged["dlog_gdp"] = merged.groupby("department")["real_value"].apply(
             lambda s: np.log(s).diff()).reset_index(level=0, drop=True)
         reg = merged.dropna(subset=["dlog_sol", "dlog_gdp"])
         if len(reg) >= 12:
@@ -134,8 +139,10 @@ def e1_elasticities() -> None:
         nd = d["s2_ndvi_monthly.parquet"].copy()
         nd["year"] = nd["date"].dt.year
         gdp = d["ine_dep_gdp_annual.parquet"]
+        # 2017-base only (see VIIRS comment above)
+        gdp = gdp[gdp["base_year"] == 2017]
         ag = gdp[gdp["sector_code"].str.contains(
-            "AGRICULTURA|SILVICULTURA|PECUARIA", na=False, regex=True)]
+            "AGRICULTURA|GANADERIA|SILVICULTURA", na=False, regex=True)]
         # Zone -> dept approximation (NDVI zones span multiple depts; we use
         # the centroid dept for the Track A elasticity as an approximation).
         ZONE_DEP = {
@@ -150,14 +157,14 @@ def e1_elasticities() -> None:
         # Annual mean NDVI per department (aggregate zones that share a dept)
         ann = nd.groupby(["year", "department"], as_index=False)["ndvi_median"].mean()
         ag_total = ag.groupby(["year", "department"], as_index=False
-                              )["real_value_1990base"].sum()
+                              )["real_value"].sum()
         merged = ann.merge(ag_total, on=["year", "department"])
         merged = merged[(merged["ndvi_median"] > 0) &
-                        (merged["real_value_1990base"] > 0)]
+                        (merged["real_value"] > 0)]
         merged = merged.sort_values(["department", "year"])
         merged["dlog_ndvi"] = merged.groupby("department")["ndvi_median"].apply(
             lambda s: np.log(s).diff()).reset_index(level=0, drop=True)
-        merged["dlog_ag"] = merged.groupby("department")["real_value_1990base"].apply(
+        merged["dlog_ag"] = merged.groupby("department")["real_value"].apply(
             lambda s: np.log(s).diff()).reset_index(level=0, drop=True)
         reg = merged.dropna(subset=["dlog_ndvi", "dlog_ag"])
         if len(reg) >= 8:

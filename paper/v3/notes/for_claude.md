@@ -5,32 +5,45 @@ the paper body or fills any `\pend{}` placeholder.
 
 ## Empirical findings worth incorporating
 
-### E1-VIIRS — elasticity on the Bolivia departmental panel
+### E1-VIIRS — elasticity on the Bolivia departmental panel (2017 base)
 
-Estimated equation (1) on 9 departments × 4 usable years of overlap
-(VIIRS starts 2012-04, INE departmental panel ends 2016 in the 1990
-base; the 2017-base departmental series has not been released).
+Updated 2026-04-25 after fetching the INE 2017-base departmental
+chained-volume series from `referencia2017/pib_departamental.html`.
 
-- $\hat\beta = 0.074$, two-way clustered SE $= 0.036$,
-  $t = 2.05$, $p = 0.040$, $n = 36$, $R^2 = 0.13$.
-- Sample 2013–2016 (overlap of VIIRS start and 1990-base end).
-- HSW 2012 cross-country benchmark is $\approx 0.30$. Bolivia comes in
-  lower, consistent with single-country attenuation documented
-  in Gibson et al. (2021) and with the short four-year panel.
+- $\hat\beta = 0.017$, two-way clustered SE $= 0.111$,
+  $t = 0.16$, $p = 0.87$, $n = 63$, $R^2 < 0.01$.
+- Sample 2018–2024 (post-2017 overlap; 9 departments × 7 years).
+- The estimate is essentially zero. The 2018–2024 sub-period is
+  dominated by the 2020 COVID shock and the 2024 acute crisis, both
+  of which produce large GDP swings without commensurate VIIRS SOL
+  movements (urban radiance is much smoother than annual GDP under
+  shocks driven by sectoral collapse rather than urban activity).
+- Comparison with the previous 1990-base estimate ($\hat\beta = 0.074$
+  on 2013–2016, $p = 0.04$): the longer 2017-base sample widens the
+  CI and pushes the point estimate toward zero. Both samples are
+  short by HSW 2012 cross-country standards.
+- Recommend: report both estimates explicitly. Frame the 2018–2024
+  result as evidence that VIIRS DNB does not pick up Bolivia's
+  recession-magnitude GDP swings 1-for-1, which is consistent with
+  the narrative that the contraction is concentrated in extractive
+  and construction sectors that are NOT well-proxied by urban
+  nighttime lights.
 
-### E1-NDVI — elasticity on agricultural GVA
+**Mixing 1990-base and 2017-base values produced a spurious
+$\hat\beta \approx 1.6$ from the unit-mismatch break across 2016/17.
+The estimator now filters to `base_year == 2017` only.**
 
-Estimated equation (4) on 5 zone-derived departments × 3 usable
-years. Two-way clustering collapses with that few clusters; only the
-point estimate is informative.
+### E1-NDVI — elasticity on agricultural GVA (2017 base)
 
-- $\hat\beta = 0.169$, $n = 12$, $R^2 = 0.20$. SE and $p$ not
-  reportable under the declared specification.
-- Claude: this is a point estimate without credible inference.
-  Consider narrowing the paper's §4.1 Eq.~(4) prose to "the point
-  estimate is consistent with the Johnson (2014) crop-yield
-  benchmark of 0.3–0.5" rather than claiming statistical
-  significance. Or wait on the 2017-base departmental series.
+Updated with the 2017-base departmental panel:
+
+- $\hat\beta = 0.242$, two-way clustered SE $= 0.161$,
+  $t = 1.50$, $p = 0.13$, $n = 28$, $R^2 = 0.11$.
+- Sample 2018–2024 (5 zone-mapped departments × 7 years).
+- Borderline-significant point estimate consistent with the
+  Johnson (2014) US crop-yield benchmark of 0.3–0.5. With seven
+  annual observations per zone the inference is fragile; treat as
+  preliminary and revisit at R&R as additional years accumulate.
 
 ### E2 — two-factor DFM is not runnable this vintage
 

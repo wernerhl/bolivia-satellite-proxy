@@ -1,18 +1,24 @@
-2026-04-24T18:32:22+00:00  D3  ine_igae.csv not yet fetched (INE publishes IGAE from March 2026)
-2026-04-24T18:32:22+00:00  D4  YPFB field-month gas production not in repo; only annual totals from the YPFB JPG chart have been digitized. Test 1 and Figure A2 require monthly field-level production.
-2026-04-24T18:32:22+00:00  D5  IBCH cement dispatches not fetched; members-only, Fundación Milenio republication path not yet scraped.
-2026-04-24T18:32:22+00:00  D6  CNDC electricity: www.cndc.bo unresponsive from the working network (HTTP status 0, no HEAD response). Endpoint pattern confirmed in src/00_fetch/fetch_cndc.py for a network with access.
-2026-04-24T18:32:22+00:00  D7  SIN Recaudación not scraped.
-2026-04-24T18:32:22+00:00  D9  VNF Chaco monthly not available; EOG_TOKEN pending approval. Per brief, do not substitute WB-GGFR annual flaring.
-2026-04-24T18:32:23+00:00  D13  BCB Seguimiento al Programa Monetario PDF parsing not yet implemented.
-2026-04-24T18:33:49+00:00  E1-VNF  D4 (YPFB field-month) or D9 (VNF Chaco) Parquet missing.
-2026-04-24T18:33:49+00:00  E1-NO2  metropolitan fuel-sales series not available.
-2026-04-24T18:33:49+00:00  E2  two-factor DFM requires all of: D1 quarterly GDP, D5 IBCH cement, D6 CNDC electricity, D7 SIN tax, D8 VIIRS DNB, D9 VNF Chaco, D10 TROPOMI NO2, D11 Sentinel-2 NDVI, D12 Aduana imports. Missing: D5 IBCH cement, D6 CNDC electricity, D7 SIN tax, D9 VNF Chaco. Not running partial DFM (per brief rule zero: no auto-filled results from incomplete panels).
-2026-04-24T18:33:49+00:00  E3-Test1  requires D4 (YPFB field-month) and D9 (VNF Chaco monthly). Proxy substitution with WB-GGFR explicitly prohibited.
-2026-04-24T18:33:49+00:00  E3-Test2  post-Nov-2025 IGAE sample too short (brief: <10 obs => preliminary).
-2026-04-24T18:33:49+00:00  E3-Test3  requires E2 composite (not yet produced).
-2026-04-24T18:37:02+00:00  F1  rendered with streams missing: VNF Chaco
-2026-04-24T18:37:03+00:00  F3  E2 DFM composite not produced; per brief, not substituting CI fallback.
-2026-04-24T18:37:03+00:00  F4  E2 DFM loadings not produced; INE sectoral quarterly Parquet loaded but top panel requires DFM channel decomposition.
-2026-04-24T18:37:03+00:00  F5  requires monthly VNF Chaco + monthly YPFB field-month. Per brief, do not substitute annual WB-GGFR.
-2026-04-24T18:37:03+00:00  FA2  requires D4 (YPFB field-month) and D9 (VNF Chaco monthly). Cannot be produced.
+2026-04-26T01:38:01+00:00  D3  ine_igae.csv not yet fetched (INE publishes IGAE from March 2026)
+2026-04-26T01:38:01+00:00  D4  YPFB field-month gas production not in repo; only annual totals from the YPFB JPG chart have been digitized. Test 1 and Figure A2 require monthly field-level production.
+2026-04-26T01:38:01+00:00  D5  IBCH cement dispatches not fetched; members-only, Fundación Milenio republication path not yet scraped.
+2026-04-26T01:38:01+00:00  D6  CNDC electricity: www.cndc.bo unresponsive from the working network (HTTP status 0, no HEAD response). Endpoint pattern confirmed in src/00_fetch/fetch_cndc.py for a network with access.
+2026-04-26T01:38:01+00:00  D7  SIN Recaudación not scraped.
+2026-04-26T01:38:01+00:00  D9  VNF Chaco monthly not available; EOG_TOKEN pending approval. Per brief, do not substitute WB-GGFR annual flaring.
+2026-04-26T01:38:01+00:00  D13  BCB Seguimiento al Programa Monetario PDF parsing not yet implemented.
+2026-04-26T01:38:03+00:00  E1-VNF  D4 (YPFB field-month) or D9 (VNF Chaco) Parquet missing.
+2026-04-26T01:38:03+00:00  E1-NO2  metropolitan fuel-sales series not available.
+2026-04-26T01:38:03+00:00  E2  two-factor DFM requires all of: D1 quarterly GDP, D5 IBCH cement, D6 CNDC electricity, D7 SIN tax, D8 VIIRS DNB, D9 VNF Chaco, D10 TROPOMI NO2, D11 Sentinel-2 NDVI, D12 Aduana imports. Missing: D5 IBCH cement, D6 CNDC electricity, D7 SIN tax, D9 VNF Chaco. Not running partial DFM (per brief rule zero: no auto-filled results from incomplete panels).
+2026-04-26T01:38:03+00:00  E3-Test1  requires D4 (YPFB field-month) and D9 (VNF Chaco monthly). Proxy substitution with WB-GGFR explicitly prohibited.
+2026-04-26T01:38:03+00:00  E3-Test2  post-Nov-2025 IGAE sample too short (brief: <10 obs => preliminary).
+2026-04-26T01:38:03+00:00  E3-Test3  requires E2 composite (not yet produced).
+2026-04-26T01:38:36+00:00  E1-VNF  D4 (YPFB field-month) or D9 (VNF Chaco) Parquet missing.
+2026-04-26T01:38:36+00:00  E1-NO2  metropolitan fuel-sales series not available.
+2026-04-26T01:38:36+00:00  E2  two-factor DFM requires all of: D1 quarterly GDP, D5 IBCH cement, D6 CNDC electricity, D7 SIN tax, D8 VIIRS DNB, D9 VNF Chaco, D10 TROPOMI NO2, D11 Sentinel-2 NDVI, D12 Aduana imports. Missing: D5 IBCH cement, D6 CNDC electricity, D7 SIN tax, D9 VNF Chaco. Not running partial DFM (per brief rule zero: no auto-filled results from incomplete panels).
+2026-04-26T01:38:36+00:00  E3-Test1  requires D4 (YPFB field-month) and D9 (VNF Chaco monthly). Proxy substitution with WB-GGFR explicitly prohibited.
+2026-04-26T01:38:36+00:00  E3-Test2  post-Nov-2025 IGAE sample too short (brief: <10 obs => preliminary).
+2026-04-26T01:38:36+00:00  E3-Test3  requires E2 composite (not yet produced).
+2026-04-26T01:38:57+00:00  F1  rendered with streams missing: VNF Chaco
+2026-04-26T01:38:57+00:00  F3  E2 DFM composite not produced; per brief, not substituting CI fallback.
+2026-04-26T01:38:57+00:00  F4  E2 DFM loadings not produced; INE sectoral quarterly Parquet loaded but top panel requires DFM channel decomposition.
+2026-04-26T01:38:57+00:00  F5  requires monthly VNF Chaco + monthly YPFB field-month. Per brief, do not substitute annual WB-GGFR.
+2026-04-26T01:38:58+00:00  FA2  requires D4 (YPFB field-month) and D9 (VNF Chaco monthly). Cannot be produced.

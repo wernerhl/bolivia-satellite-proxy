@@ -80,23 +80,72 @@ def d1_ine_gdp_quarterly() -> None:
 
 
 def d2_ine_dep_gdp_annual() -> None:
-    src = REPO / "data/official/ine_gdp_dept_sectoral.csv"
-    if not src.exists():
-        _log_pending("D2", "ine_gdp_dept_sectoral.csv not found")
-        return
-    df = pd.read_csv(src)
-    df = df[df["year"] >= 2012]
-    df["sector_code"] = df["sector"].str.upper().str.replace(r"\s+", "_",
-                                                              regex=True)
-    df["real_value_1990base"] = df["gva"]
-    df["nominal_value"] = None
-    df["base_year"] = 1990
-    df["splice_factor"] = None   # no 2017-base departmental series available
-    out = PROCESSED / "ine_dep_gdp_annual.parquet"
-    df[["year", "department", "sector_code", "real_value_1990base",
-        "nominal_value", "base_year", "splice_factor"]].to_parquet(out, index=False)
-    print(f"[D2] wrote {out.relative_to(V3)} ({len(df)} rows, "
-          f"{df['year'].min()}..{df['year'].max()})")
+    """Per brief: 2013-2024 annual departmental GDP, 2017 base where
+    available, chain-spliced at the 2013 overlap.
+
+    Real coverage at this vintage:
+      2017-base chained (millones de bolivianos) -- 2017-2024, 9 deps + national.
+      1990-base sectoral series                  -- 1988-2016, 9 deps.
+    The two regimes have ZERO overlap years, so chain-splicing is
+    impossible without a synthetic anchor. The combined CSV preserves
+    both regimes side-by-side, with a `base_year` column distinguishing.
+    """
+    src_2017 = REPO / "data/official/ine_gdp_dept_2017_chained.csv"
+    src_combined = REPO / "data/official/ine_gdp_dept_combined.csv"
+    src_legacy = REPO / "data/official/ine_gdp_dept_sectoral.csv"
+
+    parts: list[pd.DataFrame] = []
+    if src_combined.exists():
+        df = pd.read_csv(src_combined)
+        df = df[df["year"] >= 2012].copy()
+        df["sector_code"] = df["sector_label"].str.upper().str.replace(
+            r"\s+", "_", regex=True)
+        df["real_value"] = df["value"]
+        df["splice_factor"] = pd.NA   # no overlap, no splice
+        out = PROCESSED / "ine_dep_gdp_annual.parquet"
+        df[["year", "department", "sector_code", "sector_label",
+            "real_value", "base_year", "splice_factor"]].to_parquet(
+                out, index=False)
+        # Coverage of the 2017-base sub-period
+        n_2017 = (df["base_year"] == 2017).sum()
+        n_1990 = (df["base_year"] == 1990).sum()
+        print(f"[D2] wrote {out.relative_to(V3)} "
+              f"({len(df)} rows total: {n_2017} on 2017 base, "
+              f"{n_1990} on 1990 base; "
+              f"{df['year'].min()}..{df['year'].max()})")
+    elif src_2017.exists():
+        df = pd.read_csv(src_2017)
+        df["base_year"] = 2017
+        df["sector_code"] = df["sector_label"].str.upper().str.replace(
+            r"\s+", "_", regex=True)
+        df["real_value"] = df["value"]
+        df["splice_factor"] = 1.0
+        out = PROCESSED / "ine_dep_gdp_annual.parquet"
+        df[["year", "department", "sector_code", "sector_label",
+            "real_value", "base_year", "splice_factor"]].to_parquet(
+                out, index=False)
+        print(f"[D2] wrote {out.relative_to(V3)} "
+              f"({len(df)} rows; 2017 base only, no 1990-base panel found)")
+    elif src_legacy.exists():
+        df = pd.read_csv(src_legacy)
+        df = df[df["year"] >= 2012].copy()
+        df["sector_code"] = df["sector"].str.upper().str.replace(
+            r"\s+", "_", regex=True)
+        df["sector_label"] = df["sector"]
+        df["real_value"] = df["gva"]
+        df["base_year"] = 1990
+        df["splice_factor"] = pd.NA
+        out = PROCESSED / "ine_dep_gdp_annual.parquet"
+        df[["year", "department", "sector_code", "sector_label",
+            "real_value", "base_year", "splice_factor"]].to_parquet(
+                out, index=False)
+        print(f"[D2] wrote {out.relative_to(V3)} "
+              f"({len(df)} rows; 1990 base only)")
+    else:
+        _log_pending("D2", "no INE departmental file found "
+                           "(expected ine_gdp_dept_combined.csv, "
+                           "ine_gdp_dept_2017_chained.csv, or "
+                           "ine_gdp_dept_sectoral.csv).")
 
 
 def d3_ine_igae_monthly() -> None:
