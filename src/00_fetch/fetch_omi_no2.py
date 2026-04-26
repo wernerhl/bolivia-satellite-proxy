@@ -1,218 +1,204 @@
-"""OMI/Aura tropospheric NO2 column, daily Level-3 OMNO2d, 2005-01..2018-06.
+"""OMI/Aura tropospheric NO2 column, daily Level-3 OMNO2d, 2004-10..2018-06.
 
-NOTE — DEVIATION FROM BRIEF
-The agent brief said "Source: GEE, OMI Level-3 daily NO₂". OMI/OMNO2d is
-NOT in the public Google Earth Engine catalog (neither the official
-NASA collections nor the awesome-gee-community-catalog hosts it as of
-April 2026). The closest authoritative source is NASA GES DISC, which
-serves the OMNO2d HDF-EOS5 daily files via HTTPS and OPeNDAP and
-requires an Earthdata Login.
+Source: AWS Open Data registry, public S3 bucket `omi-no2-nasa`
+(us-west-2 region, no AWS account required). Files are NASA's
+Cloud-Optimized GeoTIFF re-projection of the OMNO2d HDF-EOS5 archive.
+The single band is `ColumnAmountNO2TropCloudScreened`, already
+filtered upstream at CloudFraction < 30 percent — exactly what the
+brief specifies.
 
-This fetcher targets the GES DISC HTTPS endpoint:
-  https://acdisc.gesdisc.eosdis.nasa.gov/data/Aura_OMI_Level3/OMNO2d.003/
+Filename pattern (flat prefix):
+  OMI-Aura_L3-OMNO2d_YYYYmMMDD_v003-{processing_stamp}.tif
 
-Authentication via Earthdata Login (urs.earthdata.nasa.gov):
-  EARTHDATA_USER + EARTHDATA_PASS in .env, OR
-  EARTHDATA_TOKEN (bearer)
-The user must authorize the "NASA GESDISC DATA ARCHIVE" application
-in their Earthdata profile before any download succeeds.
+Each file is a 1440 × 720 grid at 0.25° × 0.25° in EPSG:4326,
+nodata = -1.27e30, units molec/cm².
+
+Approach:
+  1. List all *.tif under s3://omi-no2-nasa/ in [START, END]
+  2. For each ROI, compute the integer pixel window once
+  3. For each daily file: open via /vsis3/, windowed read only for the
+     three ROI windows. About a few hundred bytes per ROI per day
+     thanks to the COG layout — total bandwidth is tens of MB, not
+     gigabytes.
+  4. Daily mean per ROI → monthly mean per ROI, requiring n_valid_days
+     ≥ 15 per the brief.
+  5. Convert molec/cm² to mol/m² for cross-comparability with the
+     TROPOMI series (1 molec/cm² = 1e4 molec/m²; molec → mol via
+     Avogadro).
 
 Output schema (per brief):
   date, roi, no2_tropos_col_mol_m2, n_valid_days, sensor
-
-QA filter: keep daily-grid pixels with CloudFraction < 0.30 (the OMNO2d
-"ColumnAmountNO2TropCloudScreened" band is the cloud-screened L3
-already at the brief's 0.30 threshold; we still record n_valid_days
-based on the count of daily files with at least one valid pixel inside
-the ROI).
 """
 from __future__ import annotations
 
-import io
 import os
 import re
 import sys
-from datetime import date, timedelta
+from datetime import date
 from pathlib import Path
 
-import netrc
 import numpy as np
 import pandas as pd
-import requests
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from _common import abs_path, ensure_dir, load_env, rois  # noqa: E402
 
 load_env()
 
+os.environ.setdefault("AWS_NO_SIGN_REQUEST", "YES")
+os.environ.setdefault("AWS_DEFAULT_REGION", "us-west-2")
 
-GESDISC_BASE = ("https://acdisc.gesdisc.eosdis.nasa.gov/data/"
-                "Aura_OMI_Level3/OMNO2d.003")
-EARTHDATA_LOGIN = "https://urs.earthdata.nasa.gov"
+import rasterio  # noqa: E402
+from rasterio.windows import Window  # noqa: E402
 
-# Fixed grid: 0.25° × 0.25°, longitude -180..180, latitude -90..90
+
+BUCKET = "omi-no2-nasa"
+S3_PREFIX = f"s3://{BUCKET}/"
 LON_RES = 0.25
 LAT_RES = 0.25
 N_LON = 1440
 N_LAT = 720
+NODATA = -1.2676506e30
+AVOGADRO = 6.02214076e23
 
-START = date(2004, 10, 1)   # OMI/Aura first full month (Aura launched 2004-07)
+START = date(2004, 10, 1)   # OMI/Aura L3 OMNO2d archive begins here
 END = date(2018, 6, 30)
-
 ROI_NAMES = {"la_paz_el_alto", "santa_cruz", "cochabamba"}
 
-
-def _earthdata_session() -> requests.Session:
-    """Build a requests session that follows the Earthdata Login redirect."""
-    s = requests.Session()
-    token = os.environ.get("EARTHDATA_TOKEN")
-    if token:
-        s.headers.update({"Authorization": f"Bearer {token}"})
-        return s
-    user = os.environ.get("EARTHDATA_USER")
-    pw = os.environ.get("EARTHDATA_PASS")
-    if not (user and pw):
-        raise RuntimeError(
-            "Earthdata credentials missing. Set EARTHDATA_TOKEN or "
-            "EARTHDATA_USER + EARTHDATA_PASS in .env. Register at "
-            "https://urs.earthdata.nasa.gov/ and authorize the "
-            "'NASA GESDISC DATA ARCHIVE' application.")
-    s.auth = (user, pw)
-    return s
+FILENAME_RE = re.compile(
+    r"OMI-Aura_L3-OMNO2d_(\d{4})m(\d{2})(\d{2})_v003-[\dmt]+\.tif$")
 
 
-def _list_files_for_year(year: int, sess: requests.Session) -> list[str]:
-    """Scrape the year directory index for OMNO2d HDF5 filenames."""
-    url = f"{GESDISC_BASE}/{year}/contents.html"
-    r = sess.get(url, timeout=60, allow_redirects=True)
-    if r.status_code != 200:
-        return []
-    return re.findall(r"OMI-Aura_L3-OMNO2d_[\dm]+_v003-[\dmt]+\.he5", r.text)
+def _list_keys() -> list[tuple[date, str]]:
+    """Stream-list every OMNO2d daily filename in the bucket; return
+    (date, full s3 url) tuples. Uses boto3 with anonymous config."""
+    import boto3
+    from botocore import UNSIGNED
+    from botocore.config import Config
+    s3 = boto3.client("s3",
+                      region_name="us-west-2",
+                      config=Config(signature_version=UNSIGNED))
+    paginator = s3.get_paginator("list_objects_v2")
+    out: list[tuple[date, str]] = []
+    for page in paginator.paginate(Bucket=BUCKET):
+        for obj in page.get("Contents", []):
+            key = obj["Key"]
+            m = FILENAME_RE.match(key.rsplit("/", 1)[-1])
+            if not m:
+                continue
+            try:
+                d = date(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+            except ValueError:
+                continue
+            if START <= d <= END:
+                out.append((d, f"{S3_PREFIX}{key}"))
+    out.sort(key=lambda t: t[0])
+    return out
 
 
-def _read_hdf5(blob: bytes) -> dict[str, np.ndarray]:
-    """Read the cloud-screened tropospheric NO2 band from a single OMNO2d
-    HDF-EOS5 file. Returns {'no2': 2D ndarray (1440, 720), 'fill': value}."""
-    import h5py
-    with h5py.File(io.BytesIO(blob), "r") as f:
-        grp = f["/HDFEOS/GRIDS/ColumnAmountNO2/Data Fields"]
-        # Brief specifies "tropospheric column" with cloud screening at
-        # CloudFraction < 0.30 — exactly what the L3 cloud-screened band
-        # implements upstream.
-        ds = grp["ColumnAmountNO2TropCloudScreened"]
-        arr = ds[:]
-        fill = ds.attrs.get("_FillValue",
-                              ds.attrs.get("MissingValue", -1.2676506e30))
-    return {"no2": arr, "fill": float(fill)}
-
-
-def _roi_grid_indices(roi: dict) -> tuple[slice, slice, int]:
-    """Indices into the 1440 × 720 OMNO2d grid covering this ROI.
-    Returns (lon_slice, lat_slice, n_native_pixels)."""
+def _roi_window(roi: dict) -> tuple[Window, int]:
+    """Convert NW/SE corners (deg) to a rasterio Window in the OMNO2d
+    grid. Returns (window, n_native_pixels)."""
     lon_min = min(roi["nw_lon"], roi["se_lon"])
     lon_max = max(roi["nw_lon"], roi["se_lon"])
     lat_min = min(roi["nw_lat"], roi["se_lat"])
     lat_max = max(roi["nw_lat"], roi["se_lat"])
-    # Grid index 0 corresponds to lon = -180, lat = -90.
-    i0 = max(0, int((lon_min + 180) / LON_RES))
-    i1 = min(N_LON, int(np.ceil((lon_max + 180) / LON_RES)))
-    j0 = max(0, int((lat_min + 90) / LAT_RES))
-    j1 = min(N_LAT, int(np.ceil((lat_max + 90) / LAT_RES)))
-    if i1 == i0:
-        i1 = i0 + 1
-    if j1 == j0:
-        j1 = j0 + 1
-    n_pix = (i1 - i0) * (j1 - j0)
-    return slice(j0, j1), slice(i0, i1), n_pix
+    # Grid is row 0 = lat 90, col 0 = lon -180.
+    col0 = max(0, int((lon_min + 180) / LON_RES))
+    col1 = min(N_LON, int(np.ceil((lon_max + 180) / LON_RES)))
+    row0 = max(0, int((90 - lat_max) / LAT_RES))
+    row1 = min(N_LAT, int(np.ceil((90 - lat_min) / LAT_RES)))
+    if col1 == col0:
+        col1 = col0 + 1
+    if row1 == row0:
+        row1 = row0 + 1
+    win = Window(col0, row0, col1 - col0, row1 - row0)
+    return win, (col1 - col0) * (row1 - row0)
 
 
-def fetch_one_day(year: int, month: int, day: int,
-                  sess: requests.Session) -> bytes | None:
-    """Fetch one OMNO2d HDF5 by hitting the year directory and finding the
-    file whose date stem matches YYYYmMMDD."""
-    stem = f"OMI-Aura_L3-OMNO2d_{year:04d}m{month:02d}{day:02d}"
-    # Try a small number of vintage suffixes
-    candidates = _list_files_for_year(year, sess)
-    match = next((f for f in candidates if f.startswith(stem)), None)
-    if not match:
+def _read_roi_mean(url: str, win: Window) -> float | None:
+    """Open a single OMNO2d COG over S3 and read just the ROI window.
+    Returns the spatial mean of valid (non-fill) pixels in molec/cm², or
+    None if no valid pixels."""
+    try:
+        with rasterio.open(url) as src:
+            arr = src.read(1, window=win, masked=False)
+    except Exception:
         return None
-    url = f"{GESDISC_BASE}/{year}/{match}"
-    r = sess.get(url, timeout=120, allow_redirects=True)
-    if r.status_code != 200:
+    valid = arr[(arr != NODATA) & np.isfinite(arr) & (arr > 0)]
+    if valid.size == 0:
         return None
-    return r.content
+    return float(valid.mean())
+
+
+def _read_all_rois(url: str, windows: dict[str, tuple[Window, int]]
+                   ) -> dict[str, float | None]:
+    """Open the COG once and read all ROI windows. Cuts S3 round-trips
+    by 3x compared to opening per ROI."""
+    out: dict[str, float | None] = {}
+    try:
+        with rasterio.open(url) as src:
+            for name, (win, _n) in windows.items():
+                arr = src.read(1, window=win, masked=False)
+                valid = arr[(arr != NODATA) & np.isfinite(arr) & (arr > 0)]
+                out[name] = float(valid.mean()) if valid.size else None
+    except Exception as e:
+        for name in windows:
+            out[name] = None
+    return out
 
 
 def main() -> None:
-    sess = _earthdata_session()
     out_path = abs_path("data/satellite/no2_omi_monthly.csv")
     ensure_dir(out_path.parent)
 
-    selected_rois = [r for r in rois() if r["name"] in ROI_NAMES]
-    grid_idx = {r["name"]: _roi_grid_indices(r) for r in selected_rois}
+    selected = [r for r in rois() if r["name"] in ROI_NAMES]
+    windows = {r["name"]: _roi_window(r) for r in selected}
 
-    # Per (roi, year-month): accumulate sums and valid-day counts
+    print("[..] listing OMI files in S3...")
+    keys = _list_keys()
+    print(f"[ok] {len(keys)} daily OMI files in [{START}, {END}]")
+
+    # Accumulate per (roi, year-month)
     accum: dict[tuple, dict] = {}
-
-    cur = START
-    while cur <= END:
-        ny, nm = (cur.year, cur.month + 1) if cur.month < 12 else (cur.year + 1, 1)
-        # iterate days in month
-        d = cur
-        while d.month == cur.month and d <= END:
-            blob = fetch_one_day(d.year, d.month, d.day, sess)
-            if blob is not None:
-                try:
-                    info = _read_hdf5(blob)
-                except Exception as e:
-                    print(f"[warn] {d}: HDF parse failed ({e})")
-                    info = None
-                if info is not None:
-                    arr = info["no2"]
-                    fill = info["fill"]
-                    for r in selected_rois:
-                        lat_s, lon_s, _ = grid_idx[r["name"]]
-                        sub = arr[lat_s, lon_s]
-                        valid = sub[(sub != fill) & np.isfinite(sub)]
-                        if valid.size == 0:
-                            continue
-                        key = (r["name"], cur.year, cur.month)
-                        ag = accum.setdefault(key, {"sum": 0.0, "n_pix": 0,
-                                                     "n_days": 0})
-                        ag["sum"] += valid.mean()
-                        ag["n_pix"] = max(ag["n_pix"], int(valid.size))
-                        ag["n_days"] += 1
-            d = d + timedelta(days=1)
-        cur = date(ny, nm, 1)
-        # Flush a year of progress per console line
-        if cur.month == 1:
-            print(f"[..] completed through {(cur - timedelta(days=1)).isoformat()}")
+    last_year = None
+    for i, (d, url) in enumerate(keys):
+        if d.year != last_year:
+            yr_count = sum(1 for k in keys if k[0].year == d.year)
+            print(f"[..] {d.year}: {yr_count} files")
+            last_year = d.year
+        roi_means = _read_all_rois(url, windows)
+        for roi_name, mean in roi_means.items():
+            if mean is None:
+                continue
+            key = (roi_name, d.year, d.month)
+            ag = accum.setdefault(key, {"sum": 0.0, "n_days": 0})
+            ag["sum"] += mean
+            ag["n_days"] += 1
+        if (i + 1) % 200 == 0:
+            print(f"  ... {i + 1}/{len(keys)} files processed")
 
     rows: list[dict] = []
     for (roi_name, y, m), ag in accum.items():
-        # n_valid_days >= 15 threshold per brief
-        if ag["n_days"] < 15:
-            no2 = None
-        else:
-            no2 = ag["sum"] / ag["n_days"]
-        # OMNO2d column units are molec/cm² ; convert to mol/m² for
-        # comparability with the TROPOMI series:
-        # 1 molec/cm² = 1e4 molec/m² ; molec → mol via Avogadro
-        if no2 is not None:
-            no2_mol_m2 = no2 * 1e4 / 6.02214076e23
-        else:
+        n_days = ag["n_days"]
+        if n_days < 15:
             no2_mol_m2 = None
+        else:
+            no2_molec_cm2 = ag["sum"] / n_days
+            # molec/cm^2 -> molec/m^2 (×1e4) -> mol/m^2 (÷ Avogadro)
+            no2_mol_m2 = no2_molec_cm2 * 1e4 / AVOGADRO
         rows.append({
             "date": pd.Timestamp(year=y, month=m, day=1),
             "roi": roi_name,
             "no2_tropos_col_mol_m2": no2_mol_m2,
-            "n_valid_days": ag["n_days"],
+            "n_valid_days": n_days,
             "sensor": "OMI",
         })
 
     df = pd.DataFrame(rows).sort_values(["roi", "date"])
     df.to_csv(out_path, index=False)
-    print(f"[ok] OMI: {len(df)} rows -> {out_path}")
+    print(f"[ok] OMI: {len(df)} monthly rows -> {out_path}")
+    print(df.groupby("roi")["n_valid_days"].agg(["min", "median", "max"]))
 
 
 if __name__ == "__main__":

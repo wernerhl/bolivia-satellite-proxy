@@ -1,0 +1,47 @@
+[..] listing OMI files in S3...
+[ok] 4987 daily OMI files in [2004-10-01, 2018-06-30]
+[..] 2004: 79 files
+[..] 2005: 365 files
+  ... 200/4987 files processed
+  ... 400/4987 files processed
+[..] 2006: 363 files
+  ... 600/4987 files processed
+  ... 800/4987 files processed
+[..] 2007: 365 files
+  ... 1000/4987 files processed
+[..] 2008: 364 files
+  ... 1200/4987 files processed
+  ... 1400/4987 files processed
+[..] 2009: 365 files
+  ... 1600/4987 files processed
+  ... 1800/4987 files processed
+[..] 2010: 365 files
+  ... 2000/4987 files processed
+  ... 2200/4987 files processed
+[..] 2011: 365 files
+  ... 2400/4987 files processed
+  ... 2600/4987 files processed
+[..] 2012: 366 files
+  ... 2800/4987 files processed
+[..] 2013: 365 files
+  ... 3000/4987 files processed
+  ... 3200/4987 files processed
+[..] 2014: 365 files
+  ... 3400/4987 files processed
+  ... 3600/4987 files processed
+[..] 2015: 365 files
+  ... 3800/4987 files processed
+  ... 4000/4987 files processed
+[..] 2016: 353 files
+  ... 4200/4987 files processed
+  ... 4400/4987 files processed
+[..] 2017: 361 files
+  ... 4600/4987 files processed
+  ... 4800/4987 files processed
+[..] 2018: 181 files
+[ok] OMI: 495 monthly rows -> /Users/whl/Documents/whl.BoliviaSatellite/data/satellite/no2_omi_monthly.csv
+                min  median  max
+roi                             
+cochabamba        3    15.0   30
+la_paz_el_alto    5    16.0   30
+santa_cruz       11    19.0   28
