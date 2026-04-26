@@ -1,4 +1,11 @@
 # Sentinel-5P TROPOMI NO2 ROIs — rectangles in WGS84.
+# 11 ROIs total: 3 originals (large, multi-pixel) + 8 secondary cities
+# (smaller, some sub-pixel). For the 8 new ROIs the rectangle is
+# centered on the city centroid with the side length given.
+# TROPOMI native cell is ~5.5 × 3.5 km (≈ 0.05° × 0.03°), so any ROI
+# narrower than that is sub-pixel — we still extract a value via
+# reduceRegion's mean reducer; n_native_pixels in the output reports
+# how many native cells the ROI covers.
 rois:
   - name: la_paz_el_alto
     label: "La Paz–El Alto"
@@ -18,3 +25,51 @@ rois:
     nw_lon: -66.300
     se_lat: -17.500
     se_lon: -66.050
+  - name: sucre
+    label: "Sucre"
+    nw_lat: -18.997   # -19.033 + 0.072/2
+    nw_lon: -65.299   # -65.263 - 0.072/2
+    se_lat: -19.069   # -19.033 - 0.072/2
+    se_lon: -65.227   # -65.263 + 0.072/2
+  - name: oruro
+    label: "Oruro"
+    nw_lat: -17.939   # -17.970 + 0.063/2
+    nw_lon: -67.144   # -67.112 - 0.063/2
+    se_lat: -18.001   # -17.970 - 0.063/2
+    se_lon: -67.080   # -67.112 + 0.063/2
+  - name: potosi
+    label: "Potosí"
+    nw_lat: -19.556   # -19.583 + 0.054/2
+    nw_lon: -65.780
+    se_lat: -19.610
+    se_lon: -65.726
+  - name: tarija
+    label: "Tarija"
+    nw_lat: -21.498
+    nw_lon: -64.765
+    se_lat: -21.570
+    se_lon: -64.693
+  - name: trinidad
+    label: "Trinidad"
+    nw_lat: -14.810
+    nw_lon: -64.926
+    se_lat: -14.855
+    se_lon: -64.881
+  - name: cobija
+    label: "Cobija"
+    nw_lat: -11.010
+    nw_lon: -68.786
+    se_lat: -11.046
+    se_lon: -68.750
+  - name: montero
+    label: "Montero"
+    nw_lat: -17.312
+    nw_lon: -63.280
+    se_lat: -17.366
+    se_lon: -63.226
+  - name: yacuiba
+    label: "Yacuiba"
+    nw_lat: -21.995
+    nw_lon: -63.708
+    se_lat: -22.040
+    se_lon: -63.663

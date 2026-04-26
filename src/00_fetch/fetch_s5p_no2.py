@@ -42,7 +42,9 @@ def _month_end(y: int, m: int) -> tuple[int, int]:
 def monthly_server_side(roi: dict, start: date, end: date, cfg: dict) -> pd.DataFrame:
     """One reduceRegion per (ROI, month) — stays well below 5000-element
     collection-query limit. Daily mean-first then month-average keeps the
-    weighting right for days with variable orbit counts.
+    weighting right for days with variable orbit counts. Reports
+    `n_native_pixels` so subpixel ROIs (smaller than the ~5.5×3.5 km
+    TROPOMI native grid) are visible in the output.
     """
     geom = roi_geom(roi)
     rows: list[dict] = []
@@ -56,18 +58,21 @@ def monthly_server_side(roi: dict, start: date, end: date, cfg: dict) -> pd.Data
         n_img = coll.size().getInfo()
         if n_img == 0:
             rows.append({"date": f"{y:04d}-{m:02d}-01", "roi": roi["name"],
-                         "no2": None, "n_valid_days": 0})
+                         "no2": None, "n_valid_days": 0,
+                         "n_native_pixels": 0})
             y, m = ny, nm
             continue
         mean_img = coll.mean()
         red = mean_img.reduceRegion(
-            reducer=ee.Reducer.mean(),
+            reducer=ee.Reducer.mean().combine(ee.Reducer.count(),
+                                              sharedInputs=True),
             geometry=geom, scale=7000, maxPixels=int(1e9), bestEffort=True,
         ).getInfo()
         rows.append({
             "date": f"{y:04d}-{m:02d}-01", "roi": roi["name"],
-            "no2": red.get(cfg["band"]),
+            "no2": red.get(cfg["band"] + "_mean", red.get(cfg["band"])),
             "n_valid_days": int(n_img),
+            "n_native_pixels": int(red.get(cfg["band"] + "_count") or 0),
         })
         y, m = ny, nm
     return pd.DataFrame(rows)
@@ -95,6 +100,7 @@ def main() -> None:
     monthly["date"] = pd.to_datetime(monthly["date"])
     monthly = monthly.rename(columns={"no2": "no2_tropos_col_mol_m2"})
     monthly["sd"] = np.nan  # server-side aggregation doesn't keep per-day SD
+    monthly["sensor"] = "TROPOMI"
 
     monthly.loc[monthly["n_valid_days"] < cfg["min_valid_days_per_month"],
                 ["no2_tropos_col_mol_m2", "sd"]] = pd.NA
