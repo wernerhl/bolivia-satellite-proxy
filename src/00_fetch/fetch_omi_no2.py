@@ -56,7 +56,7 @@ LAT_RES = 0.25
 N_LON = 1440
 N_LAT = 720
 
-START = date(2005, 1, 1)
+START = date(2004, 10, 1)   # OMI/Aura first full month (Aura launched 2004-07)
 END = date(2018, 6, 30)
 
 ROI_NAMES = {"la_paz_el_alto", "santa_cruz", "cochabamba"}
