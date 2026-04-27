@@ -1,0 +1,15 @@
+[..] existing CSV: 495 rows, 165 months already complete
+[..] listing OMI files in S3...
+[ok] 5691 daily OMI files in [2004-10-01, 2021-12-31]; skipping 4987 already-fetched, processing 704 new
+[..] 2018: 184 files
+[..] 2019: 365 files
+  ... 200/704 files processed
+  ... 400/704 files processed
+[..] 2020: 155 files
+  ... 600/704 files processed
+[ok] OMI: 564 monthly rows (69 new) -> /Users/whl/Documents/whl.BoliviaSatellite/data/satellite/no2_omi_monthly.csv
+                min  median  max
+roi                             
+cochabamba        3    15.0   30
+la_paz_el_alto    5    16.0   30
+santa_cruz       11    19.0   28
