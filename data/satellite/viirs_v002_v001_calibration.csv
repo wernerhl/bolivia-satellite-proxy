@@ -1,0 +1,12 @@
+city,n_overlap_months,pearson_corr,median_ratio,pass
+cobija,150,0.8302,0.8878,False
+cochabamba,151,0.8875,1.0079,False
+la_paz_el_alto,151,0.9354,1.1594,False
+montero,151,0.9892,1.1129,True
+oruro,151,0.9153,1.1422,False
+potosi,151,0.9742,1.1386,True
+santa_cruz,151,0.9521,1.1331,True
+sucre,151,0.7555,1.1042,False
+tarija,151,0.9802,1.1233,True
+trinidad,151,0.8243,1.1471,False
+yacuiba,151,0.46,0.3605,False
