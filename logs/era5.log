@@ -1,2 +1,47 @@
 [..] 1/11 la_paz_el_alto: u10/v10
 [..] 1/11 la_paz_el_alto: blh
+[ok] 1/11 la_paz_el_alto saved 94 rows -> la_paz_el_alto.csv
+[..] 2/11 santa_cruz: u10/v10
+[..] 2/11 santa_cruz: blh
+[ok] 2/11 santa_cruz saved 94 rows -> santa_cruz.csv
+[..] 3/11 cochabamba: u10/v10
+[..] 3/11 cochabamba: blh
+[ok] 3/11 cochabamba saved 94 rows -> cochabamba.csv
+[..] 4/11 sucre: u10/v10
+[..] 4/11 sucre: blh
+[ok] 4/11 sucre saved 94 rows -> sucre.csv
+[..] 5/11 oruro: u10/v10
+[..] 5/11 oruro: blh
+[ok] 5/11 oruro saved 94 rows -> oruro.csv
+[..] 6/11 potosi: u10/v10
+[..] 6/11 potosi: blh
+[ok] 6/11 potosi saved 94 rows -> potosi.csv
+[..] 7/11 tarija: u10/v10
+[..] 7/11 tarija: blh
+[ok] 7/11 tarija saved 94 rows -> tarija.csv
+[..] 8/11 trinidad: u10/v10
+[..] 8/11 trinidad: blh
+[ok] 8/11 trinidad saved 94 rows -> trinidad.csv
+[..] 9/11 cobija: u10/v10
+[..] 9/11 cobija: blh
+[ok] 9/11 cobija saved 94 rows -> cobija.csv
+[..] 10/11 montero: u10/v10
+[..] 10/11 montero: blh
+[ok] 10/11 montero saved 94 rows -> montero.csv
+[..] 11/11 yacuiba: u10/v10
+[..] 11/11 yacuiba: blh
+[ok] 11/11 yacuiba saved 94 rows -> yacuiba.csv
+[ok] ERA5: 1034 rows -> /Users/whl/Documents/whl.BoliviaSatellite/data/satellite/era5_meteo_monthly.csv
+                 u10   v10     blh
+roi                               
+cobija          0.09 -0.41  442.93
+cochabamba     -0.36 -0.64  702.81
+la_paz_el_alto -0.66 -0.75  653.88
+montero         0.52 -0.45  635.96
+oruro          -0.48 -1.07  829.47
+potosi          0.04 -0.77  826.15
+santa_cruz      0.81 -0.90  723.60
+sucre          -0.57 -1.06  607.09
+tarija         -0.46 -0.24  411.00
+trinidad        0.05 -0.53  494.76
+yacuiba        -0.07  0.01  580.34

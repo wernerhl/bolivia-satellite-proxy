@@ -16,6 +16,12 @@ Each ROI is the brief's TROPOMI rectangle (config/rois.yaml). For each
 
 Output: data/satellite/era5_meteo_monthly.csv
   Columns: date, roi, u10, v10, blh
+
+Resilience:
+  * Per-ROI partial files at data/satellite/era5_raw/{roi}.csv. The
+    main loop skips ROIs whose partial file already exists.
+  * GEE getInfo wrapped in retry(3) with exponential backoff to absorb
+    transient HTTP 400 / "Computation timed out".
 """
 from __future__ import annotations
 
@@ -55,10 +61,27 @@ def _month_end(y: int, m: int) -> tuple[int, int]:
     return (y, m + 1) if m < 12 else (y + 1, 1)
 
 
+def _retry_get_info(thunk, retries: int = 3, base_delay: float = 5.0):
+    """Call thunk() and retry on transient errors (timeouts, 400s)."""
+    import time
+    for i in range(retries):
+        try:
+            return thunk()
+        except Exception as e:
+            msg = str(e)
+            if i == retries - 1:
+                return None
+            if any(k in msg for k in ("timed out", "Computation timed out",
+                                       "HttpError 400", "HttpError 5",
+                                       "deadline")):
+                time.sleep(base_delay * (2 ** i))
+                continue
+            return None
+    return None
+
+
 def _wind_one_roi(roi: dict, start: date, end: date) -> pd.DataFrame:
-    """Extract monthly u10, v10 for one ROI from ERA5_LAND/MONTHLY_AGGR.
-    One server-side image per month already exists; we just reduce the
-    rectangle for each."""
+    """Extract monthly u10, v10 for one ROI from ERA5_LAND/MONTHLY_AGGR."""
     geom = _roi_geom(roi)
     rows: list[dict] = []
     y, m = start.year, start.month
@@ -67,30 +90,33 @@ def _wind_one_roi(roi: dict, start: date, end: date) -> pd.DataFrame:
         coll = (ee.ImageCollection(LAND_COLL)
                 .filterDate(f"{y}-{m:02d}-01", f"{ny}-{nm:02d}-01")
                 .select(["u_component_of_wind_10m", "v_component_of_wind_10m"]))
-        if coll.size().getInfo() == 0:
+        size = _retry_get_info(lambda: coll.size().getInfo())
+        if not size:
             rows.append({"date": f"{y:04d}-{m:02d}-01", "roi": roi["name"],
                          "u10": None, "v10": None})
             y, m = ny, nm
             continue
-        img = coll.first()  # monthly_aggr = 1 image per month
-        red = img.reduceRegion(
+        img = coll.first()
+        red = _retry_get_info(lambda i=img: i.reduceRegion(
             reducer=ee.Reducer.mean(),
             geometry=geom, scale=LAND_SCALE_M, maxPixels=int(1e9),
             bestEffort=True,
-        ).getInfo()
-        rows.append({
-            "date": f"{y:04d}-{m:02d}-01", "roi": roi["name"],
-            "u10": red.get("u_component_of_wind_10m"),
-            "v10": red.get("v_component_of_wind_10m"),
-        })
+        ).getInfo())
+        if red is None:
+            rows.append({"date": f"{y:04d}-{m:02d}-01", "roi": roi["name"],
+                         "u10": None, "v10": None})
+        else:
+            rows.append({
+                "date": f"{y:04d}-{m:02d}-01", "roi": roi["name"],
+                "u10": red.get("u_component_of_wind_10m"),
+                "v10": red.get("v_component_of_wind_10m"),
+            })
         y, m = ny, nm
     return pd.DataFrame(rows)
 
 
 def _blh_one_roi(roi: dict, start: date, end: date) -> pd.DataFrame:
-    """Extract monthly mean BLH for one ROI from ERA5/HOURLY by
-    server-side reducing the hourly collection to month-means before
-    sampling. One reduceRegion per (roi, month)."""
+    """Monthly mean BLH for one ROI via server-side reduction of ERA5/HOURLY."""
     geom = _roi_geom(roi)
     rows: list[dict] = []
     y, m = start.year, start.month
@@ -100,15 +126,12 @@ def _blh_one_roi(roi: dict, start: date, end: date) -> pd.DataFrame:
                    .filterDate(f"{y}-{m:02d}-01", f"{ny}-{nm:02d}-01")
                    .select("boundary_layer_height")
                    .mean())
-        try:
-            red = monthly.reduceRegion(
-                reducer=ee.Reducer.mean(),
-                geometry=geom, scale=HOURLY_SCALE_M, maxPixels=int(1e9),
-                bestEffort=True,
-            ).getInfo()
-            blh = red.get("boundary_layer_height")
-        except Exception:
-            blh = None
+        red = _retry_get_info(lambda i=monthly: i.reduceRegion(
+            reducer=ee.Reducer.mean(),
+            geometry=geom, scale=HOURLY_SCALE_M, maxPixels=int(1e9),
+            bestEffort=True,
+        ).getInfo())
+        blh = red.get("boundary_layer_height") if red else None
         rows.append({"date": f"{y:04d}-{m:02d}-01", "roi": roi["name"],
                      "blh": blh})
         y, m = ny, nm
@@ -119,20 +142,30 @@ def main() -> None:
     init_ee()
     out_path = abs_path("data/satellite/era5_meteo_monthly.csv")
     ensure_dir(out_path.parent)
+    raw_dir = ensure_dir(abs_path("data/satellite/era5_raw"))
 
     roi_list = rois()
-    wind_parts: list[pd.DataFrame] = []
-    blh_parts: list[pd.DataFrame] = []
+    parts: list[pd.DataFrame] = []
 
     for i, roi in enumerate(roi_list, 1):
-        print(f"[..] {i}/{len(roi_list)} {roi['name']}: u10/v10")
-        wind_parts.append(_wind_one_roi(roi, START, END))
-        print(f"[..] {i}/{len(roi_list)} {roi['name']}: blh")
-        blh_parts.append(_blh_one_roi(roi, START, END))
+        per_roi = raw_dir / f"{roi['name']}.csv"
+        if per_roi.exists():
+            print(f"[..] {i}/{len(roi_list)} {roi['name']}: cached, skipping")
+            parts.append(pd.read_csv(per_roi))
+            continue
+        print(f"[..] {i}/{len(roi_list)} {roi['name']}: u10/v10", flush=True)
+        wind = _wind_one_roi(roi, START, END)
+        print(f"[..] {i}/{len(roi_list)} {roi['name']}: blh", flush=True)
+        blh = _blh_one_roi(roi, START, END)
+        df = wind.merge(blh, on=["date", "roi"], how="outer")
+        df["date"] = pd.to_datetime(df["date"])
+        df = df.sort_values("date")[["date", "roi", "u10", "v10", "blh"]]
+        df.to_csv(per_roi, index=False)
+        parts.append(df)
+        print(f"[ok] {i}/{len(roi_list)} {roi['name']} saved {len(df)} rows -> {per_roi.name}",
+              flush=True)
 
-    wind = pd.concat(wind_parts, ignore_index=True)
-    blh = pd.concat(blh_parts, ignore_index=True)
-    df = wind.merge(blh, on=["date", "roi"], how="outer")
+    df = pd.concat(parts, ignore_index=True)
     df["date"] = pd.to_datetime(df["date"])
     df = df.sort_values(["roi", "date"])[["date", "roi", "u10", "v10", "blh"]]
     df.to_csv(out_path, index=False)
